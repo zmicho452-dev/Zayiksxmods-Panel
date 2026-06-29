@@ -91,9 +91,12 @@
 
         // إرسال المفتاح لفايربيس
         database.ref('ActiveKeys/' + newKey).set({
-            createdAt: timestamp,
-            status: "active",
-            deviceID: "none" 
+    createdAt: timestamp,
+    status: "active",
+    deviceID: "none",
+    secretKey: "ZAYIKS_X_MODS_0658946573"
+})
+
         }).then(() => {
             document.getElementById('keyDisplay').innerText = newKey;
         }).catch((error) => {
