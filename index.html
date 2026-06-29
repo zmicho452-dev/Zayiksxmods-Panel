@@ -90,19 +90,19 @@
         const timestamp = Date.now(); 
 
         // إرسال المفتاح لفايربيس
+                // إرسال المفتاح لفايربيس
         database.ref('ActiveKeys/' + newKey).set({
-    createdAt: timestamp,
-    status: "active",
-    deviceID: "none",
-    secretKey: "ZAYIKS_X_MODS_0658946573"
-})
-
+            createdAt: timestamp,
+            status: "active",
+            deviceID: "none",
+            secretKey: "ZAYIKS_X_MODS_0658946573"
         }).then(() => {
             document.getElementById('keyDisplay').innerText = newKey;
         }).catch((error) => {
             document.getElementById('keyDisplay').innerText = "حدث خطأ في الاتصال!";
             console.error("خطأ:", error);
         });
+
 
         function copyKey() {
             const keyText = document.getElementById('keyDisplay').innerText;
