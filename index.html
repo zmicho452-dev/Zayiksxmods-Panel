@@ -62,9 +62,11 @@
     <script>
         
     // قفل
-    if (localStorage.getItem("verified_user") !== "YES_PASSED_SHORT") {
-        window.location.href = "https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H"; 
-    }
+        const isVerified = localStorage.getItem("verified_user");
+        if (isVerified !== "YES_PASSED_SHORT") {
+            // قفل
+            window.location.replace("https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H");
+        }
 
         // إعدادات فايربيس الخاصة بك
         const firebaseConfig = {
