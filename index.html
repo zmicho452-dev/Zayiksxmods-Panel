@@ -60,6 +60,12 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
+        
+    // قفل
+    if (localStorage.getItem("verified_user") !== "YES_PASSED_SHORT") {
+        window.location.href = "ضع_الرابط_المختصر_هنا"; 
+    }
+
         // إعدادات فايربيس الخاصة بك
         const firebaseConfig = {
           apiKey: "AIzaSyCJs56D8IzwVaHNBtM5h1ViCMyRUM15MFU",
