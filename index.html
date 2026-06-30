@@ -2,94 +2,221 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>ZAYIKS X MODS - SECURITY VERIFICATION</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAYIKS X MODS - KEY GENERATOR</title>
     <style>
-        body { background-color: #0D0D0D; color: white; font-family: sans-serif; text-align: center; padding: 20px; }
-        .box { background: #1C1C1C; padding: 20px; border-radius: 15px; border: 1px solid #D50000; display: inline-block; width: 300px; }
-        .check-item { text-align: right; margin: 10px 0; color: #aaa; }
-        .check-item.done { color: #00ff00; }
-        #timer { font-size: 30px; color: #D50000; font-weight: bold; margin: 20px 0; }
-        .btn { background-color: #D50000; color: white; padding: 15px; border: none; width: 100%; border-radius: 5px; cursor: pointer; }
+        body { 
+            background-color: #0D0D0D; 
+            color: white; 
+            font-family: sans-serif; 
+            text-align: center; 
+            margin-top: 50px; 
+        }
+        h1 { color: #D50000; text-shadow: 0 0 10px #D50000; font-weight: bold; }
+        
+        /* تصميم صندوق التحقق الأسطوري */
+        .verification-box {
+            background-color: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            margin: 20px auto;
+            padding: 15px;
+            text-align: right;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .check-item {
+            font-size: 16px;
+            margin: 12px 0;
+            color: #888;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .check-item span.status {
+            font-weight: bold;
+        }
+        .check-item.active { color: #fff; }
+        .check-item.success { color: #4CAF50; }
+        
+        /* تصميم العد التنازلي */
+        .countdown-container {
+            font-size: 20px;
+            margin: 20px 0;
+            display: none; /* مخفي في البداية */
+        }
+        #timer { font-size: 35px; color: #D50000; font-weight: bold; }
+
+        /* تصميم صندوق المفتاح */
+        .key-box { 
+            background-color: #1C1C1C; 
+            padding: 20px; 
+            border-radius: 10px; 
+            border: 2px solid #D50000; 
+            display: inline-block; 
+            margin-top: 20px;
+            box-shadow: 0 0 15px rgba(213, 0, 0, 0.5);
+            display: none; /* مخفي حتى ينتهي العد */
+        }
+        #keyDisplay { 
+            font-size: 24px; 
+            font-weight: bold; 
+            color: #FFFFFF; 
+            letter-spacing: 2px; 
+        }
+        
+        .btn { 
+            background-color: #D50000; 
+            color: white; 
+            padding: 12px 25px; 
+            border: none; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            margin-top: 30px; 
+            font-size: 16px;
+            font-weight: bold; 
+            transition: 0.3s;
+            display: none; /* مخفي في البداية */
+        }
+        .btn:active { transform: scale(0.95); background-color: #9b0000; }
+        .info { color: #888; font-size: 14px; margin-top: 10px; display: none; }
     </style>
 </head>
 <body>
     <h1>ZAYIKS X MODS</h1>
     
-    <div id="main-ui" class="box">
-        <div id="checks">
-            <div class="check-item" id="c1">✅ التحقق من الرابط (تم)</div>
-            <div class="check-item" id="c2">⏳ فحص الاتصال الآمن...</div>
-            <div class="check-item" id="c3">⏳ التحقق من عدم التلاعب...</div>
-        </div>
-        <div id="timer">10</div>
-        <div id="keyDisplay" style="font-size: 20px; margin: 10px 0;">جاري التحقق...</div>
-        <button class="btn" onclick="copyKey()" id="copyBtn" disabled>نسخ المفتاح</button>
+    <!-- قسم شروط التحقق -->
+    <div class="verification-box" id="verificationBox">
+        <h3 style="text-align: center; color: #D50000; margin-top: 0;">جاري فحص النظام...</h3>
+        <div class="check-item" id="check1">تخطي رابط الاختصار <span class="status">⏳</span></div>
+        <div class="check-item" id="check2">فحص استخدام VPN <span class="status">⏳</span></div>
+        <div class="check-item" id="check3">سلامة وتشفير الجلسة <span class="status">⏳</span></div>
     </div>
 
+    <!-- قسم العد التنازلي -->
+    <div class="countdown-container" id="countdownBox">
+        <p>جاري تجهيز مفتاحك الخاص، يرجى الانتظار...</p>
+        <div id="timer">10</div>
+    </div>
+    
+    <!-- قسم المفتاح -->
+    <div class="key-box" id="keyContainer">
+        <span id="keyDisplay">جاري التوليد...</span>
+    </div>
+    <br>
+    <button class="btn" id="copyBtn" onclick="copyKey()">نسخ المفتاح</button>
+    <p class="info" id="infoText">المفتاح يعمل على جهاز واحد فقط، لا تشاركه مع أحد.<br>صالح لمدة 24 ساعة فقط.</p>
+
+    <!-- مكاتب Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // 1. نظام الحماية
-        if (sessionStorage.getItem("verified_user") !== "YES_PASSED_SHORT") {
+        // 1. نظام القفل والحماية الأولي (استخدام sessionStorage ليتوافق مع ملف gate.html)
+        const isVerified = sessionStorage.getItem("verified_user");
+        if (isVerified !== "YES_PASSED_SHORT") {
+            // طرد المستخدم إذا لم يأتِ من الاختصار أو إذا قام بتحديث الصفحة بعد أخذ المفتاح
             window.location.replace("https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H");
         }
 
-        // منع التكرار: إذا كان قد ولد مفتاحاً بالفعل
-        if (sessionStorage.getItem("key_generated")) {
-             document.getElementById('keyDisplay').innerText = "لقد حصلت على مفتاحك بالفعل!";
-             document.getElementById('timer').style.display = "none";
-        } else {
-            startVerification();
-        }
+        // إعدادات فايربيس الخاصة بك
+        const firebaseConfig = {
+          apiKey: "AIzaSyCJs56D8IzwVaHNBtM5h1ViCMyRUM15MFU",
+          authDomain: "zayiksxxit.firebaseapp.com",
+          databaseURL: "https://zayiksxxit-default-rtdb.firebaseio.com",
+          projectId: "zayiksxxit",
+          storageBucket: "zayiksxxit.firebasestorage.app",
+          messagingSenderId: "643773976316",
+          appId: "1:643773976316:web:9789f3f5066e298c0b1179"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
 
-        function startVerification() {
-            // تحديث الواجهة
-            setTimeout(() => document.getElementById('c2').innerHTML = "✅ فحص الاتصال الآمن (سليم)", 2000);
-            setTimeout(() => document.getElementById('c3').innerHTML = "✅ التحقق من عدم التلاعب (سليم)", 4000);
+        // 2. تفعيل شروط التحقق الوهمية بشكل متسلسل
+        setTimeout(() => {
+            document.getElementById('check1').classList.add('success');
+            document.getElementById('check1').querySelector('.status').innerText = '✔️ صحيح';
+        }, 1500);
 
+        setTimeout(() => {
+            document.getElementById('check2').classList.add('success');
+            document.getElementById('check2').querySelector('.status').innerText = '✔️ سليم';
+        }, 3000);
+
+        setTimeout(() => {
+            document.getElementById('check3').classList.add('success');
+            document.getElementById('check3').querySelector('.status').innerText = '✔️ موثوق';
+            
+            // بعد انتهاء الفحص، إخفاء صندوق الفحص وإظهار العد التنازلي
+            setTimeout(startCountdown, 1000);
+        }, 4500);
+
+        // 3. نظام العد التنازلي (10 ثواني)
+        function startCountdown() {
+            document.getElementById('verificationBox').style.display = 'none';
+            document.getElementById('countdownBox').style.display = 'block';
+            
             let timeLeft = 10;
-            let timer = setInterval(() => {
+            let timerInterval = setInterval(() => {
                 timeLeft--;
                 document.getElementById('timer').innerText = timeLeft;
+                
                 if (timeLeft <= 0) {
-                    clearInterval(timer);
-                    generateKey();
+                    clearInterval(timerInterval);
+                    generateAndSaveKey(); // تشغيل دالة توليد المفتاح فقط بعد انتهاء العد
                 }
             }, 1000);
         }
 
-        function generateKey() {
-            const firebaseConfig = {
-              apiKey: "AIzaSyCJs56D8IzwVaHNBtM5h1ViCMyRUM15MFU",
-              authDomain: "zayiksxxit.firebaseapp.com",
-              databaseURL: "https://zayiksxxit-default-rtdb.firebaseio.com",
-              projectId: "zayiksxxit",
-              storageBucket: "zayiksxxit.firebasestorage.app",
-              messagingSenderId: "643773976316",
-              appId: "1:643773976316:web:9789f3f5066e298c0b1179"
-            };
-            if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-            const database = firebase.database();
+        // دالة توليد حروف وأرقام عشوائية
+        function generateRandomString(length) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
+
+        // 4. دالة توليد وحفظ المفتاح وإظهاره
+        function generateAndSaveKey() {
+            // إخفاء العد التنازلي
+            document.getElementById('countdownBox').style.display = 'none';
             
-            const newKey = "ZAYIKS-" + Math.floor(Math.random()*9000+1000) + "-" + Math.floor(Math.random()*9000+1000) + "-24H";
-            
+            const newKey = "ZAYIKS-" + generateRandomString(4) + "-" + generateRandomString(4) + "-24H";
+            const timestamp = Date.now(); 
+
+            // إرسال المفتاح لفايربيس
             database.ref('ActiveKeys/' + newKey).set({
-                createdAt: Date.now(),
+                createdAt: timestamp,
                 status: "active",
                 deviceID: "none",
                 secretKey: "ZAYIKS_X_MODS_0658946573"
             }).then(() => {
+                // إظهار المفتاح والزر
+                document.getElementById('keyContainer').style.display = 'inline-block';
+                document.getElementById('copyBtn').style.display = 'inline-block';
+                document.getElementById('infoText').style.display = 'block';
                 document.getElementById('keyDisplay').innerText = newKey;
-                document.getElementById('timer').innerText = "تم التوليد بنجاح!";
-                document.getElementById('copyBtn').disabled = false;
-                sessionStorage.setItem("key_generated", "true"); // علامة لمنع التكرار
+
+                // الخطوة الأهم: حذف جلسة التحقق حتى لا يقوم بتحديث الصفحة وأخذ مفتاح آخر!
+                sessionStorage.removeItem("verified_user");
+
+            }).catch((error) => {
+                document.getElementById('keyContainer').style.display = 'inline-block';
+                document.getElementById('keyDisplay').innerText = "حدث خطأ في الاتصال!";
+                console.error("خطأ:", error);
             });
         }
 
+        // دالة النسخ
         function copyKey() {
-            navigator.clipboard.writeText(document.getElementById('keyDisplay').innerText);
-            alert("تم النسخ!");
+            const keyText = document.getElementById('keyDisplay').innerText;
+            if(keyText !== "جاري التوليد..." && keyText !== "حدث خطأ في الاتصال!") {
+                navigator.clipboard.writeText(keyText);
+                alert("تم النسخ بنجاح: " + keyText + "\n\nاذهب الآن إلى البانل لتسجيل الدخول.");
+            }
         }
     </script>
 </body>
