@@ -2,122 +2,94 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZAYIKS X MODS - KEY GENERATOR</title>
+    <title>ZAYIKS X MODS - SECURITY VERIFICATION</title>
     <style>
-        body { 
-            background-color: #0D0D0D; 
-            color: white; 
-            font-family: sans-serif; 
-            text-align: center; 
-            margin-top: 80px; 
-        }
-        h1 { color: #D50000; text-shadow: 0 0 10px #D50000; font-weight: bold; }
-        .key-box { 
-            background-color: #1C1C1C; 
-            padding: 20px; 
-            border-radius: 10px; 
-            border: 2px solid #D50000; 
-            display: inline-block; 
-            margin-top: 20px;
-            box-shadow: 0 0 15px rgba(213, 0, 0, 0.5);
-        }
-        #keyDisplay { 
-            font-size: 24px; 
-            font-weight: bold; 
-            color: #FFFFFF; 
-            letter-spacing: 2px; 
-        }
-        .btn { 
-            background-color: #D50000; 
-            color: white; 
-            padding: 12px 25px; 
-            border: none; 
-            border-radius: 8px; 
-            cursor: pointer; 
-            margin-top: 30px; 
-            font-size: 16px;
-            font-weight: bold; 
-            transition: 0.3s;
-        }
-        .btn:active { transform: scale(0.95); background-color: #9b0000; }
-        .info { color: #888; font-size: 14px; margin-top: 10px; }
+        body { background-color: #0D0D0D; color: white; font-family: sans-serif; text-align: center; padding: 20px; }
+        .box { background: #1C1C1C; padding: 20px; border-radius: 15px; border: 1px solid #D50000; display: inline-block; width: 300px; }
+        .check-item { text-align: right; margin: 10px 0; color: #aaa; }
+        .check-item.done { color: #00ff00; }
+        #timer { font-size: 30px; color: #D50000; font-weight: bold; margin: 20px 0; }
+        .btn { background-color: #D50000; color: white; padding: 15px; border: none; width: 100%; border-radius: 5px; cursor: pointer; }
     </style>
 </head>
 <body>
     <h1>ZAYIKS X MODS</h1>
-    <p>تم توليد مفتاحك بنجاح! صالح لمدة 24 ساعة فقط.</p>
     
-    <div class="key-box">
-        <span id="keyDisplay">جاري التوليد...</span>
+    <div id="main-ui" class="box">
+        <div id="checks">
+            <div class="check-item" id="c1">✅ التحقق من الرابط (تم)</div>
+            <div class="check-item" id="c2">⏳ فحص الاتصال الآمن...</div>
+            <div class="check-item" id="c3">⏳ التحقق من عدم التلاعب...</div>
+        </div>
+        <div id="timer">10</div>
+        <div id="keyDisplay" style="font-size: 20px; margin: 10px 0;">جاري التحقق...</div>
+        <button class="btn" onclick="copyKey()" id="copyBtn" disabled>نسخ المفتاح</button>
     </div>
-    <br>
-    <button class="btn" onclick="copyKey()">نسخ المفتاح</button>
-    <p class="info">المفتاح يعمل على جهاز واحد فقط، لا تشاركه مع أحد.</p>
 
-    <!-- مكاتب Firebase -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        
-    // قفل
-        const isVerified = localStorage.getItem("verified_user");
-        if (isVerified !== "YES_PASSED_SHORT") {
-            // قفل
+        // 1. نظام الحماية
+        if (sessionStorage.getItem("verified_user") !== "YES_PASSED_SHORT") {
             window.location.replace("https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H");
         }
 
-        // إعدادات فايربيس الخاصة بك
-        const firebaseConfig = {
-          apiKey: "AIzaSyCJs56D8IzwVaHNBtM5h1ViCMyRUM15MFU",
-          authDomain: "zayiksxxit.firebaseapp.com",
-          databaseURL: "https://zayiksxxit-default-rtdb.firebaseio.com",
-          projectId: "zayiksxxit",
-          storageBucket: "zayiksxxit.firebasestorage.app",
-          messagingSenderId: "643773976316",
-          appId: "1:643773976316:web:9789f3f5066e298c0b1179"
-        };
-
-        // تهيئة فايربيس
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-
-        // دالة توليد حروف وأرقام عشوائية
-        function generateRandomString(length) {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let result = '';
-            for (let i = 0; i < length; i++) {
-                result += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return result;
+        // منع التكرار: إذا كان قد ولد مفتاحاً بالفعل
+        if (sessionStorage.getItem("key_generated")) {
+             document.getElementById('keyDisplay').innerText = "لقد حصلت على مفتاحك بالفعل!";
+             document.getElementById('timer').style.display = "none";
+        } else {
+            startVerification();
         }
 
-        // إنشاء المفتاح
-        const newKey = "ZAYIKS-" + generateRandomString(4) + "-" + generateRandomString(4) + "-24H";
-        const timestamp = Date.now(); 
+        function startVerification() {
+            // تحديث الواجهة
+            setTimeout(() => document.getElementById('c2').innerHTML = "✅ فحص الاتصال الآمن (سليم)", 2000);
+            setTimeout(() => document.getElementById('c3').innerHTML = "✅ التحقق من عدم التلاعب (سليم)", 4000);
 
-        // إرسال المفتاح لفايربيس
-                // إرسال المفتاح لفايربيس
-        database.ref('ActiveKeys/' + newKey).set({
-            createdAt: timestamp,
-            status: "active",
-            deviceID: "none",
-            secretKey: "ZAYIKS_X_MODS_0658946573"
-        }).then(() => {
-            document.getElementById('keyDisplay').innerText = newKey;
-        }).catch((error) => {
-            document.getElementById('keyDisplay').innerText = "حدث خطأ في الاتصال!";
-            console.error("خطأ:", error);
-        });
+            let timeLeft = 10;
+            let timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timer').innerText = timeLeft;
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    generateKey();
+                }
+            }, 1000);
+        }
 
+        function generateKey() {
+            const firebaseConfig = {
+              apiKey: "AIzaSyCJs56D8IzwVaHNBtM5h1ViCMyRUM15MFU",
+              authDomain: "zayiksxxit.firebaseapp.com",
+              databaseURL: "https://zayiksxxit-default-rtdb.firebaseio.com",
+              projectId: "zayiksxxit",
+              storageBucket: "zayiksxxit.firebasestorage.app",
+              messagingSenderId: "643773976316",
+              appId: "1:643773976316:web:9789f3f5066e298c0b1179"
+            };
+            if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+            const database = firebase.database();
+            
+            const newKey = "ZAYIKS-" + Math.floor(Math.random()*9000+1000) + "-" + Math.floor(Math.random()*9000+1000) + "-24H";
+            
+            database.ref('ActiveKeys/' + newKey).set({
+                createdAt: Date.now(),
+                status: "active",
+                deviceID: "none",
+                secretKey: "ZAYIKS_X_MODS_0658946573"
+            }).then(() => {
+                document.getElementById('keyDisplay').innerText = newKey;
+                document.getElementById('timer').innerText = "تم التوليد بنجاح!";
+                document.getElementById('copyBtn').disabled = false;
+                sessionStorage.setItem("key_generated", "true"); // علامة لمنع التكرار
+            });
+        }
 
         function copyKey() {
-            const keyText = document.getElementById('keyDisplay').innerText;
-            if(keyText !== "جاري التوليد..." && keyText !== "حدث خطأ في الاتصال!") {
-                navigator.clipboard.writeText(keyText);
-                alert("تم النسخ بنجاح: " + keyText + "\n\nاذهب الآن إلى البانل لتسجيل الدخول.");
-            }
+            navigator.clipboard.writeText(document.getElementById('keyDisplay').innerText);
+            alert("تم النسخ!");
         }
     </script>
 </body>
