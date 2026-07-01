@@ -37,11 +37,7 @@
         .check-item.active { color: #fff; }
         .check-item.success { color: #4CAF50; }
         
-        .countdown-container {
-            font-size: 20px;
-            margin: 20px 0;
-            display: none;
-        }
+        .countdown-container { font-size: 20px; margin: 20px 0; display: none; }
         #timer { font-size: 35px; color: #D50000; font-weight: bold; }
 
         .key-box { 
@@ -54,12 +50,7 @@
             box-shadow: 0 0 15px rgba(213, 0, 0, 0.5);
             display: none;
         }
-        #keyDisplay { 
-            font-size: 24px; 
-            font-weight: bold; 
-            color: #FFFFFF; 
-            letter-spacing: 2px; 
-        }
+        #keyDisplay { font-size: 24px; font-weight: bold; color: #FFFFFF; letter-spacing: 2px; }
         
         .btn { 
             background-color: #D50000; 
@@ -78,7 +69,7 @@
         .info { color: #888; font-size: 14px; margin-top: 10px; display: none; }
     </style>
 </head>
-<body oncontextmenu="return false" onselectstart="return false" onkeydown="if(event.keyCode==123 || (event.ctrlKey && event.shiftKey && event.keyCode==73)) return false;">
+<body>
     <h1>ZAYIKS X MODS</h1>
     
     <div class="verification-box" id="verificationBox">
@@ -98,12 +89,13 @@
     </div>
     <br>
     <button class="btn" id="copyBtn" onclick="copyKey()">نسخ المفتاح</button>
-    <p class="info" id="infoText">المفتاح يعمل على جهاز واحد فقط، لا تشاركه مع أحد.<br>صالح لمدة 24 ساعة فقط.</p>
+    <p class="info" id="infoText">المفتاح يعمل على جهاز واحد فقط، لا تشاركه مع أحد.<br>صالح لمدة 24 ساعة فقط من وقت التفعيل.</p>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
+        // 1. نظام التحقق
         const isVerified = sessionStorage.getItem("verified_user");
         if (isVerified !== "YES_PASSED_SHORT") {
             window.location.replace("https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H");
@@ -148,7 +140,7 @@
                 
                 if (timeLeft <= 0) {
                     clearInterval(timerInterval);
-                    generateAndSaveKey();
+                    generateAndSaveKey(); 
                 }
             }, 1000);
         }
@@ -181,25 +173,21 @@
             }).catch((error) => {
                 document.getElementById('keyContainer').style.display = 'inline-block';
                 document.getElementById('keyDisplay').innerText = "حدث خطأ في الاتصال!";
-                console.error("خطأ:", error);
             });
         }
 
+        // تم تحسين زر النسخ هنا
         function copyKey() {
             const keyText = document.getElementById('keyDisplay').innerText;
             if(keyText !== "جاري التوليد..." && keyText !== "حدث خطأ في الاتصال!") {
                 navigator.clipboard.writeText(keyText);
-                
                 const btn = document.getElementById('copyBtn');
-                btn.innerText = "تم النسخ بنجاح! ✔️";
+                btn.innerText = "✔️ تم النسخ بنجاح";
                 btn.style.backgroundColor = "#4CAF50"; 
-                
                 setTimeout(() => {
                     btn.innerText = "نسخ المفتاح";
                     btn.style.backgroundColor = "#D50000"; 
                 }, 2000);
-                
-                alert("تم النسخ بنجاح: " + keyText + "\n\nاذهب الآن إلى البانل لتسجيل الدخول.");
             }
         }
     </script>
