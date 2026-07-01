@@ -6,7 +6,7 @@
 </head>
 <body>
     <script>
-        // توليد توكن مشفر يحتوي على وقت المرور الفعلي
+        
         const gateTime = Date.now().toString();
         const secureToken = btoa(gateTime + "_ZAYIKS_ULTRA_PASS");
         sessionStorage.setItem("zayiks_secure_token", secureToken);
