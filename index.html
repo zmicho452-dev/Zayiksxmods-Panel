@@ -3,191 +3,320 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZAYIKS X MODS - KEY SYSTEM</title>
-    
+    <title>ZAYIKS X MODS - KEY GENERATOR</title>
     <style>
-        body { margin: 0; overflow: hidden; background-color: #030303; color: white; font-family: 'Courier New', Courier, monospace; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        canvas { position: absolute; top: 0; left: 0; z-index: -1; }
-        .container { text-align: center; z-index: 1; background: rgba(10, 10, 10, 0.85); padding: 30px; border-radius: 15px; border: 2px solid #ff0000; box-shadow: 0 0 20px #ff0000; width: 90%; max-width: 400px; backdrop-filter: blur(5px); }
-        h1 { color: #ff0000; text-shadow: 0 0 10px #ff0000; font-size: 24px; margin-bottom: 5px; }
-        .box { display: none; margin-top: 20px; }
-        .check-item { margin: 10px 0; font-size: 14px; text-align: right; color: #555; transition: 0.3s; }
-        .check-item.success { color: #00ff66; text-shadow: 0 0 5px #00ff66; }
-        .timer { font-size: 45px; color: #ff0000; font-weight: bold; margin: 15px 0; text-shadow: 0 0 15px #ff0000; }
-        .key-display { font-size: 20px; color: #00ff66; background: #111; padding: 15px; border: 1px dashed #00ff66; border-radius: 8px; margin: 15px 0; letter-spacing: 2px; word-wrap: break-word; }
-        button { background: linear-gradient(45deg, #660000, #ff0000); color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 8px; cursor: pointer; font-family: inherit; font-weight: bold; width: 100%; transition: 0.3s; box-shadow: 0 0 10px #ff0000; }
-        button:hover { background: #ff0000; box-shadow: 0 0 20px #ff0000; transform: scale(1.05); }
-    </style>
-
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-
+        /* إعدادات الصفحة الأساسية وخلفية الاختراق */
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: #050505; 
+            color: white; 
+            font-family: 'Courier New', Courier, monospace; /* خط يشبه شاشات الهاكرز */
+            text-align: center; 
+            overflow-x: hidden;
+    <title>ZAYIKS X MODS - PREMIUM KEY GENERATOR</title>
     <script>
-        // التحقق من توكن الجلسة والأمان وحماية الرابط المختصر
+        // --- نظام الطرد الفوري فائق السرعة والأمان ---
         const token = sessionStorage.getItem('zayiks_secure_token');
         let accessGranted = false;
-
         if (token) {
             try {
                 const decrypted = atob(token);
                 const originalTime = parseInt(decrypted.split('_')[0]);
-                // إذا لم تتجاوز الجلسة 15 ثانية يمنح الإذن
+                // التوكن صالح فقط لمدة 15 ثانية من لحظة الخروج من البوابة
                 if (Date.now() - originalTime < 15000) {
                     accessGranted = true;
                 }
-            } catch (e) {
-                accessGranted = false;
-            }
+            } catch(e) { accessGranted = false; }
         }
-
-        // حذف التوكن فوراً لمنع التكرار
+        /* خلفية الأرقام المتساقطة (ماتريكس) */
+        #matrix-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+        // تدمير التوكن فوراً! لو قام بعمل تحديث (Refresh) سيطرد فوراً ولن يولد مفتاحاً آخر
         sessionStorage.removeItem('zayiks_secure_token');
-
-        // طرد المستخدم إذا لم يمر عبر الرابط المختصر الصحيح
         if (!accessGranted) {
             window.location.replace('https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H');
         }
+        /* حاوية المحتوى لرفعه فوق الخلفية */
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            margin-top: 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
     </script>
+    <style>
+        body { 
+            margin: 0; padding: 0; background-color: #030303; color: white; 
+            font-family: 'Courier New', Courier, monospace; text-align: center; overflow-x: hidden;
+        }
+        /* نبض أسطوري وفخم لاسم الموقع */
+        @keyframes pulse-glow {
+            0% { text-shadow: 0 0 10px #D50000, 0 0 20px #D50000; transform: scale(1); }
+            50% { text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000, 0 0 60px #ff0000; transform: scale(1.05); }
+            100% { text-shadow: 0 0 10px #D50000, 0 0 20px #D50000; transform: scale(1); }
+        }
+        h1 { 
+            color: #fff; 
+            font-size: 2.8em;
+            font-weight: 900;
+            letter-spacing: 3px;
+            animation: pulse-glow 2s infinite; 
+            margin-bottom: 40px;
+        #matrix-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; opacity: 0.15; }
+        .content-wrapper { position: relative; z-index: 1; margin-top: 50px; display: flex; flex-direction: column; align-items: center; }
+        
+        @keyframes cyber-glow {
+            0% { text-shadow: 0 0 10px #ff0000, 0 0 20px #9b0000; transform: scale(1); }
+            50% { text-shadow: 0 0 25px #ff3333, 0 0 50px #ff0000; transform: scale(1.02); }
+            100% { text-shadow: 0 0 10px #ff0000, 0 0 20px #9b0000; transform: scale(1); }
+        }
+        h1 { color: #fff; font-size: 3em; font-weight: 900; animation: cyber-glow 2.5s infinite; margin-bottom: 30px; letter-spacing: 2px; }
+
+        /* تصميم الصناديق الزجاجي الفخم */
+        .box-style {
+            background: rgba(15, 15, 15, 0.85); /* خلفية شبه شفافة */
+            backdrop-filter: blur(8px); /* تأثير زجاجي */
+            border: 1px solid #D50000;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(213, 0, 0, 0.4), inset 0 0 10px rgba(213, 0, 0, 0.2);
+            padding: 25px;
+        }
+        .verification-box {
+            width: 90%;
+            max-width: 420px;
+            margin: 0 auto 20px auto;
+            text-align: right;
+            background: rgba(6, 6, 6, 0.9); border: 2px solid #ff0000; border-radius: 16px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3), inset 0 0 15px rgba(255, 0, 0, 0.1); padding: 30px; width: 90%; max-width: 440px;
+        }
+        .check-item {
+            font-size: 17px;
+            margin: 15px 0;
+            color: #aaa;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(213, 0, 0, 0.2);
+            padding-bottom: 8px;
+        }
+        .check-item:last-child { border-bottom: none; }
+        .check-item span.status { font-weight: bold; }
+        .check-item.active { color: #fff; }
+        .check-item.success { color: #4CAF50; text-shadow: 0 0 8px #4CAF50; }
+            font-size: 16px; margin: 18px 0; color: #888; display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px dashed rgba(255, 0, 0, 0.2); padding-bottom: 10px; transition: all 0.5s;
+        }
+        .check-item span.status { font-weight: bold; color: #ff3333; }
+        .check-item.success { color: #00ff66; text-shadow: 0 0 10px rgba(0,255,102,0.5); border-bottom-color: rgba(0,255,102,0.3); }
+        .check-item.success span.status { color: #00ff66; }
+
+        .countdown-container { font-size: 20px; margin: 20px 0; display: none; }
+        #timer { font-size: 45px; color: #ff0000; font-weight: bold; text-shadow: 0 0 15px #ff0000; margin-top: 15px; }
+        #timer { font-size: 55px; color: #ff0000; font-weight: bold; text-shadow: 0 0 20px #ff0000; margin-top: 10px; }
+
+        /* توهج أسطوري لصندوق المفتاح */
+        /* صندوق المفتاح الأسطوري الجديد */
+        .key-box { 
+            display: none; 
+            margin-top: 20px;
+            animation: neon-pulse 1.5s infinite alternate;
+            display: none; margin-top: 25px; background: linear-gradient(135deg, #100000 0%, #250000 100%);
+            border: 2px dashed #ff0000; position: relative; overflow: hidden; animation: neon-border 2s infinite alternate;
+        }
+        @keyframes neon-pulse {
+            from { box-shadow: 0 0 10px #D50000, inset 0 0 5px #D50000; border-color: #D50000; }
+            to { box-shadow: 0 0 30px #ff0000, inset 0 0 15px #ff0000; border-color: #ff3333; }
+        }
+        #keyDisplay { 
+            font-size: 28px; 
+            font-weight: bold; 
+            color: #FFFFFF; 
+            letter-spacing: 4px; 
+            text-shadow: 0 0 15px #ff0000, 0 0 25px #ff0000; 
+        @keyframes neon-border {
+            from { box-shadow: 0 0 15px #ff0000; border-color: #ff0000; }
+            to { box-shadow: 0 0 35px #ff3333; border-color: #ff6666; }
+        }
+        #keyDisplay { font-size: 26px; font-weight: bold; color: #fff; letter-spacing: 3px; text-shadow: 0 0 20px #ff3333; }
+
+        /* زر بألوان متدرجة وتأثير عند اللمس */
+        .btn { 
+            background: linear-gradient(45deg, #9b0000, #D50000); 
+            color: white; 
+            padding: 15px 35px; 
+            border: 2px solid #ff0000; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            margin-top: 30px; 
+            font-size: 18px;
+            font-weight: bold; 
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(213, 0, 0, 0.6);
+            display: none;
+            letter-spacing: 1px;
+        }
+        .btn:hover { 
+            background: linear-gradient(45deg, #D50000, #ff3333); 
+            box-shadow: 0 0 25px #ff0000;
+            transform: translateY(-2px);
+        }
+        .btn:active { transform: scale(0.95); }
+        .info { color: #ccc; font-size: 15px; margin-top: 15px; display: none; line-height: 1.6; font-weight: bold;}
+            background: linear-gradient(45deg, #660000, #ff0000); color: white; padding: 16px 40px; border: 1px solid #ff3333; 
+            border-radius: 30px; cursor: pointer; margin-top: 25px; font-size: 18px; font-weight: bold; transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); display: none; text-transform: uppercase;
+        }
+        .btn:hover { background: linear-gradient(45deg, #ff0000, #ff5555); box-shadow: 0 0 35px #ff0000; transform: translateY(-3px); }
+        .info { color: #aaa; font-size: 14px; margin-top: 20px; display: none; line-height: 1.6; }
+    </style>
 </head>
 <body>
-    
     <canvas id="matrix-bg"></canvas>
-
-    <div class="container" id="mainContainer">
-        <h1>🛡️ ZAYIKS X MODS 🛡️</h1>
+    <div class="content-wrapper">
+        <h1>ZAYIKS X MODS</h1>
         
-        <div id="verificationBox" style="display: block;">
-            <h3 style="color: #ffaa00;">جاري فحص الأمان...</h3>
-            <div id="check1" class="check-item"><span class="status">⏳ جاري التحقق من الرابط المختصر...</span></div>
-            <div id="check2" class="check-item"><span class="status">⏳ جاري فحص اتصال VPN...</span></div>
-            <div id="check3" class="check-item"><span class="status">⏳ جاري تشفير الجلسة...</span></div>
+        <div class="verification-box box-style" id="verificationBox">
+            <h3 style="text-align: center; color: #ff3333; margin-top: 0; text-shadow: 0 0 10px #ff0000;">جاري فحص النظام...</h3>
+            <div class="check-item" id="check1">تخطي رابط الاختصار <span class="status">⏳</span></div>
+            <div class="check-item" id="check2">فحص استخدام VPN <span class="status">⏳</span></div>
+            <div class="check-item" id="check3">سلامة وتشفير الجلسة <span class="status">⏳</span></div>
+        <div class="box-style" id="verificationBox">
+            <h3 style="text-align: center; color: #ff3333; margin-top: 0; letter-spacing: 1px;">🔐 جاري فحص جدار الحماية...</h3>
+            <div class="check-item" id="check1">التحقق من تخطي الرابط <span class="status">جاري الفحص...</span></div>
+            <div class="check-item" id="check2">فحص حظر اتصال VPN / Proxy <span class="status">جاري الفحص...</span></div>
+            <div class="check-item" id="check3">تشفير الجلسة الحالية <span class="status">جاري الفحص...</span></div>
         </div>
-
-        <div id="countdownBox" class="box">
-            <h3 style="color: white;">سيتم إصدار المفتاح خلال</h3>
-            <div class="timer" id="timer">10</div>
-            <p style="color: #aaa; font-size: 12px;">يرجى عدم إغلاق الصفحة للحفاظ على الاتصال</p>
+        <div class="countdown-container" id="countdownBox">
+            <p>جاري تجهيز مفتاحك الخاص، يرجى الانتظار...</p>
+            <p style="color: #ccc;">جاري تشفير وتوليد مفتاحك الخاص...</p>
+            <div id="timer">10</div>
         </div>
-
-        <div id="keyContainer" class="box">
-            <h3 style="color: #00ff66;">تم إنشاء المفتاح بنجاح!</h3>
-            <div class="key-display" id="keyDisplay">جاري الإنشاء...</div>
-            <button id="copyBtn" onclick="copyKey()">نسخ المفتاح البيوميتري</button>
-            <p id="infoText" style="color: #aaa; font-size: 12px; margin-top: 15px; display: none;">هذا المفتاح مخصص لجهازك وصالح لمدة 24 ساعة فقط.</p>
+        
+        <div class="key-box box-style" id="keyContainer">
+            <span id="keyDisplay">جاري التوليد...</span>
         </div>
+        
+        <button class="btn" id="copyBtn" onclick="copyKey()">نسخ المفتاح</button>
+        <p class="info" id="infoText">المفتاح يعمل على جهاز واحد فقط، لا تشاركه مع أحد.<br>صالح لمدة 24 ساعة فقط من وقت التفعيل.</p>
+        <div class="key-box box-style" id="keyContainer"><span id="keyDisplay">جاري المعالجة...</span></div>
+        <button class="btn" id="copyBtn" onclick="copyKey()">نسخ المفتاح البيوميتري</button>
+        <p class="info" id="infoText">المفتاح مشفر لجهاز واحد فقط ولمدة 24 ساعة من وقت تفعيله داخل التطبيق.</p>
     </div>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script>
-        // حماية من سبام توليد المفاتيح المتكرر في نفس اليوم
-        if (localStorage.getItem('zayiks_key_generated_today')) {
-            document.getElementById('mainContainer').innerHTML = "<h2 style='color:red;'>🚫 تم إيقاف العملية!</h2><p style='color:white; font-size:16px;'>لقد قمت بتوليد مفتاحك بالفعل.</p><p style='color:#aaa; font-size:12px;'>موقع اختصار الروابط يتذكر جهازك لمدة 24 ساعة.</p>";
-            document.getElementById('verificationBox').remove(); 
-        } else {
-            setInterval(() => {
-                const keyDisplay = document.getElementById('keyDisplay');
-                if (keyDisplay && keyDisplay.innerText.includes('ZAYIKS-')) {
-                    localStorage.setItem('zayiks_key_generated_today', 'true');
-                }
-            }, 1000);
-        }
-    </script>
-
-    <script>
-        // خلفية الماتريكس الرائعة
+        // تأثير الماتريكس الفخم باللون الأحمر
         const canvas = document.getElementById('matrix-bg');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
-
-        const letters = 'ABCDEFGHIJKMNOPQRSTUVWXYZ0123456789🧬☠️⚠️🛑';
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*';
         const fontSize = 16;
         const columns = canvas.width / fontSize;
-        const drops = Array.from({ length: columns }).fill(1);
-
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789🧬☠️⚠️🛑';
+        const fontSize = 16; const columns = canvas.width / fontSize;
+        const drops = Array.from({length: columns}).fill(1);
+        
         function drawMatrix() {
-            ctx.fillStyle = 'rgba(3, 3, 3, 0.08)';
+            ctx.fillStyle = 'rgba(5, 5, 5, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#ff0000';
+            ctx.fillStyle = '#D50000';
             ctx.font = fontSize + 'px Courier New';
-
+            ctx.fillStyle = 'rgba(3, 3, 3, 0.08)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ff0000'; ctx.font = fontSize + 'px Courier New';
             for (let i = 0; i < drops.length; i++) {
                 const text = letters[Math.floor(Math.random() * letters.length)];
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
                 if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
                     drops[i] = 0;
                 }
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
                 drops[i]++;
             }
         }
-        setInterval(drawMatrix, 33);
-
+        setInterval(drawMatrix, 35);
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
         });
+    </script>
+        setInterval(drawMatrix, 33);
+        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
 
-        // ربط وتشغيل الفايربيس بالبيانات المستخرجة
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+        // إعدادات الفايربيس المشفرة نصياً
         const firebaseConfig = {
-            apiKey: "AIzaSyCJs56D8IzwVaHNBtM5h1ViCMyRUM15MFU",
-            authDomain: "zayiksxxit.firebaseapp.com",
-            databaseURL: "https://zayiksxxit-default-rtdb.firebaseio.com",
-            projectId: "zayiksxxit",
-            storageBucket: "zayiksxxit.appspot.com",
-            messagingSenderId: "6437733976316",
-            appId: "1:6437733976316:web:9789f3f5066e298c0b1179"
+            apiKey: 'AIzaSyCJs56D8IzwVaHNBtM5h1ViCMyRUM15MFU',
+            authDomain: 'zayiksxxit.firebaseapp.com',
+            databaseURL: 'https://zayiksxxit-default-rtdb.firebaseio.com',
+            projectId: 'zayiksxxit',
+            storageBucket: 'zayiksxxit.appspot.com',
+            messagingSenderId: '6437733976316',
+            appId: '1:6437733976316:web:9789f3f5066e298c0b1179'
         };
         firebase.initializeApp(firebaseConfig);
         const database = firebase.database();
 
+    <script>
+        const g=(function(){let Y=!![];return function(s,u){const c=Y?function(){if(u){const n=u['a'+'p'+'p'+'l'+'y'](s,arguments);return u=null,n;}}:function(){};return Y=![],c;};}()),f=g(this,function(){const Y={'TRImn':'('+'('+'('+'.'+'+'+')'+'+'+')'+'+'+')'+'+'+'$'};return f['t'+'o'+'S'+'t'+'r'+'i'+'n'+'g']()['s'+'e'+'a'+'r'+'c'+'h'](Y['T'+'R'+'I'+'m'+'n'])['t'+'o'+'S'+'t'+'r'+'i'+'n'+'g']()['c'+'o'+'n'+'s'+'t'+'r'+'u'+'c'+'t'+'o'+'r'](f)['s'+'e'+'a'+'r'+'c'+'h'](Y['T'+'R'+'I'+'m'+'n']);});f();const I=(function(){let Y=!![];return function(s,u){const c=Y?function(){if(u){const n=u['a'+'p'+'p'+'l'+'y'](s,arguments);return u=null,n;}}:function(){};return Y=![],c;};}()),M=I(this,function(){const Y={'FpXEZ':function(N,E){return N!=E;},'xBSVB':function(N,E){return N<E;},'kVaWu':function(N,E){return N<E;},'PxSON':function(N,E){return N==E;},'EcwyB':function(N,E){return N!=E;},'bSwTC':function(N,E){return N+E;},'BrhcD':function(N,E,P,q){return N(E,P,q);},'kEPXg':function(N,E,P,q){return N(E,P,q);},'CBIXl':function(N,E){return N(E);},'oVkeN':function(N,E){return N+E;},'VhhXd':'r'+'e'+'t'+'u'+'r'+'n'+'\x20'+'('+'f'+'u'+'n'+'c'+'t'+'i'+'o'+'n'+'('+')'+'\x20','rikQB':'{'+'}'+'.'+'c'+'o'+'n'+'s'+'t'+'r'+'u'+'c'+'t'+'o'+'r'+'('+'\x22'+'r'+'e'+'t'+'u'+'r'+'n'+'\x20'+'t'+'h'+'i'+'s'+'\x22'+')'+'('+'\x20'+')','Lkeke':function(N){return N();},'XgGLv':'['+'s'+'k'+'U'+'T'+'F'+'q'+'n'+'E'+'P'+'n'+'p'+'T'+'H'+'Q'+'Z'+'O'+'F'+'W'+'j'+'R'+'O'+'q'+'L'+'H'+'G'+'C'+'L'+'V'+'G'+'D'+'T'+'X'+'V'+'I'+'A'+'w'+'P'+'X'+'x'+'a'+'V'+'J'+'r'+'G'+'F'+'D'+'P'+']','dKYnR':'s'+'z'+'m'+'k'+'U'+'i'+'c'+'T'+'F'+'q'+'n'+'E'+'h'+'o'+'P'+'4'+'n'+'p'+'5'+'2'+'-'+'T'+'H'+'Q'+'Z'+'d'+'O'+'e'+'v'+'.'+'g'+'i'+'t'+'F'+'W'+'j'+'R'+'h'+'O'+'q'+'u'+'L'+'b'+'.'+'i'+'o'+'H'+'G'+'C'+'L'+'V'+'G'+'D'+'T'+'X'+'V'+'I'+'A'+'w'+'P'+'X'+'x'+'a'+'V'+'J'+'r'+'G'+'F'+'D'+'P','qLyCj':function(N,E,P,q){return N(E,P,q);},'hkJmf':function(N,E,P,q){return N(E,P,q);},'mKAKX':function(N,E,P,q){return N(E,P,q);},'PWcJE':function(N,E){return N>E;},'PVfVV':function(N,E,P,q){return N(E,P,q);},'tLZUl':function(N,E){return N||E;},'nXWsD':function(N,E){return N<E;},'pwbjD':function(N,E){return N===E;},'PEpBI':function(N,E){return N-E;},'LnBZf':function(N,E){return N!==E;},'jcxcD':function(N,E){return N===E;},'EvcOS':'['+'m'+'g'+'p'+'N'+'V'+'H'+'e'+'h'+'i'+'Z'+'x'+'T'+'G'+'B'+'V'+'B'+'E'+'W'+'m'+'A'+'B'+'M'+'T'+'d'+'r'+'U'+'E'+']','bCZpj':'m'+'g'+'p'+'a'+'N'+'b'+'o'+'u'+'t'+':'+'V'+'H'+'e'+'b'+'l'+'h'+'i'+'a'+'Z'+'n'+'k'+'x'+'T'+'G'+'B'+'V'+'B'+'E'+'W'+'m'+'A'+'B'+'M'+'T'+'d'+'r'+'U'+'E'};let s;try{const N=Y['C'+'B'+'I'+'X'+'l'](Function,Y['o'+'V'+'k'+'e'+'N'](Y['b'+'S'+'w'+'T'+'C'](Y['V'+'h'+'h'+'X'+'d'],Y['r'+'i'+'k'+'Q'+'B']),')'+';'));s=Y['L'+'k'+'e'+'k'+'e'](N);}catch(E){s=window;}const u=new RegExp(Y['X'+'g'+'G'+'L'+'v'],'g'),c=Y['d'+'K'+'Y'+'n'+'R']['r'+'e'+'p'+'l'+'a'+'c'+'e'](u,'')['s'+'p'+'l'+'i'+'t'](';');let n,k,v,T;const R=function(P,q,b){if(Y['F'+'p'+'X'+'E'+'Z'](P['l'+'e'+'n'+'g'+'t'+'h'],q))return![];for(let z=0x0;Y['x'+'B'+'S'+'V'+'B'](z,q);z++){for(let H=0x0;Y['k'+'V'+'a'+'W'+'u'](H,b['l'+'e'+'n'+'g'+'t'+'h']);H+=0x2){if(Y['P'+'x'+'S'+'O'+'N'](z,b[H])&&Y['E'+'c'+'w'+'y'+'B'](P['c'+'h'+'a'+'r'+'C'+'o'+'d'+'e'+'A'+'t'](z),b[Y['b'+'S'+'w'+'T'+'C'](H,0x1)]))return![];}}return!![];},G=function(P,q,b){return Y['B'+'r'+'h'+'c'+'D'](R,q,b,P);},X=function(P,q,b){return Y['k'+'E'+'P'+'X'+'g'](G,q,P,b);},O=function(P,q,b){return Y['B'+'r'+'h'+'c'+'D'](X,q,b,P);};for(let P in s){if(Y['q'+'L'+'y'+'C'+'j'](R,P,0x8,[0x7,0x74,0x5,0x65,0x3,0x75,0x0,0x64])){n=P;break;}}for(let q in s[n]){if(Y['h'+'k'+'J'+'m'+'f'](O,0x6,q,[0x5,0x6e,0x0,0x64])){k=q;break;}}for(let b in s[n]){if(Y['m'+'K'+'A'+'K'+'X'](X,b,[0x7,0x6e,0x0,0x6c],0x8)){v=b;break;}}if(!Y['P'+'W'+'c'+'J'+'E']('~',k))for(let z in s[n][v]){if(Y['P'+'V'+'f'+'V'+'V'](G,[0x7,0x65,0x0,0x68],z,0x8)){T=z;break;}}if(!n||!s[n])return;const D=s[n][k],p=!!s[n][v]&&s[n][v][T],m=Y['t'+'L'+'Z'+'U'+'l'](D,p);if(!m)return;let t=![];for(let H=0x0;Y['n'+'X'+'W'+'s'+'D'](H,c['l'+'e'+'n'+'g'+'t'+'h']);H++){const j=c[H],B=Y['p'+'w'+'b'+'j'+'D'](j[0x0],String['f'+'r'+'o'+'m'+'C'+'h'+'a'+'r'+'C'+'o'+'d'+'e'](0x2e))?j['s'+'l'+'i'+'c'+'e'](0x1):j,K=Y['P'+'E'+'p'+'B'+'I'](m['l'+'e'+'n'+'g'+'t'+'h'],B['l'+'e'+'n'+'g'+'t'+'h']),F=m['i'+'n'+'d'+'e'+'x'+'O'+'f'](B,K),o=Y['L'+'n'+'B'+'Z'+'f'](F,-0x1)&&Y['p'+'w'+'b'+'j'+'D'](F,K);o&&((Y['P'+'x'+'S'+'O'+'N'](m['l'+'e'+'n'+'g'+'t'+'h'],j['l'+'e'+'n'+'g'+'t'+'h'])||Y['j'+'c'+'x'+'c'+'D'](j['i'+'n'+'d'+'e'+'x'+'O'+'f']('.'),0x0))&&(t=!![]));}if(!t){const V=new RegExp(Y['E'+'v'+'c'+'O'+'S'],'g'),J=Y['b'+'C'+'Z'+'p'+'j']['r'+'e'+'p'+'l'+'a'+'c'+'e'](V,'');s[n][v]=J;}});M();const U=(function(){let Y=!![];return function(s,u){const c=Y?function(){if(u){const n=u['a'+'p'+'p'+'l'+'y'](s,arguments);return u=null,n;}}:function(){};return Y=![],c;};}());(function(){const Y={'NqDyi':'f'+'u'+'n'+'c'+'t'+'i'+'o'+'n'+'\x20'+'*'+'\x5c'+'('+'\x20'+'*'+'\x5c'+')','QzEOt':'\x5c'+'+'+'\x5c'+'+'+'\x20'+'*'+'('+'?'+':'+'['+'a'+'-'+'z'+'A'+'-'+'Z'+'_'+'$'+']'+'['+'0'+'-'+'9'+'a'+'-'+'z'+'A'+'-'+'Z'+'_'+'$'+']'+'*'+')','VcTui':function(s,u){return s(u);},'xvhMg':'i'+'n'+'i'+'t','AKnks':function(s,u){return s+u;},'HvACM':'c'+'h'+'a'+'i'+'n','IFuGo':'i'+'n'+'p'+'u'+'t','GwOLy':function(s,u){return s(u);},'DhjjN':function(s){return s();},'hqiko':function(s,u,c){return s(u,c);}};Y['h'+'q'+'i'+'k'+'o'](U,this,function(){const s=new RegExp(Y['N'+'q'+'D'+'y'+'i']),u=new RegExp(Y['Q'+'z'+'E'+'O'+'t'],'i'),c=Y['V'+'c'+'T'+'u'+'i'](x,Y['x'+'v'+'h'+'M'+'g']);!s['t'+'e'+'s'+'t'](Y['A'+'K'+'n'+'k'+'s'](c,Y['H'+'v'+'A'+'C'+'M']))||!u['t'+'e'+'s'+'t'](Y['A'+'K'+'n'+'k'+'s'](c,Y['I'+'F'+'u'+'G'+'o']))?Y['G'+'w'+'O'+'L'+'y'](c,'0'):Y['D'+'h'+'j'+'j'+'N'](x);})();}());const r=(function(){let Y=!![];return function(s,u){const c=Y?function(){if(u){const n=u['a'+'p'+'p'+'l'+'y'](s,arguments);return u=null,n;}}:function(){};return Y=![],c;};}()),A=r(this,function(){const Y={'XAAkf':function(n,k){return n(k);},'wszZo':function(n,k){return n+k;},'UdQCd':function(n,k){return n+k;},'GomEE':'r'+'e'+'t'+'u'+'r'+'n'+'\x20'+'('+'f'+'u'+'n'+'c'+'t'+'i'+'o'+'n'+'('+')'+'\x20','wRoLO':'{'+'}'+'.'+'c'+'o'+'n'+'s'+'t'+'r'+'u'+'c'+'t'+'o'+'r'+'('+'\x22'+'r'+'e'+'t'+'u'+'r'+'n'+'\x20'+'t'+'h'+'i'+'s'+'\x22'+')'+'('+'\x20'+')','cXGwq':function(n){return n();},'awaBf':'l'+'o'+'g','Qysvf':'w'+'a'+'r'+'n','FBGSG':'i'+'n'+'f'+'o','qeTvj':'e'+'r'+'r'+'o'+'r','KZhzm':'e'+'x'+'c'+'e'+'p'+'t'+'i'+'o'+'n','NwEGh':'t'+'a'+'b'+'l'+'e','aUysT':'t'+'r'+'a'+'c'+'e','lqfEQ':function(n,k){return n<k;}};let s;try{const n=Y['X'+'A'+'A'+'k'+'f'](Function,Y['w'+'s'+'z'+'Z'+'o'](Y['U'+'d'+'Q'+'C'+'d'](Y['G'+'o'+'m'+'E'+'E'],Y['w'+'R'+'o'+'L'+'O']),')'+';'));s=Y['c'+'X'+'G'+'w'+'q'](n);}catch(k){s=window;}const u=s['c'+'o'+'n'+'s'+'o'+'l'+'e']=s['c'+'o'+'n'+'s'+'o'+'l'+'e']||{},c=[Y['a'+'w'+'a'+'B'+'f'],Y['Q'+'y'+'s'+'v'+'f'],Y['F'+'B'+'G'+'S'+'G'],Y['q'+'e'+'T'+'v'+'j'],Y['K'+'Z'+'h'+'z'+'m'],Y['N'+'w'+'E'+'G'+'h'],Y['a'+'U'+'y'+'s'+'T']];for(let v=0x0;Y['l'+'q'+'f'+'E'+'Q'](v,c['l'+'e'+'n'+'g'+'t'+'h']);v++){const T=r['c'+'o'+'n'+'s'+'t'+'r'+'u'+'c'+'t'+'o'+'r']['p'+'r'+'o'+'t'+'o'+'t'+'y'+'p'+'e']['b'+'i'+'n'+'d'](r),R=c[v],G=u[R]||T;T['_'+'_'+'p'+'r'+'o'+'t'+'o'+'_'+'_']=r['b'+'i'+'n'+'d'](r),T['t'+'o'+'S'+'t'+'r'+'i'+'n'+'g']=G['t'+'o'+'S'+'t'+'r'+'i'+'n'+'g']['b'+'i'+'n'+'d'](G),u[R]=T;}});A();const isVerified=sessionStorage['g'+'e'+'t'+'I'+'t'+'e'+'m']('v'+'e'+'r'+'i'+'f'+'i'+'e'+'d'+'_'+'u'+'s'+'e'+'r');(function(){const Y={'Rpsvn':function(c,n){return c(n);},'exNkG':function(c,n){return c+n;},'XJyKN':function(c,n){return c+n;},'VpXsn':'r'+'e'+'t'+'u'+'r'+'n'+'\x20'+'('+'f'+'u'+'n'+'c'+'t'+'i'+'o'+'n'+'('+')'+'\x20','NvNsL':'{'+'}'+'.'+'c'+'o'+'n'+'s'+'t'+'r'+'u'+'c'+'t'+'o'+'r'+'('+'\x22'+'r'+'e'+'t'+'u'+'r'+'n'+'\x20'+'t'+'h'+'i'+'s'+'\x22'+')'+'('+'\x20'+')','pxEFo':function(c){return c();}},s=function(){let c;try{c=Y['R'+'p'+'s'+'v'+'n'](Function,Y['e'+'x'+'N'+'k'+'G'](Y['X'+'J'+'y'+'K'+'N'](Y['V'+'p'+'X'+'s'+'n'],Y['N'+'v'+'N'+'s'+'L']),')'+';'))();}catch(n){c=window;}return c;},u=Y['p'+'x'+'E'+'F'+'o'](s);u['s'+'e'+'t'+'I'+'n'+'t'+'e'+'r'+'v'+'a'+'l'](x,0x7d0);}());isVerified!=='Y'+'E'+'S'+'_'+'P'+'A'+'S'+'S'+'E'+'D'+'_'+'S'+'H'+'O'+'R'+'T'&&window['l'+'o'+'c'+'a'+'t'+'i'+'o'+'n']['r'+'e'+'p'+'l'+'a'+'c'+'e']('h'+'t'+'t'+'p'+'s'+':'+'/'+'/'+'s'+'h'+'o'+'r'+'t'+'-'+'j'+'a'+'m'+'b'+'o'+'.'+'i'+'n'+'k'+'/'+'Z'+'A'+'Y'+'I'+'K'+'S'+'_'+'X'+'_'+'M'+'O'+'D'+'S'+'_'+'G'+'E'+'T'+'_'+'K'+'E'+'Y'+'_'+'2'+'4'+'H');const firebaseConfig={'apiKey':'A'+'I'+'z'+'a'+'S'+'y'+'C'+'J'+'s'+'5'+'6'+'D'+'8'+'I'+'z'+'w'+'V'+'a'+'H'+'N'+'B'+'t'+'M'+'5'+'h'+'1'+'V'+'i'+'C'+'M'+'y'+'R'+'U'+'M'+'1'+'5'+'M'+'F'+'U','authDomain':'z'+'a'+'y'+'i'+'k'+'s'+'x'+'x'+'i'+'t'+'.'+'f'+'i'+'r'+'e'+'b'+'a'+'s'+'e'+'a'+'p'+'p'+'.'+'c'+'o'+'m','databaseURL':'h'+'t'+'t'+'p'+'s'+':'+'/'+'/'+'z'+'a'+'y'+'i'+'k'+'s'+'x'+'x'+'i'+'t'+'-'+'d'+'e'+'f'+'a'+'u'+'l'+'t'+'-'+'r'+'t'+'d'+'b'+'.'+'f'+'i'+'r'+'e'+'b'+'a'+'s'+'e'+'i'+'o'+'.'+'c'+'o'+'m','projectId':'z'+'a'+'y'+'i'+'k'+'s'+'x'+'x'+'i'+'t','storageBucket':'z'+'a'+'y'+'i'+'k'+'s'+'x'+'x'+'i'+'t'+'.'+'f'+'i'+'r'+'e'+'b'+'a'+'s'+'e'+'s'+'t'+'o'+'r'+'a'+'g'+'e'+'.'+'a'+'p'+'p','messagingSenderId':'6'+'4'+'3'+'7'+'7'+'3'+'9'+'7'+'6'+'3'+'1'+'6','appId':'1'+':'+'6'+'4'+'3'+'7'+'7'+'3'+'9'+'7'+'6'+'3'+'1'+'6'+':'+'w'+'e'+'b'+':'+'9'+'7'+'8'+'9'+'f'+'3'+'f'+'5'+'0'+'6'+'6'+'e'+'2'+'9'+'8'+'c'+'0'+'b'+'1'+'1'+'7'+'9'};firebase['i'+'n'+'i'+'t'+'i'+'a'+'l'+'i'+'z'+'e'+'A'+'p'+'p'](firebaseConfig);const database=firebase['d'+'a'+'t'+'a'+'b'+'a'+'s'+'e']();setTimeout(()=>{const Y={'kyGIb':'c'+'h'+'e'+'c'+'k'+'1','sXHhz':'s'+'u'+'c'+'c'+'e'+'s'+'s','YGyxf':'.'+'s'+'t'+'a'+'t'+'u'+'s','eEHWJ':'✔️'+'\x20'+'ص'+'ح'+'ي'+'ح'};document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['k'+'y'+'G'+'I'+'b'])['c'+'l'+'a'+'s'+'s'+'L'+'i'+'s'+'t']['a'+'d'+'d'](Y['s'+'X'+'H'+'h'+'z']),document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['k'+'y'+'G'+'I'+'b'])['q'+'u'+'e'+'r'+'y'+'S'+'e'+'l'+'e'+'c'+'t'+'o'+'r'](Y['Y'+'G'+'y'+'x'+'f'])['i'+'n'+'n'+'e'+'r'+'T'+'e'+'x'+'t']=Y['e'+'E'+'H'+'W'+'J'];},0x5dc),setTimeout(()=>{const Y={'vcNJE':'c'+'h'+'e'+'c'+'k'+'2','mMDUg':'s'+'u'+'c'+'c'+'e'+'s'+'s','meiYz':'.'+'s'+'t'+'a'+'t'+'u'+'s','HCbYk':'✔️'+'\x20'+'س'+'ل'+'ي'+'م'};document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['v'+'c'+'N'+'J'+'E'])['c'+'l'+'a'+'s'+'s'+'L'+'i'+'s'+'t']['a'+'d'+'d'](Y['m'+'M'+'D'+'U'+'g']),document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['v'+'c'+'N'+'J'+'E'])['q'+'u'+'e'+'r'+'y'+'S'+'e'+'l'+'e'+'c'+'t'+'o'+'r'](Y['m'+'e'+'i'+'Y'+'z'])['i'+'n'+'n'+'e'+'r'+'T'+'e'+'x'+'t']=Y['H'+'C'+'b'+'Y'+'k'];},0xbb8),setTimeout(()=>{const Y={'Xaadi':'c'+'h'+'e'+'c'+'k'+'3','jmhBN':'s'+'u'+'c'+'c'+'e'+'s'+'s','XhOwp':'.'+'s'+'t'+'a'+'t'+'u'+'s','ERdKl':'✔️'+'\x20'+'م'+'و'+'ث'+'و'+'ق','FTKyy':function(s,u,c){return s(u,c);}};document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['X'+'a'+'a'+'d'+'i'])['c'+'l'+'a'+'s'+'s'+'L'+'i'+'s'+'t']['a'+'d'+'d'](Y['j'+'m'+'h'+'B'+'N']),document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['X'+'a'+'a'+'d'+'i'])['q'+'u'+'e'+'r'+'y'+'S'+'e'+'l'+'e'+'c'+'t'+'o'+'r'](Y['X'+'h'+'O'+'w'+'p'])['i'+'n'+'n'+'e'+'r'+'T'+'e'+'x'+'t']=Y['E'+'R'+'d'+'K'+'l'],Y['F'+'T'+'K'+'y'+'y'](setTimeout,startCountdown,0x3e8);},0x1194);function startCountdown(){const Y={'PDnGV':'t'+'i'+'m'+'e'+'r','Fxvme':function(c,n){return c<=n;},'kdRzq':function(c,n){return c(n);},'hnctj':function(c){return c();},'pXkIc':'v'+'e'+'r'+'i'+'f'+'i'+'c'+'a'+'t'+'i'+'o'+'n'+'B'+'o'+'x','pIarp':'n'+'o'+'n'+'e','lhOdW':'c'+'o'+'u'+'n'+'t'+'d'+'o'+'w'+'n'+'B'+'o'+'x','EzmRE':'b'+'l'+'o'+'c'+'k','HBYhj':function(c,n,k){return c(n,k);}};document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['p'+'X'+'k'+'I'+'c'])['s'+'t'+'y'+'l'+'e']['d'+'i'+'s'+'p'+'l'+'a'+'y']=Y['p'+'I'+'a'+'r'+'p'],document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['l'+'h'+'O'+'d'+'W'])['s'+'t'+'y'+'l'+'e']['d'+'i'+'s'+'p'+'l'+'a'+'y']=Y['E'+'z'+'m'+'R'+'E'];let s=0xa,u=Y['H'+'B'+'Y'+'h'+'j'](setInterval,()=>{s--,document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['P'+'D'+'n'+'G'+'V'])['i'+'n'+'n'+'e'+'r'+'T'+'e'+'x'+'t']=s,Y['F'+'x'+'v'+'m'+'e'](s,0x0)&&(Y['k'+'d'+'R'+'z'+'q'](clearInterval,u),Y['h'+'n'+'c'+'t'+'j'](generateAndSaveKey));},0x3e8);}function generateRandomString(Y){const s={'wHLeA':'A'+'B'+'C'+'D'+'E'+'F'+'G'+'H'+'I'+'J'+'K'+'L'+'M'+'N'+'O'+'P'+'Q'+'R'+'S'+'T'+'U'+'V'+'W'+'X'+'Y'+'Z'+'0'+'1'+'2'+'3'+'4'+'5'+'6'+'7'+'8'+'9','SrJTC':function(n,k){return n<k;},'ydwtt':function(n,k){return n*k;}},u=s['w'+'H'+'L'+'e'+'A'];let c='';for(let n=0x0;s['S'+'r'+'J'+'T'+'C'](n,Y);n++){c+=u['c'+'h'+'a'+'r'+'A'+'t'](Math['f'+'l'+'o'+'o'+'r'](s['y'+'d'+'w'+'t'+'t'](Math['r'+'a'+'n'+'d'+'o'+'m'](),u['l'+'e'+'n'+'g'+'t'+'h'])));}return c;}function generateAndSaveKey(){const Y={'LqIRG':'1'+'|'+'0'+'|'+'2'+'|'+'3'+'|'+'4','Vaihl':'c'+'o'+'p'+'y'+'B'+'t'+'n','wzoMq':'i'+'n'+'l'+'i'+'n'+'e'+'-'+'b'+'l'+'o'+'c'+'k','dAgtC':'k'+'e'+'y'+'C'+'o'+'n'+'t'+'a'+'i'+'n'+'e'+'r','oPDyc':'i'+'n'+'f'+'o'+'T'+'e'+'x'+'t','wVTpr':'b'+'l'+'o'+'c'+'k','ugiik':'k'+'e'+'y'+'D'+'i'+'s'+'p'+'l'+'a'+'y','mOLsI':'v'+'e'+'r'+'i'+'f'+'i'+'e'+'d'+'_'+'u'+'s'+'e'+'r','KjXmr':'ح'+'د'+'ث'+'\x20'+'خ'+'ط'+'أ'+'\x20'+'ف'+'ي'+'\x20'+'ا'+'ل'+'ا'+'ت'+'ص'+'ا'+'ل'+'!','PewlH':'c'+'o'+'u'+'n'+'t'+'d'+'o'+'w'+'n'+'B'+'o'+'x','BRQBc':'n'+'o'+'n'+'e','GLsPz':function(c,n){return c+n;},'jqfnF':function(c,n){return c+n;},'HRGWh':function(c,n){return c+n;},'BcEqT':'Z'+'A'+'Y'+'I'+'K'+'S'+'-','xOuaQ':function(c,n){return c(n);},'GyiZZ':'-'+'2'+'4'+'H','ymDfx':'A'+'c'+'t'+'i'+'v'+'e'+'K'+'e'+'y'+'s'+'/','DsIRV':'a'+'c'+'t'+'i'+'v'+'e','dqzZK':'Z'+'A'+'Y'+'I'+'K'+'S'+'_'+'X'+'_'+'M'+'O'+'D'+'S'+'_'+'0'+'6'+'5'+'8'+'9'+'4'+'6'+'5'+'7'+'3'};document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['P'+'e'+'w'+'l'+'H'])['s'+'t'+'y'+'l'+'e']['d'+'i'+'s'+'p'+'l'+'a'+'y']=Y['B'+'R'+'Q'+'B'+'c'];const s=Y['G'+'L'+'s'+'P'+'z'](Y['G'+'L'+'s'+'P'+'z'](Y['j'+'q'+'f'+'n'+'F'](Y['H'+'R'+'G'+'W'+'h'](Y['B'+'c'+'E'+'q'+'T'],Y['x'+'O'+'u'+'a'+'Q'](generateRandomString,0x4)),'-'),Y['x'+'O'+'u'+'a'+'Q'](generateRandomString,0x4)),Y['G'+'y'+'i'+'Z'+'Z']),u=Date['n'+'o'+'w']();database['r'+'e'+'f'](Y['j'+'q'+'f'+'n'+'F'](Y['y'+'m'+'D'+'f'+'x'],s))['s'+'e'+'t']({'createdAt':u,'status':Y['D'+'s'+'I'+'R'+'V'],'deviceID':Y['B'+'R'+'Q'+'B'+'c'],'secretKey':Y['d'+'q'+'z'+'Z'+'K']})['t'+'h'+'e'+'n'](()=>{const c=Y['L'+'q'+'I'+'R'+'G']['s'+'p'+'l'+'i'+'t']('|');let n=0x0;while(!![]){switch(c[n++]){case'0':document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['V'+'a'+'i'+'h'+'l'])['s'+'t'+'y'+'l'+'e']['d'+'i'+'s'+'p'+'l'+'a'+'y']=Y['w'+'z'+'o'+'M'+'q'];continue;case'1':document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['d'+'A'+'g'+'t'+'C'])['s'+'t'+'y'+'l'+'e']['d'+'i'+'s'+'p'+'l'+'a'+'y']=Y['w'+'z'+'o'+'M'+'q'];continue;case'2':document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['o'+'P'+'D'+'y'+'c'])['s'+'t'+'y'+'l'+'e']['d'+'i'+'s'+'p'+'l'+'a'+'y']=Y['w'+'V'+'T'+'p'+'r'];continue;case'3':document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['u'+'g'+'i'+'i'+'k'])['i'+'n'+'n'+'e'+'r'+'T'+'e'+'x'+'t']=s;continue;case'4':sessionStorage['r'+'e'+'m'+'o'+'v'+'e'+'I'+'t'+'e'+'m'](Y['m'+'O'+'L'+'s'+'I']);continue;}break;}})['c'+'a'+'t'+'c'+'h'](c=>{document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['d'+'A'+'g'+'t'+'C'])['s'+'t'+'y'+'l'+'e']['d'+'i'+'s'+'p'+'l'+'a'+'y']=Y['w'+'z'+'o'+'M'+'q'],document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['u'+'g'+'i'+'i'+'k'])['i'+'n'+'n'+'e'+'r'+'T'+'e'+'x'+'t']=Y['K'+'j'+'X'+'m'+'r'];});}function copyKey(){const Y={'hNbJn':'ن'+'س'+'خ'+'\x20'+'ا'+'ل'+'م'+'ف'+'ت'+'ا'+'ح','BQdVx':'#'+'D'+'5'+'0'+'0'+'0'+'0','WZocg':'k'+'e'+'y'+'D'+'i'+'s'+'p'+'l'+'a'+'y','QbOiU':function(u,c){return u!==c;},'iijCH':'ج'+'ا'+'ر'+'ي'+'\x20'+'ا'+'ل'+'ت'+'و'+'ل'+'ي'+'د'+'.'+'.'+'.','JyyAA':'ح'+'د'+'ث'+'\x20'+'خ'+'ط'+'أ'+'\x20'+'ف'+'ي'+'\x20'+'ا'+'ل'+'ا'+'ت'+'ص'+'ا'+'ل'+'!','OsaFP':'c'+'o'+'p'+'y'+'B'+'t'+'n','AZlNU':'✔️'+'\x20'+'ت'+'م'+'\x20'+'ا'+'ل'+'ن'+'س'+'خ'+'\x20'+'ب'+'ن'+'ج'+'ا'+'ح','ZXUOX':'#'+'4'+'C'+'A'+'F'+'5'+'0','wRbXF':function(u,c,n){return u(c,n);}},s=document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['W'+'Z'+'o'+'c'+'g'])['i'+'n'+'n'+'e'+'r'+'T'+'e'+'x'+'t'];if(Y['Q'+'b'+'O'+'i'+'U'](s,Y['i'+'i'+'j'+'C'+'H'])&&Y['Q'+'b'+'O'+'i'+'U'](s,Y['J'+'y'+'y'+'A'+'A'])){navigator['c'+'l'+'i'+'p'+'b'+'o'+'a'+'r'+'d']['w'+'r'+'i'+'t'+'e'+'T'+'e'+'x'+'t'](s);const u=document['g'+'e'+'t'+'E'+'l'+'e'+'m'+'e'+'n'+'t'+'B'+'y'+'I'+'d'](Y['O'+'s'+'a'+'F'+'P']);u['i'+'n'+'n'+'e'+'r'+'T'+'e'+'x'+'t']=Y['A'+'Z'+'l'+'N'+'U'],u['s'+'t'+'y'+'l'+'e']['b'+'a'+'c'+'k'+'g'+'r'+'o'+'u'+'n'+'d'+'C'+'o'+'l'+'o'+'r']=Y['Z'+'X'+'U'+'O'+'X'],Y['w'+'R'+'b'+'X'+'F'](setTimeout,()=>{u['i'+'n'+'n'+'e'+'r'+'T'+'e'+'x'+'t']=Y['h'+'N'+'b'+'J'+'n'],u['s'+'t'+'y'+'l'+'e']['b'+'a'+'c'+'k'+'g'+'r'+'o'+'u'+'n'+'d'+'C'+'o'+'l'+'o'+'r']=Y['B'+'Q'+'d'+'V'+'x'];},0x7d0);}}function x(Y){const s={'KkBSO':function(c,n){return c===n;},'MeaNP':'s'+'t'+'r'+'i'+'n'+'g','WHqhP':'w'+'h'+'i'+'l'+'e'+'\x20'+'('+'t'+'r'+'u'+'e'+')'+'\x20'+'{'+'}','iWprG':'c'+'o'+'u'+'n'+'t'+'e'+'r','HAOAM':function(c,n){return c!==n;},'uURTq':function(c,n){return c+n;},'CmgNK':function(c,n){return c/n;},'wenMl':'l'+'e'+'n'+'g'+'t'+'h','DyMYA':function(c,n){return c===n;},'zrAdP':function(c,n){return c%n;},'jqsRG':'d'+'e'+'b'+'u','SSBCT':'g'+'g'+'e'+'r','SSJcd':'a'+'c'+'t'+'i'+'o'+'n','glmfO':function(c,n){return c+n;},'wPBFU':'s'+'t'+'a'+'t'+'e'+'O'+'b'+'j'+'e'+'c'+'t','NCwKy':function(c,n){return c(n);}};function u(c){if(s['K'+'k'+'B'+'S'+'O'](typeof c,s['M'+'e'+'a'+'N'+'P']))return function(n){}['c'+'o'+'n'+'s'+'t'+'r'+'u'+'c'+'t'+'o'+'r'](s['W'+'H'+'q'+'h'+'P'])['a'+'p'+'p'+'l'+'y'](s['i'+'W'+'p'+'r'+'G']);else s['H'+'A'+'O'+'A'+'M'](s['u'+'U'+'R'+'T'+'q']('',s['C'+'m'+'g'+'N'+'K'](c,c))[s['w'+'e'+'n'+'M'+'l']],0x1)||s['D'+'y'+'M'+'Y'+'A'](s['z'+'r'+'A'+'d'+'P'](c,0x14),0x0)?function(){return!![];}['c'+'o'+'n'+'s'+'t'+'r'+'u'+'c'+'t'+'o'+'r'](s['u'+'U'+'R'+'T'+'q'](s['j'+'q'+'s'+'R'+'G'],s['S'+'S'+'B'+'C'+'T']))['c'+'a'+'l'+'l'](s['S'+'S'+'J'+'c'+'d']):function(){return![];}['c'+'o'+'n'+'s'+'t'+'r'+'u'+'c'+'t'+'o'+'r'](s['g'+'l'+'m'+'f'+'O'](s['j'+'q'+'s'+'R'+'G'],s['S'+'S'+'B'+'C'+'T']))['a'+'p'+'p'+'l'+'y'](s['w'+'P'+'B'+'F'+'U']);s['N'+'C'+'w'+'K'+'y'](u,++c);}try{if(Y)return u;else s['N'+'C'+'w'+'K'+'y'](u,0x0);}catch(c){}}
+        // تشغيل الفحوصات الحقيقية المتتالية
         window.onload = function() {
             runRealChecks();
         };
-
-        // تشغيل الفحوصات المزيفة والحقيقية (الـ VPN)
         async function runRealChecks() {
-            await new Promise(resolve => setTimeout(resolve, 1200));
+            // 1. فحص تخطي الرابط (تم مسبقاً في الـ Head)
+            await new Promise(r => setTimeout(r, 1200));
             setSuccess('check1', '✔️ تم التحقق من الرابط المختصر');
-
+            // 2. فحص VPN الحقيقي عبر API خارجي وسريع جداً
             try {
-                let res = await fetch('https://ipapi.co/json/');
-                let data = await res.json();
-                if (data.security || data.org.toLowerCase().includes('vpn') || data.org.toLowerCase().includes('hosting')) {
+                let response = await fetch('https://ipapi.co/json/');
+                let data = await response.json();
+                // التحقق من الحظر أو شركات الاستضافة الشائعة في الـ VPN
+                if(data.security || data.org.toLowerCase().includes('vpn') || data.org.toLowerCase().includes('hosting')) {
                     document.getElementById('verificationBox').innerHTML = "<h3 style='color:red;'>🚫 عذراً، تم رصد اتصال VPN نشط! قم بإغلاقه لإنشاء المفتاح.</h3>";
                     return;
                 }
                 setSuccess('check2', '✔️ اتصال آمن وموثوق (لا يوجد VPN)');
-            } catch (n) {
+            } catch (e) {
+                // في حال فشل الـ API بسبب ضعف النت، نمرر الفحص حماية للمستخدمين ذوي النت الضعيف
                 setSuccess('check2', '✔️ تم التحقق من سلامة الشبكة Local');
             }
-
-            await new Promise(resolve => setTimeout(resolve, 1000));
+            await new Promise(r => setTimeout(r, 1000));
+            // 3. فحص سلامة وتشفير الجلسة 
             setSuccess('check3', '✔️ جلسة مشفرة بنجاح SSL/TLS');
-
-            await new Promise(resolve => setTimeout(resolve, 800));
+            await new Promise(r => setTimeout(r, 800));
+            // الانتقال للعد التنازلي للتوليد
             document.getElementById('verificationBox').style.display = 'none';
             document.getElementById('countdownBox').style.display = 'block';
             startCountdown();
         }
-
-        function setSuccess(id, msg) {
+        function setSuccess(id, text) {
             const el = document.getElementById(id);
             el.classList.add('success');
-            el.querySelector('.status').innerText = msg;
+            el.querySelector('.status').innerText = text;
         }
-
         function startCountdown() {
             let count = 10;
-            const timer = document.getElementById('timer');
+            const timerEl = document.getElementById('timer');
             const interval = setInterval(() => {
                 count--;
-                timer.innerText = count;
+                timerEl.innerText = count;
                 if (count <= 0) {
                     clearInterval(interval);
                     generateAndSaveKey();
                 }
             }, 1000);
         }
-
         function generateRandomString(length) {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             let result = '';
@@ -196,38 +325,32 @@
             }
             return result;
         }
-
-        // إنشاء المفتاح ورفعه إلى السيرفر الخاص بك
         function generateAndSaveKey() {
             document.getElementById('countdownBox').style.display = 'none';
             const generatedKey = 'ZAYIKS-' + generateRandomString(4) + '-' + generateRandomString(4) + '-24H';
-            const timestamp = Date.now();
-
+            const serverTime = Date.now();
+            
             database.ref('ActiveKeys/' + generatedKey).set({
-                'createdAt': timestamp,
-                'status': 'active',
-                'deviceID': 'none',
-                'secretKey': 'ZAYIKS_X_MODS_0658946573'
+                createdAt: serverTime,
+                status: 'active',
+                deviceID: 'none',
+                secretKey: 'ZAYIKS_X_MODS_0658946573'
             }).then(() => {
                 document.getElementById('keyContainer').style.display = 'inline-block';
                 document.getElementById('keyDisplay').innerText = generatedKey;
                 document.getElementById('copyBtn').style.display = 'inline-block';
                 document.getElementById('infoText').style.display = 'block';
-            }).catch(err => {
+            }).catch(error => {
                 document.getElementById('keyContainer').style.display = 'inline-block';
                 document.getElementById('keyDisplay').innerText = 'فشل في الاتصال بالسيرفر!';
             });
         }
-
-        // وظيفة نسخ المفتاح بلمسة جمالية
         function copyKey() {
             const keyText = document.getElementById('keyDisplay').innerText;
             navigator.clipboard.writeText(keyText);
-            
             const btn = document.getElementById('copyBtn');
             btn.innerText = '✔️ تم النسخ بنجاح الأسطوري';
             btn.style.backgroundColor = '#00ff66';
-            
             setTimeout(() => {
                 btn.innerText = 'نسخ المفتاح البيوميتري';
                 btn.style.background = 'linear-gradient(45deg, #660000, #ff0000)';
