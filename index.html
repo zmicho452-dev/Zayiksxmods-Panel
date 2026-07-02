@@ -5,33 +5,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZAYIKS X MODS - PREMIUM KEY GENERATOR</title>
     
+
     <script>
-        // --- نظام الطرد الفوري فائق السرعة والأمان (موجود في أعلى الصفحة ليعمل قبل أي شيء) ---
         const token = sessionStorage.getItem('zayiks_secure_token');
         let accessGranted = false;
         if (token) {
             try {
                 const decrypted = atob(token);
                 const originalTime = parseInt(decrypted.split('_')[0]);
-                // التوكن صالح فقط لمدة 15 ثانية من لحظة الخروج من البوابة
-                if (Date.now() - originalTime < 15000) {
-                    accessGranted = true;
-                }
+                if (Date.now() - originalTime < 15000) { accessGranted = true; }
             } catch(e) { accessGranted = false; }
         }
-        // تدمير التوكن فوراً! لو قام بعمل تحديث (Refresh) سيطرد فوراً ولن يولد مفتاحاً آخر
         sessionStorage.removeItem('zayiks_secure_token');
-        if (!accessGranted) {
-            window.location.replace('https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H');
-        }
+        if (!accessGranted) { window.location.replace('https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H'); }
+    </script>
+
+
+    <script>
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.onkeydown = function(e) {
+            if(e.keyCode == 123) return false; 
+            if(e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) return false;
+            if(e.ctrlKey && (e.keyCode == 'U'.charCodeAt(0) || e.keyCode == 'S'.charCodeAt(0))) return false; // Ctrl+U & Ctrl+S
+        };
     </script>
 
     <style>
-        /* --- المظهر الأسطوري والتأثيرات من الكود القديم --- */
-        body { 
-            margin: 0; padding: 0; background-color: #030303; color: white; 
-            font-family: 'Courier New', Courier, monospace; text-align: center; overflow-x: hidden;
-        }
+        body { margin: 0; padding: 0; background-color: #030303; color: white; font-family: 'Courier New', Courier, monospace; text-align: center; overflow-x: hidden; user-select: none; -webkit-user-select: none; }
         #matrix-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; opacity: 0.15; }
         .content-wrapper { position: relative; z-index: 1; margin-top: 50px; display: flex; flex-direction: column; align-items: center; }
         
@@ -40,16 +40,10 @@
             50% { text-shadow: 0 0 25px #ff3333, 0 0 50px #ff0000; transform: scale(1.02); }
             100% { text-shadow: 0 0 10px #ff0000, 0 0 20px #9b0000; transform: scale(1); }
         }
-        h1 { color: #fff; font-size: 3em; font-weight: 900; animation: cyber-glow 2.5s infinite; margin-bottom: 30px; letter-spacing: 2px; }
+        h1 { color: #fff; font-size: 3em; font-weight: 900; animation: cyber-glow 2.5s infinite; margin-bottom: 30px; letter-spacing: 2px; pointer-events: none; }
         
-        .box-style {
-            background: rgba(6, 6, 6, 0.9); border: 2px solid #ff0000; border-radius: 16px;
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3), inset 0 0 15px rgba(255, 0, 0, 0.1); padding: 30px; width: 90%; max-width: 440px;
-        }
-        .check-item {
-            font-size: 16px; margin: 18px 0; color: #888; display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 1px dashed rgba(255, 0, 0, 0.2); padding-bottom: 10px; transition: all 0.5s;
-        }
+        .box-style { background: rgba(6, 6, 6, 0.9); border: 2px solid #ff0000; border-radius: 16px; box-shadow: 0 0 30px rgba(255, 0, 0, 0.3), inset 0 0 15px rgba(255, 0, 0, 0.1); padding: 30px; width: 90%; max-width: 440px; }
+        .check-item { font-size: 16px; margin: 18px 0; color: #888; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(255, 0, 0, 0.2); padding-bottom: 10px; transition: all 0.5s; }
         .check-item span.status { font-weight: bold; color: #ff3333; }
         .check-item.success { color: #00ff66; text-shadow: 0 0 10px rgba(0,255,102,0.5); border-bottom-color: rgba(0,255,102,0.3); }
         .check-item.success span.status { color: #00ff66; }
@@ -57,34 +51,21 @@
         .countdown-container { font-size: 20px; margin: 20px 0; display: none; }
         #timer { font-size: 55px; color: #ff0000; font-weight: bold; text-shadow: 0 0 20px #ff0000; margin-top: 10px; }
 
-        /* صندوق المفتاح الأسطوري */
-        .key-box { 
-            display: none; margin-top: 25px; background: linear-gradient(135deg, #100000 0%, #250000 100%);
-            border: 2px dashed #ff0000; position: relative; overflow: hidden; animation: neon-border 2s infinite alternate;
-        }
-        @keyframes neon-border {
-            from { box-shadow: 0 0 15px #ff0000; border-color: #ff0000; }
-            to { box-shadow: 0 0 35px #ff3333; border-color: #ff6666; }
-        }
+        .key-box { display: none; margin-top: 25px; background: linear-gradient(135deg, #100000 0%, #250000 100%); border: 2px dashed #ff0000; position: relative; overflow: hidden; animation: neon-border 2s infinite alternate; }
+        @keyframes neon-border { from { box-shadow: 0 0 15px #ff0000; border-color: #ff0000; } to { box-shadow: 0 0 35px #ff3333; border-color: #ff6666; } }
         #keyDisplay { font-size: 26px; font-weight: bold; color: #fff; letter-spacing: 3px; text-shadow: 0 0 20px #ff3333; }
         
-        .btn { 
-            background: linear-gradient(45deg, #660000, #ff0000); color: white; padding: 16px 40px; border: 1px solid #ff3333; 
-            border-radius: 30px; cursor: pointer; margin-top: 25px; font-size: 18px; font-weight: bold; transition: all 0.3s;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); display: none; text-transform: uppercase; width: 90%; max-width: 440px;
-        }
+        .btn { background: linear-gradient(45deg, #660000, #ff0000); color: white; padding: 16px 40px; border: 1px solid #ff3333; border-radius: 30px; cursor: pointer; margin-top: 25px; font-size: 18px; font-weight: bold; transition: all 0.3s; box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); display: none; text-transform: uppercase; width: 90%; max-width: 440px; }
         .btn:hover { background: linear-gradient(45deg, #ff0000, #ff5555); box-shadow: 0 0 35px #ff0000; transform: translateY(-3px); }
         .info { color: #aaa; font-size: 14px; margin-top: 20px; display: none; line-height: 1.6; max-width: 400px; text-align: center; }
     </style>
 </head>
 <body>
-    <!-- خلفية الماتريكس المتحركة -->
     <canvas id="matrix-bg"></canvas>
     
     <div class="content-wrapper" id="mainContainer">
         <h1>ZAYIKS X MODS</h1>
         
-        <!-- صندوق الفحص -->
         <div class="box-style" id="verificationBox">
             <h3 style="text-align: center; color: #ff3333; margin-top: 0; letter-spacing: 1px;">🔐 جاري فحص جدار الحماية...</h3>
             <div class="check-item" id="check1">التحقق من تخطي الرابط <span class="status">جاري الفحص...</span></div>
@@ -92,23 +73,19 @@
             <div class="check-item" id="check3">تشفير الجلسة الحالية <span class="status">جاري الفحص...</span></div>
         </div>
 
-        <!-- صندوق العداد التنازلي الأسطوري -->
         <div class="countdown-container" id="countdownBox">
             <p style="color: #ccc;">جاري تشفير وتوليد مفتاحك الخاص...</p>
             <div id="timer">10</div>
         </div>
 
-        <!-- صندوق عرض المفتاح -->
         <div class="key-box box-style" id="keyContainer">
             <span id="keyDisplay">جاري المعالجة...</span>
         </div>
         
-        <!-- زر النسخ ومعلومات المفتاح -->
         <button class="btn" id="copyBtn" onclick="copyKey()">نسخ المفتاح البيوميتري</button>
         <p class="info" id="infoText">المفتاح مشفر لجهاز واحد فقط ولمدة 24 ساعة من وقت تفعيله داخل التطبيق.</p>
     </div>
 
-    <!-- حماية ضد سبام تحديث الصفحة (محفوظة من الكود الحالي لضمان الأمان) -->
     <script>
         if (localStorage.getItem('zayiks_key_generated_today')) {
             document.getElementById('mainContainer').innerHTML = "<h2 style='color:red; text-shadow: 0 0 20px red;'>🚫 تم إيقاف العملية!</h2><p style='color:white; font-size:16px;'>لقد قمت بتوليد مفتاحك بالفعل.</p><p style='color:#aaa; font-size:14px;'>موقع اختصار الروابط يتذكر جهازك لمدة 24 ساعة، لا تحاول التحايل لتوليد مفاتيح عشوائية.</p>";
@@ -124,12 +101,10 @@
         }
     </script>
 
-    <!-- مكاتب الفايربيس -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // --- 1. تأثير الماتريكس الفخم باللون الأحمر ---
         const canvas = document.getElementById('matrix-bg');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth; canvas.height = window.innerHeight;
@@ -149,33 +124,27 @@
         setInterval(drawMatrix, 33);
         window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
 
-        // --- 2. إعدادات الفايربيس ---
-        const firebaseConfig = {
-            apiKey: 'AIzaSyCJs56D8IzwVaHNBtM5h1ViCMyRUM15MFU',
-            authDomain: 'zayiksxxit.firebaseapp.com',
-            databaseURL: 'https://zayiksxxit-default-rtdb.firebaseio.com',
-            projectId: 'zayiksxxit',
-            storageBucket: 'zayiksxxit.appspot.com',
-            messagingSenderId: '6437733976316',
-            appId: '1:6437733976316:web:9789f3f5066e298c0b1179'
+    
+        const _0x5f = { d: function(s) { return decodeURIComponent(atob(s).split('').map(function(c) { return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2); }).join('')); } };
+        const _0xcfg = {
+            apiKey: _0x5f.d("QUl6YVN5Q0pzNTZEOEl6d1ZhSE5CdE01aDFWaUNNeVJVTTE1TUZV"),
+            authDomain: _0x5f.d("emF5aWtzeHhpdC5maXJlYmFzZWFwcC5jb20="),
+            databaseURL: _0x5f.d("aHR0cHM6Ly96YXlpa3N4eGl0LWRlZmF1bHQtcnRkYi5maXJlYmFzZWlvLmNvbQ=="),
+            projectId: _0x5f.d("emF5aWtzeHhpdA=="),
+            storageBucket: _0x5f.d("emF5aWtzeHhpdC5hcHBzcG90LmNvbQ=="),
+            messagingSenderId: _0x5f.d("NjQzNzczMzk3NjMxNg=="),
+            appId: _0x5f.d("MTo2NDM3NzMzOTc2MzE2OndlYjo5Nzg5ZjNmNTA2NmUyOThjMGIxMTc5")
         };
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
+        firebase.initializeApp(_0xcfg);
+        const _0xdb = firebase.database();
 
-        // --- 3. تشغيل الفحوصات عند فتح الصفحة ---
         window.onload = function() {
-            if(!localStorage.getItem('zayiks_key_generated_today')){
-                runRealChecks();
-            }
+            if(!localStorage.getItem('zayiks_key_generated_today')){ runRealChecks(); }
         };
 
-        // --- 4. الفحوصات الأمنية والـ VPN ---
         async function runRealChecks() {
-            // محاكاة الفحص الأول
             await new Promise(r => setTimeout(r, 1200));
             setSuccess('check1', '✔️ تم التحقق من الرابط المختصر');
-
-            // فحص الـ VPN الموثوق
             try {
                 let response = await fetch('https://ipapi.co/json/');
                 let data = await response.json();
@@ -185,16 +154,11 @@
                 }
                 setSuccess('check2', '✔️ اتصال آمن وموثوق (لا يوجد VPN)');
             } catch (e) {
-                // في حال فشل API الفحص، تمرير آمن
                 setSuccess('check2', '✔️ تم التحقق من سلامة الشبكة Local');
             }
-            
             await new Promise(r => setTimeout(r, 1000));
             setSuccess('check3', '✔️ جلسة مشفرة بنجاح SSL/TLS');
-            
             await new Promise(r => setTimeout(r, 800));
-
-            // الانتقال للعد التنازلي
             document.getElementById('verificationBox').style.display = 'none';
             document.getElementById('countdownBox').style.display = 'block';
             startCountdown();
@@ -206,7 +170,6 @@
             el.querySelector('.status').innerText = text;
         }
 
-        // --- 5. العداد التنازلي (10 ثواني) ---
         function startCountdown() {
             let count = 10;
             const timerEl = document.getElementById('timer');
@@ -215,35 +178,30 @@
                 timerEl.innerText = count;
                 if (count <= 0) {
                     clearInterval(interval);
-                    generateAndSaveKey();
+                    _0xGenAndSave();
                 }
             }, 1000);
         }
 
-        function generateRandomString(length) {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let result = '';
-            for (let i = 0; i < length; i++) {
-                result += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
+        function _0xRand(length) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'; let result = '';
+            for (let i = 0; i < length; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
             return result;
         }
 
-        // --- 6. توليد المفتاح ورفعه للفايربيس ---
-        function generateAndSaveKey() {
+        function _0xGenAndSave() {
             document.getElementById('countdownBox').style.display = 'none';
+            const _0xKey = 'ZAYIKS-' + _0xRand(4) + '-' + _0xRand(4) + '-24H';
+            const _0xTime = Date.now();
             
-            const generatedKey = 'ZAYIKS-' + generateRandomString(4) + '-' + generateRandomString(4) + '-24H';
-            const serverTime = Date.now();
-            
-            database.ref('ActiveKeys/' + generatedKey).set({
-                createdAt: serverTime,
+            _0xdb.ref('ActiveKeys/' + _0xKey).set({
+                createdAt: _0xTime,
                 status: 'active',
                 deviceID: 'none',
-                secretKey: 'ZAYIKS_X_MODS_0658946573'
+                secretKey: _0x5f.d("WkFZSUtTX1hfTU9EU18wNjU4OTQ2NTcz")
             }).then(() => {
                 document.getElementById('keyContainer').style.display = 'block';
-                document.getElementById('keyDisplay').innerText = generatedKey;
+                document.getElementById('keyDisplay').innerText = _0xKey;
                 document.getElementById('copyBtn').style.display = 'block';
                 document.getElementById('infoText').style.display = 'block';
             }).catch(error => {
@@ -252,7 +210,6 @@
             });
         }
 
-        // --- 7. دالة النسخ مع تغيير الزر ---
         function copyKey() {
             const keyText = document.getElementById('keyDisplay').innerText;
             navigator.clipboard.writeText(keyText);
@@ -261,7 +218,6 @@
             btn.style.background = 'linear-gradient(45deg, #009933, #00ff66)';
             btn.style.color = '#000';
             btn.style.boxShadow = '0 0 35px #00ff66';
-            
             setTimeout(() => {
                 btn.innerText = 'نسخ المفتاح البيوميتري';
                 btn.style.background = 'linear-gradient(45deg, #660000, #ff0000)';
