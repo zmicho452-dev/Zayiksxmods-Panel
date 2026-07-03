@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>ZAYIKS X MODS - Verifying...</title>
 </head>
 <body>
     <script>
-        
-        const gateTime = Date.now().toString();
-        const secureToken = btoa(gateTime + "_ZAYIKS_ULTRA_PASS");
-        sessionStorage.setItem("zayiks_secure_token", secureToken);
-        window.location.replace("index.html");
+        const now = Date.now().toString();
+        const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
+        window.location.replace("index.html?verify_token=" + secureToken);
     </script>
 </body>
 </html>
