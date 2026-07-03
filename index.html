@@ -4,49 +4,40 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZAYIKS X MODS - PREMIUM KEY GENERATOR</title>
-    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Orbitron:wght@700;900&display=swap');
-
         body { margin: 0; padding: 0; background-color: #050505; color: white; font-family: 'Cairo', sans-serif; text-align: center; overflow-x: hidden; user-select: none; -webkit-user-select: none; }
         #matrix-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; opacity: 0.2; }
         .watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); font-family: 'Orbitron', sans-serif; font-size: 10vw; color: rgba(255, 0, 0, 0.03); white-space: nowrap; z-index: -1; pointer-events: none; }
         .content-wrapper { position: relative; z-index: 1; margin-top: 40px; display: flex; flex-direction: column; align-items: center; width: 100%; padding: 0 15px; box-sizing: border-box; }
-        
         @keyframes cyber-glow {
             0% { text-shadow: 0 0 10px #ff0000, 0 0 20px #9b0000; transform: scale(1); }
             50% { text-shadow: 0 0 25px #ff3333, 0 0 50px #ff0000; transform: scale(1.05); }
             100% { text-shadow: 0 0 10px #ff0000, 0 0 20px #9b0000; transform: scale(1); }
         }
         h1 { font-family: 'Orbitron', sans-serif; color: #fff; font-size: 2.8em; font-weight: 900; animation: cyber-glow 2.5s infinite; margin-bottom: 25px; letter-spacing: 3px; }
-        
         .box-style { background: rgba(10, 0, 0, 0.85); border: 2px solid #ff0000; border-radius: 20px; box-shadow: 0 0 30px rgba(255, 0, 0, 0.2), inset 0 0 20px rgba(255, 0, 0, 0.1); padding: 25px; width: 100%; max-width: 400px; backdrop-filter: blur(5px); }
         .check-item { font-size: 15px; margin: 15px 0; color: #aaa; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(255, 0, 0, 0.3); padding-bottom: 10px; transition: all 0.5s ease-in-out; }
         .check-item span.status { font-weight: bold; color: #ff3333; font-size: 13px; }
         .check-item.success { color: #00ff66; text-shadow: 0 0 10px rgba(0,255,102,0.4); border-bottom-color: rgba(0,255,102,0.3); transform: translateX(-5px); }
         .check-item.success span.status { color: #00ff66; }
-        
         .countdown-container { display: none; margin: 30px 0; width: 100%; max-width: 350px; }
         .hacker-timer-bg { background: linear-gradient(180deg, #1a0000 0%, #330000 100%); border: 2px solid #ff0000; border-radius: 50%; width: 120px; height: 120px; margin: 0 auto; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 40px rgba(255,0,0,0.4), inset 0 0 20px #000; position: relative; overflow: hidden; }
         .hacker-timer-bg::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(transparent, rgba(255,0,0,0.8), transparent 30%); animation: radar-spin 2s linear infinite; }
         .hacker-timer-bg::after { content: ''; position: absolute; inset: 4px; background: #0a0000; border-radius: 50%; }
         @keyframes radar-spin { 100% { transform: rotate(360deg); } }
         #timer { position: relative; z-index: 10; font-family: 'Orbitron', sans-serif; font-size: 50px; color: #ff3333; font-weight: bold; text-shadow: 0 0 20px #ff0000; transition: all 0.3s; }
-
         .key-box { display: none; margin-top: 20px; background: linear-gradient(135deg, #0a0000 0%, #1a0000 100%); border: 3px solid #ff0000; position: relative; padding: 40px 20px; border-radius: 25px; animation: key-pulse 2s infinite alternate; }
         @keyframes key-pulse { from { box-shadow: 0 0 20px rgba(255,0,0,0.5), inset 0 0 10px rgba(255,0,0,0.3); border-color: #ff0000; transform: scale(1); } to { box-shadow: 0 0 50px rgba(255,51,51,0.8), inset 0 0 30px rgba(255,0,0,0.5); border-color: #ff6666; transform: scale(1.03); } }
         #keyDisplay { font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 900; color: #fff; letter-spacing: 2px; text-shadow: 0 0 15px #ff3333; word-wrap: break-word; }
         .key-title { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: #050505; color: #ff3333; padding: 0 15px; font-size: 14px; font-weight: bold; border: 1px solid #ff0000; border-radius: 10px; }
-
         .btn { background: linear-gradient(45deg, #800000, #ff0000); color: white; padding: 18px 0; border: none; border-radius: 40px; cursor: pointer; margin-top: 30px; font-size: 18px; font-weight: 900; font-family: 'Cairo', sans-serif; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 25px rgba(255, 0, 0, 0.5); display: none; text-transform: uppercase; width: 100%; max-width: 350px; position: relative; overflow: hidden; letter-spacing: 1px; }
         .btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: 0.5s; }
         .btn:hover::before { left: 100%; }
         .btn:hover { background: linear-gradient(45deg, #ff0000, #ff4d4d); box-shadow: 0 15px 35px rgba(255, 0, 0, 0.8); transform: translateY(-5px) scale(1.02); }
         .btn:active { transform: translateY(2px) scale(0.98); }
-        
         .info { color: #888; font-size: 13px; margin-top: 25px; display: none; line-height: 1.8; padding: 0 20px; }
         .info strong { color: #ff3333; }
-
         .block-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; text-align: center; animation: fadeIn 0.5s ease-in; padding: 20px; }
         .block-icon { font-size: 70px; margin-bottom: 5px; animation: pulse-icon 2s infinite; }
         @keyframes pulse-icon { 0% { transform: scale(1); text-shadow: 0 0 10px #ff0000; } 50% { transform: scale(1.1); text-shadow: 0 0 30px #ff0000; } 100% { transform: scale(1); text-shadow: 0 0 10px #ff0000; } }
@@ -56,7 +47,6 @@
         .timer-box { margin-top: 35px; background: rgba(20, 0, 0, 0.8); border: 2px solid #ff0000; padding: 20px 40px; border-radius: 20px; box-shadow: 0 0 30px rgba(255,0,0,0.4); }
         .timer-box p { margin: 0 0 10px 0; color: #aaa; font-size: 15px; font-weight: bold; }
         .block-timer { font-family: 'Orbitron', sans-serif; font-size: 2.5em; color: #00ff66; text-shadow: 0 0 20px #00ff66; font-weight: bold; letter-spacing: 2px; }
-
         .social-ball { position: fixed; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; text-decoration: none; z-index: 9999; background: rgba(10, 0, 0, 0.6); backdrop-filter: blur(8px); border: 2px solid transparent; box-shadow: 0 0 20px rgba(255, 0, 0, 0.4), inset 0 0 15px rgba(255, 0, 0, 0.2); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden; }
         .social-ball::before { content: ''; position: absolute; width: 150%; height: 150%; background: conic-gradient(transparent, transparent, transparent, #ff0000, #ff6666); animation: spin-border 2.5s linear infinite; opacity: 0.8; }
         .social-ball::after { content: ''; position: absolute; inset: 3px; background: #050505; border-radius: 50%; z-index: 1; }
@@ -103,7 +93,7 @@
             <span id="keyDisplay">جاري المعالجة...</span>
         </div>
         
-        <button class="btn" id="copyBtn" onclick="copyKey()">نسخ المفتاح الأسطوري</button>
+        <button class="btn" id="copyBtn" onclick="copyKey()">نسخ المفتاح</button>
         <p class="info" id="infoText">هذا المفتاح مشفر لـ <strong>جهاز واحد فقط</strong> وصالح لمدة <strong>24 ساعة</strong> من وقت تفعيله داخل تطبيق ZAYIKS X MODS.</p>
     </div>
 
@@ -132,15 +122,26 @@
         moveSocials();
 
         window.onload = async function() {
-            if(!sessionStorage.getItem("zayiks_secure_token")) {
-                document.getElementById('mainContainer').innerHTML = `
-                    <div class="block-screen">
-                        <div class="block-icon" style="color:#ff3333; text-shadow:0 0 20px #ff0000;">⚠️</div>
-                        <h1 class="block-title" style="font-size:3em;">وصول غير مصرح!</h1>
-                        <p class="block-subtitle" style="margin-top:15px; color:#ddd; font-size:1.2em;">عذراً، لا يمكنك الوصول إلى هذه الصفحة مباشرة.</p>
-                        <p class="block-desc" style="margin-bottom:20px;">يجب عليك تخطي الرابط أولاً ليتم التحقق من هويتك ومنحك المفتاح الخاص بك.</p>
-                        <a href="https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H" class="btn" style="display:inline-block; text-decoration:none;">أختصر الآن للحصول على المفتاح</a>
-                    </div>`;
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('verify_token');
+            let isAuthorized = false;
+
+            if (token) {
+                try {
+                    const decoded = atob(token);
+                    if (decoded.includes("_ZAYIKS_ULTRA_PASS")) {
+                        const timestamp = parseInt(decoded.split("_")[0]);
+                        const now = Date.now();
+                        if (now - timestamp < 120000) {
+                            isAuthorized = true;
+                            window.history.replaceState({}, document.title, window.location.pathname);
+                        }
+                    }
+                } catch(e) {}
+            }
+
+            if(!isAuthorized) {
+                showUnauthorizedScreen();
                 return;
             }
 
@@ -148,42 +149,68 @@
                 let ipReq = await fetch('https://api.ipify.org?format=json');
                 let ipData = await ipReq.json();
                 window.userIP = ipData.ip.replace(/\./g, '_'); 
-                
-                _0xdb.ref('IP_Limits/' + window.userIP).once('value').then(async (snapshot) => {
-                    let now = Date.now();
-                    let canGenerate = true;
-                    let timeRemaining = 0;
+            } catch (e) {
+                try {
+                    let fallbackReq = await fetch('https://ipapi.co/json/');
+                    let fallbackData = await fallbackReq.json();
+                    window.userIP = fallbackData.ip.replace(/\./g, '_');
+                } catch (err) {
+                    showUnauthorizedScreen();
+                    return;
+                }
+            }
 
-                    if (snapshot.exists()) {
-                        let lastTime = snapshot.val().time;
-                        let savedKey = snapshot.val().key; 
-                        let timeDiff = now - lastTime;
-                        
-                        if (timeDiff < 86400000) { 
-                            if (savedKey) {
+            try {
+                let snapshot = await _0xdb.ref('IP_Limits/' + window.userIP).once('value');
+                let now = Date.now();
+                let canGenerate = true;
+                let timeRemaining = 0;
+
+                if (snapshot.exists()) {
+                    let lastTime = snapshot.val().time;
+                    let savedKey = snapshot.val().key; 
+                    let timeDiff = now - lastTime;
+                    
+                    if (timeDiff < 86400000) { 
+                        if (savedKey) {
+                            try {
                                 let keyCheck = await _0xdb.ref('ActiveKeys/' + savedKey).once('value');
                                 if (keyCheck.exists()) {
                                     canGenerate = false; 
                                     timeRemaining = 86400000 - timeDiff;
-                                } 
-                            } else {
-                                canGenerate = false; 
+                                }
+                            } catch (err) {
+                                canGenerate = false;
                                 timeRemaining = 86400000 - timeDiff;
                             }
+                        } else {
+                            canGenerate = false; 
+                            timeRemaining = 86400000 - timeDiff;
                         }
                     }
-                    
-                    if (!canGenerate) {
-                        showBlockScreen(timeRemaining);
-                    } else {
-                        runRealChecks(); 
-                    }
-                }).catch(e => runRealChecks());
+                }
+                
+                if (!canGenerate) {
+                    showBlockScreen(timeRemaining);
+                } else {
+                    runRealChecks(); 
+                }
             } catch (e) {
-                runRealChecks(); 
+                showUnauthorizedScreen();
             }
         };
         
+        function showUnauthorizedScreen() {
+            document.getElementById('mainContainer').innerHTML = `
+                <div class="block-screen">
+                    <div class="block-icon" style="color:#ff3333; text-shadow:0 0 20px #ff0000;">⚠️</div>
+                    <h1 class="block-title" style="font-size:3em;">وصول غير مصرح!</h1>
+                    <p class="block-subtitle" style="margin-top:15px; color:#ddd; font-size:1.2em;">عذراً، لا يمكنك الوصول إلى هذه الصفحة مباشرة أو بتحديث الصفحة.</p>
+                    <p class="block-desc" style="margin-bottom:20px;">يجب عليك تخطي الرابط أولاً ليتم التحقق من هويتك ومنحك المفتاح الخاص بك.</p>
+                    <a href="https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H" class="btn" style="display:inline-block; text-decoration:none;">أختصر الآن للحصول على المفتاح</a>
+                </div>`;
+        }
+
         function showBlockScreen(timeRemaining) {
             document.getElementById('mainContainer').innerHTML = `
                 <div class="block-screen">
@@ -214,42 +241,83 @@
             }, 1000);
         }
 
+        function showVPNScreen() {
+            document.getElementById('mainContainer').innerHTML = `
+                <div class="block-screen">
+                    <div class="block-icon" style="color:#ff3333; text-shadow:0 0 20px #ff0000;">⛔</div>
+                    <h1 class="block-title" style="font-size:3em;">تم اكتشاف VPN!</h1>
+                    <p class="block-subtitle" style="margin-top:15px; color:#ddd; font-size:1.2em;">الرجاء إغلاق الـ VPN للحصول على المفتاح.</p>
+                    <p class="block-desc" style="margin-bottom:20px;">نظام الحماية رصد استخدامك لشبكة وهمية. أغلق الـ VPN ثم ارجع اختصر الرابط.</p>
+                    <a href="https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H" class="btn" style="display:inline-block; text-decoration:none;">إعادة التخطي</a>
+                </div>`;
+        }
+
         async function runRealChecks(){
-            const q=O;
-            await new Promise(M=>setTimeout(M,0x5dc));
-            setSuccess(q(0x1e1),q(0x200)); 
-            try{
-                let M=await fetch('https://ipapi.co/json/');
-                let v=await M[q(0x1f9)]();
-                if(v[q(0x21b)]||v['org']['toLowerCase']()[q(0x1d1)]('vpn')||v[q(0x1dc)][q(0x225)]()[q(0x1d1)](q(0x1ff))){
-                    document[q(0x1e3)]('verificationBox')['innerHTML']=q(0x217); 
-                    return;
+            await new Promise(r => setTimeout(r, 1000));
+            setSuccess('check1', 'تم التخطي بنجاح');
+            
+            try {
+                let req = await fetch('https://ipapi.co/json/');
+                let res = await req.json();
+                
+                if (res.security && (res.security.vpn || res.security.proxy)) {
+                    showVPNScreen(); return;
                 }
-                setSuccess('check2',q(0x1f1));
-            }catch(W){
-                setSuccess('check2',q(0x20b));
+                if (res.org && res.org.toLowerCase().includes('vpn')) {
+                    showVPNScreen(); return;
+                }
+                setSuccess('check2', 'اتصال نظيف');
+            } catch(e) {
+                showVPNScreen(); 
+                return;
             }
-            await new Promise(n=>setTimeout(n,0x4b0));
-            setSuccess(q(0x222),q(0x1e4));
-            await new Promise(n=>setTimeout(n,0x3e8));
-            document[q(0x1e3)](q(0x20e))['style'][q(0x1f4)]=q(0x209);
-            document[q(0x1e3)]('countdownBox')[q(0x1f3)]['display']=q(0x21e);
+            
+            await new Promise(r => setTimeout(r, 800));
+            setSuccess('check3', 'تم التشفير');
+            
+            await new Promise(r => setTimeout(r, 800));
+            document.getElementById('verificationBox').style.display = 'none';
+            document.getElementById('countdownBox').style.display = 'block';
             startCountdown();
         }
 
-        function setSuccess(M,v){const V=O,W=document[V(0x1e3)](M);W&&(W[V(0x20d)]['add'](V(0x215)),W[V(0x205)]('.status')[V(0x224)]=v);}
-        function startCountdown(){const g=O;let M=0xa;const v=document[g(0x1e3)](g(0x1e2)),W=setInterval(()=>{M--,v['innerText']=M,M<=0x0&&(clearInterval(W),_0xGenAndSave());},0x3e8);}
-        function _0xRand(M){const t=O,v=t(0x221);let W='';for(let n=0x0;n<M;n++)W+=v[t(0x1de)](Math[t(0x219)](Math[t(0x1d0)]()*v[t(0x20c)]));return W;}
+        function setSuccess(id, text) {
+            let el = document.getElementById(id);
+            if(el) {
+                el.classList.add('success');
+                el.querySelector('.status').innerText = text;
+            }
+        }
+
+        function startCountdown(){
+            let M = 10;
+            const v = document.getElementById('timer');
+            const W = setInterval(()=>{
+                M--;
+                v.innerText = M;
+                if(M <= 0) {
+                    clearInterval(W);
+                    _0xGenAndSave();
+                }
+            }, 1000);
+        }
+
+        function _0xRand(M){
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let W = '';
+            for(let n=0; n<M; n++) W += chars.charAt(Math.floor(Math.random() * chars.length));
+            return W;
+        }
 
         async function _0xGenAndSave(){
-            const J=O;
             document.getElementById('countdownBox').style.display = 'none';
             let now = Date.now();
-            const M='ZAYIKS-'+_0xRand(0x5)+'-'+_0xRand(0x5)+J(0x21f);
+            const M = 'ZAYIKS-' + _0xRand(5) + '-' + _0xRand(5) + '-VIP';
             
             _0xdb.ref('ActiveKeys/'+M).set({
                 'createdAt': now,
                 'status': 'active',
+                'usageState': 'غير مستخدم',
                 'deviceID': 'none',
                 'secretKey': _0x5f['d']('WkFZSUtTX1hfTU9EU18wNjU4OTQ2NTcz')
             }).then(() => {
@@ -260,17 +328,25 @@
                 document.getElementById('keyContainer').style.display = 'block';
                 document.getElementById('copyBtn').style.display = 'block';
                 document.getElementById('infoText').style.display = 'block';
-                
-                sessionStorage.removeItem("zayiks_secure_token");
-                
             }).catch(W => {
-                document.getElementById('keyContainer').style.display = 'none';
                 document.getElementById('keyDisplay').innerText = 'خطأ في الاتصال بالخادم!';
                 document.getElementById('keyContainer').style.display = 'block';
             });
         }
 
-        function copyKey(){const B=O,M=document[B(0x1e3)](B(0x1d2))['innerText'];navigator['clipboard'][B(0x220)](M);const v=document[B(0x1e3)]('copyBtn');v[B(0x224)]=B(0x1d3),v[B(0x1f3)][B(0x1e9)]=B(0x213),v[B(0x1f3)][B(0x207)]=B(0x1f6),v[B(0x1f3)][B(0x1ca)]=B(0x1e6),v[B(0x1f3)][B(0x206)]=B(0x1da),setTimeout(()=>{const u=B;v[u(0x224)]=u(0x1ec),v['style'][u(0x1e9)]=u(0x1fb),v[u(0x1f3)][u(0x207)]=u(0x1f2),v['style'][u(0x1ca)]=u(0x1d7),v[u(0x1f3)][u(0x206)]=u(0x1ee);},0xbb8);}
+        function copyKey(){
+            const M = document.getElementById('keyDisplay').innerText;
+            navigator.clipboard.writeText(M);
+            const v = document.getElementById('copyBtn');
+            v.innerText = 'تم النسخ!';
+            v.style.background = 'linear-gradient(45deg, #008000, #00ff00)';
+            v.style.boxShadow = '0 10px 25px rgba(0, 255, 0, 0.5)';
+            setTimeout(()=>{
+                v.innerText = 'نسخ المفتاح';
+                v.style.background = 'linear-gradient(45deg, #800000, #ff0000)';
+                v.style.boxShadow = '0 10px 25px rgba(255, 0, 0, 0.5)';
+            }, 3000);
+        }
     </script>
 </body>
 </html>
