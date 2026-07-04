@@ -16,7 +16,7 @@
             100% { text-shadow: 0 0 10px #ff0000, 0 0 20px #9b0000; transform: scale(1); }
         }
         h1 { font-family: 'Orbitron', sans-serif; color: #fff; font-size: 2.8em; font-weight: 900; animation: cyber-glow 2.5s infinite; margin-bottom: 25px; letter-spacing: 3px; }
-        .box-style { background: rgba(10, 0, 0, 0.85); border: 2px solid #ff0000; border-radius: 20px; box-shadow: 0 0 30px rgba(255, 0, 0, 0.2), inset 0 0 20px rgba(255, 0, 0, 0.1); padding: 25px; width: 100%; max-width: 400px; backdrop-filter: blur(5px); }
+        .box-style { background: rgba(10, 0, 0, 0.85); border: 2px solid #ff0000; border-radius: 20px; box-shadow: 0 0 30px rgba(255, 0, 0, 0.2), inset 0 0 20px rgba(255, 0, 0, 0.1); padding: 25px; width: 100%; max-width: 400px; backdrop-filter: blur(5px); transition: all 0.5s ease; }
         .check-item { font-size: 15px; margin: 15px 0; color: #aaa; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(255, 0, 0, 0.3); padding-bottom: 10px; transition: all 0.5s ease-in-out; }
         .check-item span.status { font-weight: bold; color: #ff3333; font-size: 13px; }
         .check-item.success { color: #00ff66; text-shadow: 0 0 10px rgba(0,255,102,0.4); border-bottom-color: rgba(0,255,102,0.3); transform: translateX(-5px); }
@@ -237,12 +237,14 @@
             
             try {
                 let req = await fetch('https://ipapi.co/json/');
-                let res = await req.json();
-                
-                if (res.security && (res.security.vpn || res.security.proxy || res.security.tor)) {
-                    isVpnDetected = true;
+                if(req.ok) {
+                    let res = await req.json();
+                    if (res.security && (res.security.vpn || res.security.proxy || res.security.tor)) {
+                        isVpnDetected = true;
+                    }
                 }
             } catch(e) {
+                isVpnDetected = false; 
             }
             
             await new Promise(r => setTimeout(r, 800));
@@ -258,10 +260,14 @@
             await new Promise(r => setTimeout(r, 1000));
             
             if(isVpnDetected) {
-                document.getElementById('verificationBox').innerHTML = `
-                    <h3 style="color: #ff3333; margin-top: 0; text-shadow: 0 0 10px rgba(255,0,0,0.5);">⛔ تم اكتشاف VPN!</h3>
-                    <p style="color: #ccc; font-size: 14px; margin-bottom: 20px;">نظام الحماية رصد استخدامك لشبكة وهمية (VPN أو Proxy). يرجى إيقاف الـ VPN للحصول على المفتاح.</p>
-                    <a href="https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H" class="btn show-btn" style="text-decoration:none; padding: 12px 0;">إعادة التخطي بدون VPN</a>
+                document.getElementById('verificationBox').innerHTML += `
+                    <div style="margin-top: 20px; padding-top: 20px; border-top: 1px dashed rgba(255,0,0,0.4); animation: fadeIn 0.5s;">
+                        <h4 style="color: #ff3333; margin: 0 0 10px 0;">⛔ فشل التحقق الأمني!</h4>
+                        <p style="color: #ccc; font-size: 13px; line-height: 1.6; margin-bottom: 20px;">
+                            يرجى إيقاف الـ VPN ثم إعادة تخطي الرابط للحصول على المفتاح الخاص بك.
+                        </p>
+                        <a href="https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H" class="btn show-btn" style="text-decoration:none; padding: 12px 0; font-size: 15px;">إعادة التخطي بدون VPN</a>
+                    </div>
                 `;
                 return; 
             }
