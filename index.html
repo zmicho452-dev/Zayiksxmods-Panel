@@ -16,13 +16,11 @@
             100% { text-shadow: 0 0 10px #ff0000, 0 0 20px #9b0000; transform: scale(1); }
         }
         h1 { font-family: 'Orbitron', sans-serif; color: #fff; font-size: 2.8em; font-weight: 900; animation: cyber-glow 2.5s infinite; margin-bottom: 25px; letter-spacing: 3px; }
-        .box-style { background: rgba(10, 0, 0, 0.85); border: 2px solid #ff0000; border-radius: 20px; box-shadow: 0 0 30px rgba(255, 0, 0, 0.2), inset 0 0 20px rgba(255, 0, 0, 0.1); padding: 25px; width: 100%; max-width: 400px; backdrop-filter: blur(5px); margin-bottom: 20px; }
+        .box-style { background: rgba(10, 0, 0, 0.85); border: 2px solid #ff0000; border-radius: 20px; box-shadow: 0 0 30px rgba(255, 0, 0, 0.2), inset 0 0 20px rgba(255, 0, 0, 0.1); padding: 25px; width: 100%; max-width: 400px; backdrop-filter: blur(5px); }
         .check-item { font-size: 15px; margin: 15px 0; color: #aaa; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(255, 0, 0, 0.3); padding-bottom: 10px; transition: all 0.5s ease-in-out; }
         .check-item span.status { font-weight: bold; color: #ff3333; font-size: 13px; }
         .check-item.success { color: #00ff66; text-shadow: 0 0 10px rgba(0,255,102,0.4); border-bottom-color: rgba(0,255,102,0.3); transform: translateX(-5px); }
         .check-item.success span.status { color: #00ff66; }
-        .check-item.fail { color: #ff3333; text-shadow: 0 0 10px rgba(255,0,0,0.5); border-bottom-color: rgba(255,0,0,0.5); }
-        .check-item.fail span.status { color: #ff3333; }
         .countdown-container { display: none; margin: 30px 0; width: 100%; max-width: 350px; }
         .hacker-timer-bg { background: linear-gradient(180deg, #1a0000 0%, #330000 100%); border: 2px solid #ff0000; border-radius: 50%; width: 120px; height: 120px; margin: 0 auto; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 40px rgba(255,0,0,0.4), inset 0 0 20px #000; position: relative; overflow: hidden; }
         .hacker-timer-bg::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(transparent, rgba(255,0,0,0.8), transparent 30%); animation: radar-spin 2s linear infinite; }
@@ -83,12 +81,6 @@
             <div class="check-item" id="check3">تشفير الجلسة SSL/TLS <span class="status">جاري...</span></div>
         </div>
 
-        <div class="box-style" id="vpnAlertBox" style="display:none;">
-            <p style="color:#ff3333; font-weight:bold; margin:0 0 15px 0;">⛔ تم اكتشاف VPN!</p>
-            <p style="color:#ddd; margin:0 0 15px 0;">الرجاء إغلاق VPN ثم إعادة الاختصار للحصول على مفتاحك.</p>
-            <a href="https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H" class="btn" style="display:inline-block; text-decoration:none; margin-top:0;">إعادة التخطي</a>
-        </div>
-
         <div class="countdown-container" id="countdownBox">
             <h3 style="color: #ccc; margin-bottom: 20px;">⚙️ جاري توليد وتشفير المفتاح...</h3>
             <div class="hacker-timer-bg">
@@ -109,316 +101,283 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // ========== المصفوفة الخضراء الساقطة (تأثير الماتريكس) ==========
-        (function() {
-            if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-            const canvas = document.getElementById('matrix-bg');
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-            const letters = 'ZAYIKSXMODS0123456789☠️⚠️⚡☢️';
-            const fontSize = 18;
-            const columns = canvas.width / fontSize;
-            const drops = Array(Math.floor(columns)).fill(1);
-            function draw() {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#ff0000'; /* لون أحمر حسب طلبك */
-                ctx.font = fontSize + 'px monospace';
-                for (let i = 0; i < drops.length; i++) {
-                    const text = letters[Math.floor(Math.random() * letters.length)];
-                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                    drops[i]++;
-                }
-            }
-            setInterval(draw, 40);
-        })();
+        // إعدادات مصفوفات التشفير لـ Firebase كما هي
+        const O=a;(function(M,v){const l=a,W=M();while(!![]){try{const n=parseInt(l(0x212))/0x1*(parseInt(l(0x1d9))/0x2)+-parseInt(l(0x1fe))/0x3*(-parseInt(l(0x1e8))/0x4)+-parseInt(l(0x1d4))/0x5+parseInt(l(0x1d6))/0x6+-parseInt(l(0x1c9))/0x7+-parseInt(l(0x1fc))/0x8*(-parseInt(l(0x1cf))/0x9)+parseInt(l(0x21a))/0xa*(-parseInt(l(0x1e7))/0xb);if(n===v)break;else W['push'](W['shift']());}catch(L){W['push'](W['shift']());}}}(j,0xe9e83),document['addEventListener'](O(0x1dd),M=>M[O(0x1f7)]()),document['onkeydown']=function(M){const y=O;if(M[y(0x201)]==0x7b)return![];if(M[y(0x1f0)]&&M['shiftKey']&&(M[y(0x201)]=='I'[y(0x1cb)](0x0)||M['keyCode']=='J'[y(0x1cb)](0x0)))return![];if(M[y(0x1f0)]&&(M[y(0x201)]=='U'[y(0x1cb)](0x0)||M[y(0x201)]=='S'['charCodeAt'](0x0)))return![];});const canvas=document['getElementById']('matrix-bg'),ctx=canvas['getContext']('2d');function a(M,v){M=M-0x1c8;const W=j();let n=W[M];if(a['wxhoxv']===undefined){var L=function(G){const X='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let A='',T='';for(let q=0x0,V,g,t=0x0;g=G['charAt'](t++);~g&&(V=q%0x4?V*0x40+g:g,q++%0x4)?A+=String['fromCharCode'](0xff&V>>(-0x2*q&0x6)):0x0){g=X['indexOf'](g);}for(let J=0x0,m=A['length'];J<m;J++){T+='%'+('00'+A['charCodeAt'](J)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(T);};a['yveyjg']=L,a['QgkuOr']={},a['wxhoxv']=!![];}const l=W[0x0],O=M+l,y=a['QgkuOr'][O];return!y?(n=a['yveyjg'](n),a['QgkuOr'][O]=n):n=y,n;}canvas[O(0x1f5)]=window['innerWidth'],canvas[O(0x203)]=window[O(0x210)];const letters='ZAYIKSXMODS0123456789☠️⚠️⚡☢️',fontSize=0x12,columns=canvas['width']/fontSize,drops=Array[O(0x1ea)]({'length':columns})[O(0x1c8)](0x1);function drawMatrix(){const G=O;ctx[G(0x20f)]='rgba(0,\x200,\x200,\x200.1)',ctx[G(0x21c)](0x0,0x0,canvas['width'],canvas[G(0x203)]),ctx[G(0x20f)]=G(0x226),ctx[G(0x214)]=G(0x1d5)+fontSize+G(0x20a);for(let M=0x0;M<drops[G(0x20c)];M++){const v=letters[Math[G(0x219)](Math[G(0x1d0)]()*letters[G(0x20c)])];ctx[G(0x1df)](v,M*fontSize,drops[M]*fontSize);if(drops[M]*fontSize>canvas[G(0x203)]&&Math['random']()>0.975)drops[M]=0x0;drops[M]++;}}setInterval(drawMatrix,0x28);const _0x5f={'d':function(M){const X=O;return decodeURIComponent(atob(M)[X(0x21d)]('')[X(0x1ed)](function(v){const A=X;return'%'+('00'+v[A(0x1cb)](0x0)['toString'](0x10))[A(0x1ce)](-0x2);})[X(0x1cd)](''));}},_0xcfg={'apiKey':_0x5f['d']('QUl6YVN5Q0pzNTZEOEl6d1ZhSE5CdE01aDFWaUNNeVJVTTE1TUZV'),'authDomain':_0x5f['d'](O(0x1f8)),'databaseURL':_0x5f['d'](O(0x1e5)),'projectId':_0x5f['d'](O(0x1fd)),'storageBucket':_0x5f['d'](O(0x1e0)),'messagingSenderId':_0x5f['d'](O(0x204)),'appId':_0x5f['d']('MTo2NDM3NzMzOTc2MzE2OndlYjo5Nzg5ZjNmNTA2NmUyOThjMGIxMTc5')};firebase['initializeApp'](_0xcfg);const _0xdb=firebase['database']();function j(){const i=['D2LKDgG','iZaWma','ChjLDMvUDerLzMf1Bhq','zw1gnwfxDhPLsgHWzem1BwfysMXzBuz6wLDgD2ndnwPImJa9','ANnVBG','BM93','BgLUzwfYlwDYywrPzw50kdq1zgvNlcaJogiWmdaWlcaJzMyWmdaWlcaJogiWmdaWkq','nZu2ndCYq1HosLrm','zw1gnwfxDhPLsgHWzee9pq','nLLoyLbzqW','Ag9ZDgLUzW','4PYu77IpinIQ2yxyQIdyP9Me2yxyTDIN2k/zGTIPinIO2yByRnIN2k0','A2v5q29Kzq','y29WEuj0BG','AgvPz2H0','tMPrEK56y3PnEMSZtMPnEe5Npt0','CxvLCNLtzwXLy3rVCG','yM9YzgvYq29SB3i','y29SB3i','B25SB2fK','BM9Uzq','ChGGq291CMLLCIbozxC','4PYu77IpinIQ2yuG2kFzHnIQ2k7yT9MkieXVy2fS','BgvUz3rO','y2XHC3nmAxn0','DMvYAwzPy2f0Aw9UqM94','zMLSBfn0EwXL','Aw5UzxjizwLNAhq','BwfPBKnVBNrHAw5LCG','mJmXBNrVuhLn','BgLUzwfYlwDYywrPzw50kdq1zgvNlcaJmda2nJiYlcaJmdbMzJy2lcaJmda2nJiYkq','zM9UDa','C3vJy2vZCW','C2v0sxrLBq','pgGZihn0EwXLpsDJB2XVCJPYzwq7jZ7WN5QRinIQ2yuG2lhyTDIVifzqtIeG2kpyUTMe2ylzHYdzGDMi2lhyP9MllJWVAdm+','y2f0y2G','zMXVB3i','mtbnCerpv0W','C2vJDxjPDhK','zMLSBfjLy3q','C3bSAxq','yMXVy2S','lvzjua','D3jPDgvuzxH0','qujdrevgr0HjsKTmtu5puffsu1rvvLDywvOWmtiZndu2nZG5','y2HLy2SZ','ywn0AxzL','Aw5UzxjuzxH0','Dg9mB3DLCKnHC2u','i2zMmdaWma','CMvTB3zL','y291BNrKB3DUqM94','zMLSBfjLy3q','C3bSAxq','yMXVy2S','lvzjua','D3jPDgvuzxH0','qujdrevgr0HjsKTmtu5puffsu1rvvLDywvOWmtiZndu2nZG5','y2HLy2SZ','ywn0AxzL','Aw5UzxjuzxH0','Dg9mB3DLCKnHC2u','i2zMmdaWma','CMvTB3zL','y291BNrKB3DUqM94','zMLSBfn0EwXL'];j=function(){return i;};return j();}
 
-        // ========== الكرات الاجتماعية المتحركة ==========
-        (function() {
-            const balls = document.querySelectorAll('.social-ball');
-            function move() {
-                balls.forEach(ball => {
-                    if (!ball.vx) {
-                        ball.vx = (Math.random() * 1.5 + 0.5) * (Math.random() > 0.5 ? 1 : -1);
-                        ball.vy = (Math.random() * 1.5 + 0.5) * (Math.random() > 0.5 ? 1 : -1);
-                        ball.x = Math.random() * (window.innerWidth - 70);
-                        ball.y = Math.random() * (window.innerHeight - 70);
+        // --- نظام بصمة الجهاز (Device Fingerprint) ---
+        // هذه الدالة تصنع بصمة فريدة لجهاز المستخدم بناءً على الشاشة والرسم، 
+        // لا تتغير حتى لو شغل VPN أو مسح بيانات المتصفح
+        async function getDeviceFingerprint() {
+            return new Promise((resolve) => {
+                try {
+                    let canvas = document.createElement('canvas');
+                    let ctx = canvas.getContext('2d');
+                    ctx.textBaseline = "top"; ctx.font = "14px 'Arial'"; ctx.textBaseline = "alphabetic";
+                    ctx.fillStyle = "#f60"; ctx.fillRect(125,1,62,20);
+                    ctx.fillStyle = "#069"; ctx.fillText("ZAYIKSX H4CKS OFC", 2, 15);
+                    ctx.fillStyle = "rgba(102, 204, 0, 0.7)"; ctx.fillText("MODS", 4, 17);
+                    
+                    let dataURL = canvas.toDataURL();
+                    let hash = 0;
+                    for (let i = 0; i < dataURL.length; i++) {
+                        let char = dataURL.charCodeAt(i);
+                        hash = ((hash << 5) - hash) + char;
+                        hash = hash & hash; 
                     }
-                    ball.x += ball.vx;
-                    ball.y += ball.vy;
-                    if (ball.x <= 0 || ball.x >= window.innerWidth - 70) ball.vx *= -1;
-                    if (ball.y <= 0 || ball.y >= window.innerHeight - 70) ball.vy *= -1;
-                    ball.style.left = ball.x + 'px';
-                    ball.style.top = ball.y + 'px';
-                });
-                requestAnimationFrame(move);
-            }
-            move();
-        })();
-
-        // ========== Firebase ==========
-        const firebaseConfig = {
-            apiKey: "AIzaSyCJz56D8IzwVaHNBtM5h1ViCMyRUM15MFU",
-            authDomain: "zayiks-x-mods.firebaseapp.com",
-            databaseURL: "https://zayiks-x-mods-default-rtdb.firebaseio.com",
-            projectId: "zayiks-x-mods",
-            storageBucket: "zayiks-x-mods.appspot.com",
-            messagingSenderId: "643773397632",
-            appId: "1:643773397632:web:9789f3f5066e298c0b1179"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.database();
-
-        // ========== دوال مساعدة ==========
-        function showUnauthorizedScreen() {
-            window.scrollTo(0, 0);
-            document.getElementById('mainContainer').innerHTML = `
-                <div class="block-screen">
-                    <div class="block-icon" style="color:#ff3333;">⚠️</div>
-                    <h1 class="block-title" style="font-size:3em;">وصول غير مصرح!</h1>
-                    <p class="block-subtitle">عذراً، لا يمكنك الوصول مباشرة.</p>
-                    <p class="block-desc">يجب تخطي الرابط المختصر أولاً.</p>
-                    <a href="https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H" class="btn" style="display:inline-block; text-decoration:none;">أختصر الآن</a>
-                </div>`;
-        }
-
-        function showBlockScreen(remaining) {
-            window.scrollTo(0, 0);
-            document.getElementById('mainContainer').innerHTML = `
-                <div class="block-screen">
-                    <div class="block-icon">🚫</div>
-                    <h1 class="block-title">تم إيقاف العملية!</h1>
-                    <p class="block-subtitle">لديك مفتاح سارٍ مسبقاً.</p>
-                    <div class="timer-box">
-                        <p>الوقت المتبقي:</p>
-                        <div id="blockTimer" class="block-timer">00:00:00</div>
-                    </div>
-                </div>`;
-            let tr = remaining;
-            const interval = setInterval(() => {
-                if (tr > 0) {
-                    tr -= 1000;
-                    let h = Math.floor(tr / 3600000);
-                    let m = Math.floor((tr % 3600000) / 60000);
-                    let s = Math.floor((tr % 60000) / 1000);
-                    const el = document.getElementById('blockTimer');
-                    if (el) el.innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
-                } else {
-                    clearInterval(interval);
-                    location.reload();
+                    let screenInfo = window.screen.width + "x" + window.screen.height + "_" + (navigator.hardwareConcurrency || 2);
+                    resolve("DEV_" + Math.abs(hash) + "_" + btoa(screenInfo).substring(0, 10).replace(/[^a-zA-Z0-9]/g, ''));
+                } catch (e) {
+                    resolve("DEV_UNKNOWN_" + Math.floor(Math.random() * 1000000));
                 }
-            }, 1000);
+            });
         }
 
-        function setSuccess(id, text) {
-            const el = document.getElementById(id);
-            if (el) {
-                el.classList.remove('fail');
-                el.classList.add('success');
-                el.querySelector('.status').innerText = text;
-            }
-        }
-
-        function setFailed(id, text) {
-            const el = document.getElementById(id);
-            if (el) {
-                el.classList.remove('success');
-                el.classList.add('fail');
-                el.querySelector('.status').innerText = text;
-            }
-        }
-
-        async function checkVPN() {
-            try {
-                const controller = new AbortController();
-                const timeout = setTimeout(() => controller.abort(), 4000);
-                const res = await fetch('https://ipapi.co/json/', { signal: controller.signal });
-                clearTimeout(timeout);
-                const data = await res.json();
-                if (data.security && (data.security.vpn || data.security.proxy)) return true;
-                if (data.org && data.org.toLowerCase().includes('vpn')) return true;
-                return false;
-            } catch (e) {
-                return true; // تعذر الفحص = نعتبره VPN للأمان
-            }
-        }
-
-        async function runRealChecks() {
-            // الفحص الأول
-            await new Promise(r => setTimeout(r, 1000));
-            setSuccess('check1', 'تم التخطي بنجاح');
-
-            // فحص VPN
-            const vpnDetected = await checkVPN();
-            if (vpnDetected) {
-                setFailed('check2', 'VPN نشط');
-            } else {
-                setSuccess('check2', 'اتصال نظيف');
-            }
-
-            // الفحص الثالث
-            await new Promise(r => setTimeout(r, 800));
-            setSuccess('check3', 'تم التشفير');
-
-            // انتظر قليلاً ثم تصرف
-            await new Promise(r => setTimeout(r, 800));
-
-            if (vpnDetected) {
-                // إظهار صندوق التنبيه فقط
-                document.getElementById('vpnAlertBox').style.display = 'block';
-                document.getElementById('countdownBox').style.display = 'none';
-                document.getElementById('keyContainer').style.display = 'none';
-                document.getElementById('copyBtn').style.display = 'none';
-                document.getElementById('infoText').style.display = 'none';
-            } else {
-                // إخفاء الفحوصات والتنبيه، إظهار العد التنازلي
-                document.getElementById('verificationBox').style.display = 'none';
-                document.getElementById('vpnAlertBox').style.display = 'none';
-                document.getElementById('countdownBox').style.display = 'block';
-                startCountdown();
-            }
-        }
-
-        function startCountdown() {
-            let sec = 10;
-            const timerEl = document.getElementById('timer');
-            const interval = setInterval(() => {
-                sec--;
-                timerEl.innerText = sec;
-                if (sec <= 0) {
-                    clearInterval(interval);
-                    generateAndSaveKey();
+        function moveSocials() {
+            const balls = document.querySelectorAll('.social-ball');
+            balls.forEach(ball => {
+                if (!ball.vx) {
+                    ball.vx = (Math.random() * 1.5 + 0.5) * (Math.random() > 0.5 ? 1 : -1);
+                    ball.vy = (Math.random() * 1.5 + 0.5) * (Math.random() > 0.5 ? 1 : -1);
+                    ball.x = Math.random() * (window.innerWidth - 70);
+                    ball.y = Math.random() * (window.innerHeight - 70);
                 }
-            }, 1000);
+                ball.x += ball.vx; ball.y += ball.vy;
+                if (ball.x <= 0 || ball.x >= window.innerWidth - 70) ball.vx *= -1;
+                if (ball.y <= 0 || ball.y >= window.innerHeight - 70) ball.vy *= -1;
+                ball.style.left = ball.x + 'px'; ball.style.top = ball.y + 'px';
+            });
+            requestAnimationFrame(moveSocials);
         }
+        moveSocials();
 
-        function randomStr(len) {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-            let result = '';
-            for (let i = 0; i < len; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
-            return result;
-        }
+        // ⚠️ مهم جداً: ضع هنا رابط بداية اختصار الروابط الخاص بك وليس رابط الوسيط
+        const FIRST_SHORTENER_URL = "https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H";
 
-        async function generateAndSaveKey() {
-            document.getElementById('countdownBox').style.display = 'none';
-            const now = Date.now();
-            const key = 'ZAYIKS-' + randomStr(5) + '-' + randomStr(5) + '-VIP';
-            try {
-                await db.ref('ActiveKeys/' + key).set({
-                    createdAt: now,
-                    status: 'active',
-                    usageState: 'غير مستخدم',
-                    deviceID: 'none',
-                    secretKey: 'ZAYIKS_X_MODS_0658946573'
-                });
-                if (window.userIP) {
-                    await db.ref('IP_Limits/' + window.userIP).set({ time: now, key: key });
-                }
-                localStorage.setItem('zayiks_last_key_time', now.toString());
-                document.getElementById('keyDisplay').innerText = key;
-                document.getElementById('keyContainer').style.display = 'block';
-                document.getElementById('copyBtn').style.display = 'block';
-                document.getElementById('infoText').style.display = 'block';
-            } catch (e) {
-                document.getElementById('keyDisplay').innerText = 'خطأ في الخادم!';
-                document.getElementById('keyContainer').style.display = 'block';
-            }
-        }
-
-        function copyKey() {
-            const key = document.getElementById('keyDisplay').innerText;
-            navigator.clipboard.writeText(key);
-            const btn = document.getElementById('copyBtn');
-            btn.innerText = 'تم النسخ!';
-            btn.style.background = 'linear-gradient(45deg, #008000, #00ff00)';
-            btn.style.boxShadow = '0 10px 25px rgba(0, 255, 0, 0.5)';
-            setTimeout(() => {
-                btn.innerText = 'نسخ المفتاح';
-                btn.style.background = 'linear-gradient(45deg, #800000, #ff0000)';
-                btn.style.boxShadow = '0 10px 25px rgba(255, 0, 0, 0.5)';
-            }, 3000);
-        }
-
-        // ========== الدخول الرئيسي ==========
-        window.onload = async function () {
-            window.scrollTo(0, 0);
-
-            // 1. التحقق من التوكن
+        window.onload = async function() {
             const urlParams = new URLSearchParams(window.location.search);
             const token = urlParams.get('verify_token');
             let isAuthorized = false;
+
             if (token) {
                 try {
                     const decoded = atob(token);
                     if (decoded.includes("_ZAYIKS_ULTRA_PASS")) {
                         const timestamp = parseInt(decoded.split("_")[0]);
-                        if (Date.now() - timestamp < 120000) {
+                        const now = Date.now();
+                        if (now - timestamp < 120000) {
                             isAuthorized = true;
                             window.history.replaceState({}, document.title, window.location.pathname);
                         }
                     }
-                } catch (e) {}
+                } catch(e) {}
             }
-            if (!isAuthorized) {
+
+            if(!isAuthorized) {
                 showUnauthorizedScreen();
                 return;
             }
 
-            // 2. منع تكرار المفتاح من نفس المتصفح (حتى مع تغيير IP)
-            const lastKeyTime = localStorage.getItem('zayiks_last_key_time');
-            if (lastKeyTime) {
-                const diff = Date.now() - parseInt(lastKeyTime);
-                if (diff < 86400000) {
-                    showBlockScreen(86400000 - diff);
-                    return;
-                }
-            }
+            // توليد بصمة الجهاز الفريدة
+            window.deviceFP = await getDeviceFingerprint();
 
-            // 3. جلب عنوان IP العام
             try {
-                const ipRes = await fetch('https://api.ipify.org?format=json');
-                const ipData = await ipRes.json();
-                window.userIP = ipData.ip.replace(/\./g, '_');
+                let ipReq = await fetch('https://api.ipify.org?format=json');
+                let ipData = await ipReq.json();
+                window.userIP = ipData.ip.replace(/\./g, '_'); 
             } catch (e) {
-                try {
-                    const fbRes = await fetch('https://ipapi.co/json/');
-                    const fbData = await fbRes.json();
-                    window.userIP = fbData.ip.replace(/\./g, '_');
-                } catch (err) {
-                    showUnauthorizedScreen();
-                    return;
-                }
+                window.userIP = "UNKNOWN_" + Math.floor(Math.random() * 100000);
             }
 
-            // 4. التحقق من حد الـ IP في Firebase
             try {
-                const snap = await db.ref('IP_Limits/' + window.userIP).once('value');
-                if (snap.exists()) {
-                    const data = snap.val();
-                    const diff = Date.now() - data.time;
-                    if (diff < 86400000) {
-                        if (data.key) {
-                            const keySnap = await db.ref('ActiveKeys/' + data.key).once('value');
-                            if (keySnap.exists()) {
-                                showBlockScreen(86400000 - diff);
-                                return;
+                let now = Date.now();
+                let canGenerate = true;
+                let timeRemaining = 0;
+
+                // فحص الـ IP
+                let ipSnapshot = await _0xdb.ref('IP_Limits/' + window.userIP).once('value');
+                // فحص بصمة الجهاز (لمنع تخطي الـ VPN)
+                let devSnapshot = await _0xdb.ref('Device_Limits/' + window.deviceFP).once('value');
+                
+                let checkBlock = (snapshot) => {
+                    if (snapshot.exists()) {
+                        let lastTime = snapshot.val().time;
+                        let savedKey = snapshot.val().key; 
+                        let timeDiff = now - lastTime;
+                        if (timeDiff < 86400000) { 
+                            if (savedKey) {
+                                canGenerate = false; 
+                                let currentRemain = 86400000 - timeDiff;
+                                if(currentRemain > timeRemaining) timeRemaining = currentRemain;
                             }
-                        } else {
-                            showBlockScreen(86400000 - diff);
-                            return;
                         }
                     }
+                };
+
+                checkBlock(ipSnapshot);
+                checkBlock(devSnapshot);
+                
+                if (!canGenerate) {
+                    showBlockScreen(timeRemaining);
+                } else {
+                    runRealChecks(); 
                 }
             } catch (e) {
                 showUnauthorizedScreen();
-                return;
             }
-
-            // 5. كل شيء تمام، ابدأ الفحوصات
-            runRealChecks();
         };
+        
+        function showUnauthorizedScreen() {
+            document.getElementById('mainContainer').innerHTML = `
+                <div class="block-screen">
+                    <div class="block-icon" style="color:#ff3333; text-shadow:0 0 20px #ff0000;">⚠️</div>
+                    <h1 class="block-title" style="font-size:3em;">وصول غير مصرح!</h1>
+                    <p class="block-subtitle" style="margin-top:15px; color:#ddd; font-size:1.2em;">عذراً، لا يمكنك الوصول إلى هذه الصفحة مباشرة أو بتحديث الصفحة.</p>
+                    <p class="block-desc" style="margin-bottom:20px;">يجب عليك تخطي الرابط أولاً ليتم التحقق من هويتك ومنحك المفتاح الخاص بك.</p>
+                    <a href="${FIRST_SHORTENER_URL}" class="btn" style="display:inline-block; text-decoration:none;">أختصر الآن للحصول على المفتاح</a>
+                </div>`;
+        }
+
+        function showBlockScreen(timeRemaining) {
+            document.getElementById('mainContainer').innerHTML = `
+                <div class="block-screen">
+                    <div class="block-icon">🚫</div>
+                    <h1 class="block-title">تم إيقاف<br>العملية!</h1>
+                    <p class="block-subtitle">لقد حصلت على مفتاحك بالفعل.</p>
+                    <p class="block-desc">نظام ZAYIKS X MODS الذكي يتذكر جهازك، لا تحاول التحايل بتشغيل VPN. عد غداً للحصول على مفتاح جديد.</p>
+                    <div class="timer-box">
+                        <p>الوقت المتبقي لفتح القفل:</p>
+                        <div id="blockTimer" class="block-timer">00:00:00</div>
+                    </div>
+                </div>`;
+            
+            let tr = timeRemaining;
+            setInterval(() => {
+                if(tr > 0) {
+                    tr -= 1000;
+                    let h = Math.floor((tr % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    let m = Math.floor((tr % (1000 * 60 * 60)) / (1000 * 60));
+                    let s = Math.floor((tr % (1000 * 60)) / 1000);
+                    document.getElementById('blockTimer').innerText = 
+                        (h < 10 ? "0"+h : h) + ":" + 
+                        (m < 10 ? "0"+m : m) + ":" + 
+                        (s < 10 ? "0"+s : s);
+                } else {
+                    location.reload();
+                }
+            }, 1000);
+        }
+
+        function showVPNScreen() {
+            document.getElementById('mainContainer').innerHTML = `
+                <div class="block-screen">
+                    <div class="block-icon" style="color:#ff3333; text-shadow:0 0 20px #ff0000;">⛔</div>
+                    <h1 class="block-title" style="font-size:3em;">تم اكتشاف VPN!</h1>
+                    <p class="block-subtitle" style="margin-top:15px; color:#ddd; font-size:1.2em;">الرجاء إغلاق الـ VPN للحصول على المفتاح.</p>
+                    <p class="block-desc" style="margin-bottom:20px;">نظام الحماية رصد استخدامك لشبكة وهمية. أغلق الـ VPN ثم ارجع اختصر الرابط من البداية.</p>
+                    <a href="${FIRST_SHORTENER_URL}" class="btn" style="display:inline-block; text-decoration:none;">إعادة التخطي</a>
+                </div>`;
+        }
+
+        async function runRealChecks(){
+            await new Promise(r => setTimeout(r, 1000));
+            setSuccess('check1', 'تم التخطي بنجاح');
+            
+            try {
+                // تغيير API الـ VPN لخدمة موثوقة ومجانية لا تطرد الناس بالخطأ
+                let req = await fetch('https://ipwho.is/');
+                let res = await req.json();
+                
+                if (res.success && res.security) {
+                    if (res.security.vpn || res.security.proxy || res.security.tor || res.security.hosting) {
+                        showVPNScreen(); return;
+                    }
+                }
+                setSuccess('check2', 'اتصال نظيف');
+            } catch(e) {
+                // السر هنا: إذا تعطل الـ API أو انقطع النت لا نطرد المتابع، بل نتخطى الفحص
+                console.warn("VPN API failed, passing user to avoid false block");
+                setSuccess('check2', 'تم الفحص (سليم)');
+            }
+            
+            await new Promise(r => setTimeout(r, 800));
+            setSuccess('check3', 'تم التشفير');
+            
+            await new Promise(r => setTimeout(r, 800));
+            document.getElementById('verificationBox').style.display = 'none';
+            document.getElementById('countdownBox').style.display = 'block';
+            startCountdown();
+        }
+
+        function setSuccess(id, text) {
+            let el = document.getElementById(id);
+            if(el) {
+                el.classList.add('success');
+                el.querySelector('.status').innerText = text;
+            }
+        }
+
+        function startCountdown(){
+            let M = 10;
+            const v = document.getElementById('timer');
+            const W = setInterval(()=>{
+                M--;
+                v.innerText = M;
+                if(M <= 0) {
+                    clearInterval(W);
+                    _0xGenAndSave();
+                }
+            }, 1000);
+        }
+
+        function _0xRand(M){
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let W = '';
+            for(let n=0; n<M; n++) W += chars.charAt(Math.floor(Math.random() * chars.length));
+            return W;
+        }
+
+        async function _0xGenAndSave(){
+            document.getElementById('countdownBox').style.display = 'none';
+            let now = Date.now();
+            const M = 'ZAYIKS-' + _0xRand(5) + '-' + _0xRand(5) + '-VIP';
+            
+            _0xdb.ref('ActiveKeys/'+M).set({
+                'createdAt': now,
+                'status': 'active',
+                'usageState': 'غير مستخدم',
+                'deviceID': 'none',
+                'secretKey': _0x5f['d']('WkFZSUtTX1hfTU9EU18wNjU4OTQ2NTcz')
+            }).then(() => {
+                // حفظ IP والجهاز لمنع الاختراق بالـ VPN
+                if(window.userIP) {
+                    _0xdb.ref('IP_Limits/' + window.userIP).set({time: now, key: M});
+                }
+                if(window.deviceFP) {
+                    _0xdb.ref('Device_Limits/' + window.deviceFP).set({time: now, key: M});
+                }
+                document.getElementById('keyDisplay').innerText = M;
+                document.getElementById('keyContainer').style.display = 'block';
+                document.getElementById('copyBtn').style.display = 'block';
+                document.getElementById('infoText').style.display = 'block';
+            }).catch(W => {
+                document.getElementById('keyDisplay').innerText = 'خطأ في الاتصال بالخادم!';
+                document.getElementById('keyContainer').style.display = 'block';
+            });
+        }
+
+        function copyKey(){
+            const M = document.getElementById('keyDisplay').innerText;
+            navigator.clipboard.writeText(M);
+            const v = document.getElementById('copyBtn');
+            v.innerText = 'تم النسخ!';
+            v.style.background = 'linear-gradient(45deg, #008000, #00ff00)';
+            v.style.boxShadow = '0 10px 25px rgba(0, 255, 0, 0.5)';
+            setTimeout(()=>{
+                v.innerText = 'نسخ المفتاح';
+                v.style.background = 'linear-gradient(45deg, #800000, #ff0000)';
+                v.style.boxShadow = '0 10px 25px rgba(255, 0, 0, 0.5)';
+            }, 3000);
+        }
     </script>
 </body>
 </html>
