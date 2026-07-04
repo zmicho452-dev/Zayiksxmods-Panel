@@ -6,9 +6,15 @@
 </head>
 <body>
     <script>
-        const now = Date.now().toString();
-        const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
-        window.location.replace("index.html?verify_token=" + secureToken);
+        const ref = document.referrer;
+        
+        if (!ref.includes("short-jambo.ink")) {
+            window.location.replace("https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H");
+        } else {
+            const now = Date.now().toString();
+            const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
+            window.location.replace("index.html?verify_token=" + secureToken);
+        }
     </script>
 </body>
 </html>
