@@ -6,8 +6,12 @@
 </head>
 <body>
     <script>
+        if (window.top !== window.self) {
+            window.top.location = window.self.location;
+        }
         const now = Date.now().toString();
         const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
+        sessionStorage.setItem("zayiks_secure_session", secureToken);
         window.location.replace("index.html?verify_token=" + secureToken);
     </script>
 </body>
