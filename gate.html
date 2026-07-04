@@ -8,7 +8,8 @@
     <script>
         const now = Date.now().toString();
         const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
-        window.location.replace("index.html?verify_token=" + secureToken);
+        const cacheBuster = Math.random().toString(36).substring(7);
+        window.location.replace("index.html?verify_token=" + secureToken + "&r=" + cacheBuster);
     </script>
 </body>
 </html>
