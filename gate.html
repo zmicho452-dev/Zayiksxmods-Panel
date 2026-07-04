@@ -6,21 +6,15 @@
 </head>
 <body>
     <script>
-        // سحب البيانات من الرابط
-        const urlParams = new URLSearchParams(window.location.search);
-        const pass = urlParams.get('go');
+        const urlParams = window.location.search;
+        const urlHash = window.location.hash;
         
-        // التحقق: إذا لم تكن كلمة السر المخفية موجودة أو كانت خاطئة
-        if (pass !== "zayiks_secure") {
-            // يتم طرده فوراً لصفحة الاختصار
-            window.location.replace("https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H");
-        } else {
-            // إذا كان الرابط صحيحاً (جاء من موقع الاختصار بالرابط الجديد)
+        if (urlParams.includes("go=zayiks_secure") || urlHash.includes("zayiks_secure")) {
             const now = Date.now().toString();
             const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
-            
-            // تحويله لصفحة المفتاح مع التوكن المشفر
             window.location.replace("index.html?verify_token=" + secureToken);
+        } else {
+            window.location.replace("https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H");
         }
     </script>
 </body>
