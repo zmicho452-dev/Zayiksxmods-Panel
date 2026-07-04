@@ -8,8 +8,7 @@
     <script>
         const now = Date.now().toString();
         const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
-        sessionStorage.setItem("zayiks_secure_token", secureToken);
-        window.location.replace("index.html");
+        window.location.replace("index.html?verify_token=" + secureToken);
     </script>
 </body>
 </html>
