@@ -7,7 +7,7 @@
 <body>
     <script>
         const now = Date.now().toString();
-        const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
+        const secureToken = encodeURIComponent(btoa(now + "_ZAYIKS_ULTRA_PASS"));
         window.location.replace("index.html?verify_token=" + secureToken);
     </script>
 </body>
