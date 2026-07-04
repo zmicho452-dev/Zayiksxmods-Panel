@@ -109,36 +109,56 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        // تعطيل استعادة التمرير التلقائي
-        if ('scrollRestoration' in history) {
-            history.scrollRestoration = 'manual';
-        }
-
-        const canvas = document.getElementById('matrix-bg');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const letters = 'ZAYIKSXMODS0123456789☠️⚠️⚡☢️';
-        const fontSize = 18;
-        const columns = canvas.width / fontSize;
-        const drops = Array(Math.floor(columns)).fill(1);
-
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = '#0F0';
-            ctx.font = fontSize + 'px monospace';
-            for (let i = 0; i < drops.length; i++) {
-                const text = letters[Math.floor(Math.random() * letters.length)];
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
+        // ========== المصفوفة الخضراء الساقطة (تأثير الماتريكس) ==========
+        (function() {
+            if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+            const canvas = document.getElementById('matrix-bg');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const letters = 'ZAYIKSXMODS0123456789☠️⚠️⚡☢️';
+            const fontSize = 18;
+            const columns = canvas.width / fontSize;
+            const drops = Array(Math.floor(columns)).fill(1);
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#ff0000'; /* لون أحمر حسب طلبك */
+                ctx.font = fontSize + 'px monospace';
+                for (let i = 0; i < drops.length; i++) {
+                    const text = letters[Math.floor(Math.random() * letters.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                    drops[i]++;
                 }
-                drops[i]++;
             }
-        }
-        setInterval(drawMatrix, 40);
+            setInterval(draw, 40);
+        })();
 
+        // ========== الكرات الاجتماعية المتحركة ==========
+        (function() {
+            const balls = document.querySelectorAll('.social-ball');
+            function move() {
+                balls.forEach(ball => {
+                    if (!ball.vx) {
+                        ball.vx = (Math.random() * 1.5 + 0.5) * (Math.random() > 0.5 ? 1 : -1);
+                        ball.vy = (Math.random() * 1.5 + 0.5) * (Math.random() > 0.5 ? 1 : -1);
+                        ball.x = Math.random() * (window.innerWidth - 70);
+                        ball.y = Math.random() * (window.innerHeight - 70);
+                    }
+                    ball.x += ball.vx;
+                    ball.y += ball.vy;
+                    if (ball.x <= 0 || ball.x >= window.innerWidth - 70) ball.vx *= -1;
+                    if (ball.y <= 0 || ball.y >= window.innerHeight - 70) ball.vy *= -1;
+                    ball.style.left = ball.x + 'px';
+                    ball.style.top = ball.y + 'px';
+                });
+                requestAnimationFrame(move);
+            }
+            move();
+        })();
+
+        // ========== Firebase ==========
         const firebaseConfig = {
             apiKey: "AIzaSyCJz56D8IzwVaHNBtM5h1ViCMyRUM15MFU",
             authDomain: "zayiks-x-mods.firebaseapp.com",
@@ -151,98 +171,7 @@
         firebase.initializeApp(firebaseConfig);
         const db = firebase.database();
 
-        function moveSocials() {
-            const balls = document.querySelectorAll('.social-ball');
-            balls.forEach(ball => {
-                if (!ball.vx) {
-                    ball.vx = (Math.random() * 1.5 + 0.5) * (Math.random() > 0.5 ? 1 : -1);
-                    ball.vy = (Math.random() * 1.5 + 0.5) * (Math.random() > 0.5 ? 1 : -1);
-                    ball.x = Math.random() * (window.innerWidth - 70);
-                    ball.y = Math.random() * (window.innerHeight - 70);
-                }
-                ball.x += ball.vx;
-                ball.y += ball.vy;
-                if (ball.x <= 0 || ball.x >= window.innerWidth - 70) ball.vx *= -1;
-                if (ball.y <= 0 || ball.y >= window.innerHeight - 70) ball.vy *= -1;
-                ball.style.left = ball.x + 'px';
-                ball.style.top = ball.y + 'px';
-            });
-            requestAnimationFrame(moveSocials);
-        }
-        moveSocials();
-
-        window.onload = async function () {
-            window.scrollTo(0, 0);
-            const urlParams = new URLSearchParams(window.location.search);
-            const token = urlParams.get('verify_token');
-            let isAuthorized = false;
-
-            if (token) {
-                try {
-                    const decoded = atob(token);
-                    if (decoded.includes("_ZAYIKS_ULTRA_PASS")) {
-                        const timestamp = parseInt(decoded.split("_")[0]);
-                        if (Date.now() - timestamp < 120000) {
-                            isAuthorized = true;
-                            window.history.replaceState({}, document.title, window.location.pathname);
-                        }
-                    }
-                } catch (e) {}
-            }
-
-            if (!isAuthorized) {
-                showUnauthorizedScreen();
-                return;
-            }
-
-            const lastKeyTime = localStorage.getItem('zayiks_last_key_time');
-            if (lastKeyTime) {
-                const diff = Date.now() - parseInt(lastKeyTime);
-                if (diff < 86400000) {
-                    showBlockScreen(86400000 - diff);
-                    return;
-                }
-            }
-
-            try {
-                let ipReq = await fetch('https://api.ipify.org?format=json');
-                let ipData = await ipReq.json();
-                window.userIP = ipData.ip.replace(/\./g, '_');
-            } catch (e) {
-                try {
-                    let fbReq = await fetch('https://ipapi.co/json/');
-                    let fbData = await fbReq.json();
-                    window.userIP = fbData.ip.replace(/\./g, '_');
-                } catch (err) {
-                    showUnauthorizedScreen();
-                    return;
-                }
-            }
-
-            try {
-                const snap = await db.ref('IP_Limits/' + window.userIP).once('value');
-                if (snap.exists()) {
-                    const data = snap.val();
-                    const diff = Date.now() - data.time;
-                    if (diff < 86400000) {
-                        if (data.key) {
-                            const keySnap = await db.ref('ActiveKeys/' + data.key).once('value');
-                            if (keySnap.exists()) {
-                                showBlockScreen(86400000 - diff);
-                                return;
-                            }
-                        } else {
-                            showBlockScreen(86400000 - diff);
-                            return;
-                        }
-                    }
-                }
-                runRealChecks();
-            } catch (e) {
-                showUnauthorizedScreen();
-            }
-        };
-
+        // ========== دوال مساعدة ==========
         function showUnauthorizedScreen() {
             window.scrollTo(0, 0);
             document.getElementById('mainContainer').innerHTML = `
@@ -268,7 +197,7 @@
                     </div>
                 </div>`;
             let tr = remaining;
-            setInterval(() => {
+            const interval = setInterval(() => {
                 if (tr > 0) {
                     tr -= 1000;
                     let h = Math.floor(tr / 3600000);
@@ -277,6 +206,7 @@
                     const el = document.getElementById('blockTimer');
                     if (el) el.innerText = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
                 } else {
+                    clearInterval(interval);
                     location.reload();
                 }
             }, 1000);
@@ -300,40 +230,50 @@
             }
         }
 
-        async function runRealChecks() {
-            await new Promise(r => setTimeout(r, 1000));
-            setSuccess('check1', 'تم التخطي بنجاح');
-
-            let vpnDetected = false;
+        async function checkVPN() {
             try {
                 const controller = new AbortController();
                 const timeout = setTimeout(() => controller.abort(), 4000);
                 const res = await fetch('https://ipapi.co/json/', { signal: controller.signal });
                 clearTimeout(timeout);
                 const data = await res.json();
-                if (data.security && (data.security.vpn || data.security.proxy)) vpnDetected = true;
-                if (data.org && data.org.toLowerCase().includes('vpn')) vpnDetected = true;
+                if (data.security && (data.security.vpn || data.security.proxy)) return true;
+                if (data.org && data.org.toLowerCase().includes('vpn')) return true;
+                return false;
             } catch (e) {
-                vpnDetected = true; // للسلامة، إذا تعذر الفحص نعتبره VPN لتجنب الثغرات
+                return true; // تعذر الفحص = نعتبره VPN للأمان
             }
+        }
 
+        async function runRealChecks() {
+            // الفحص الأول
+            await new Promise(r => setTimeout(r, 1000));
+            setSuccess('check1', 'تم التخطي بنجاح');
+
+            // فحص VPN
+            const vpnDetected = await checkVPN();
             if (vpnDetected) {
                 setFailed('check2', 'VPN نشط');
             } else {
                 setSuccess('check2', 'اتصال نظيف');
             }
 
+            // الفحص الثالث
             await new Promise(r => setTimeout(r, 800));
             setSuccess('check3', 'تم التشفير');
+
+            // انتظر قليلاً ثم تصرف
             await new Promise(r => setTimeout(r, 800));
 
             if (vpnDetected) {
+                // إظهار صندوق التنبيه فقط
                 document.getElementById('vpnAlertBox').style.display = 'block';
                 document.getElementById('countdownBox').style.display = 'none';
                 document.getElementById('keyContainer').style.display = 'none';
                 document.getElementById('copyBtn').style.display = 'none';
                 document.getElementById('infoText').style.display = 'none';
             } else {
+                // إخفاء الفحوصات والتنبيه، إظهار العد التنازلي
                 document.getElementById('verificationBox').style.display = 'none';
                 document.getElementById('vpnAlertBox').style.display = 'none';
                 document.getElementById('countdownBox').style.display = 'block';
@@ -400,6 +340,85 @@
                 btn.style.boxShadow = '0 10px 25px rgba(255, 0, 0, 0.5)';
             }, 3000);
         }
+
+        // ========== الدخول الرئيسي ==========
+        window.onload = async function () {
+            window.scrollTo(0, 0);
+
+            // 1. التحقق من التوكن
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('verify_token');
+            let isAuthorized = false;
+            if (token) {
+                try {
+                    const decoded = atob(token);
+                    if (decoded.includes("_ZAYIKS_ULTRA_PASS")) {
+                        const timestamp = parseInt(decoded.split("_")[0]);
+                        if (Date.now() - timestamp < 120000) {
+                            isAuthorized = true;
+                            window.history.replaceState({}, document.title, window.location.pathname);
+                        }
+                    }
+                } catch (e) {}
+            }
+            if (!isAuthorized) {
+                showUnauthorizedScreen();
+                return;
+            }
+
+            // 2. منع تكرار المفتاح من نفس المتصفح (حتى مع تغيير IP)
+            const lastKeyTime = localStorage.getItem('zayiks_last_key_time');
+            if (lastKeyTime) {
+                const diff = Date.now() - parseInt(lastKeyTime);
+                if (diff < 86400000) {
+                    showBlockScreen(86400000 - diff);
+                    return;
+                }
+            }
+
+            // 3. جلب عنوان IP العام
+            try {
+                const ipRes = await fetch('https://api.ipify.org?format=json');
+                const ipData = await ipRes.json();
+                window.userIP = ipData.ip.replace(/\./g, '_');
+            } catch (e) {
+                try {
+                    const fbRes = await fetch('https://ipapi.co/json/');
+                    const fbData = await fbRes.json();
+                    window.userIP = fbData.ip.replace(/\./g, '_');
+                } catch (err) {
+                    showUnauthorizedScreen();
+                    return;
+                }
+            }
+
+            // 4. التحقق من حد الـ IP في Firebase
+            try {
+                const snap = await db.ref('IP_Limits/' + window.userIP).once('value');
+                if (snap.exists()) {
+                    const data = snap.val();
+                    const diff = Date.now() - data.time;
+                    if (diff < 86400000) {
+                        if (data.key) {
+                            const keySnap = await db.ref('ActiveKeys/' + data.key).once('value');
+                            if (keySnap.exists()) {
+                                showBlockScreen(86400000 - diff);
+                                return;
+                            }
+                        } else {
+                            showBlockScreen(86400000 - diff);
+                            return;
+                        }
+                    }
+                }
+            } catch (e) {
+                showUnauthorizedScreen();
+                return;
+            }
+
+            // 5. كل شيء تمام، ابدأ الفحوصات
+            runRealChecks();
+        };
     </script>
 </body>
 </html>
