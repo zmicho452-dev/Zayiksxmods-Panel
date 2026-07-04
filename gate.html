@@ -4,22 +4,21 @@
     <meta charset="UTF-8">
     <title>ZAYIKS X MODS - Verifying...</title>
 </head>
-<body style="background-color: #050505; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
+<body style="background-color: #050505;">
     <script>
         if (window.top !== window.self) {
             window.top.location = window.self.location;
         }
         
-        const urlParams = new URLSearchParams(window.location.search);
-        const access = urlParams.get('access');
-
-        if (access === 'true') {
+        let ref = document.referrer;
+        
+        if (!ref || ref.includes("zmicho452-dev.github.io")) {
+            window.location.replace("index.html");
+        } else {
             const now = Date.now().toString();
             const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
             sessionStorage.setItem("zayiks_secure_session", secureToken);
             window.location.replace("index.html?verify_token=" + secureToken);
-        } else {
-            window.location.replace("https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H");
         }
     </script>
 </body>
