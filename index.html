@@ -128,7 +128,7 @@
 
             if (token) {
                 try {
-                    const decoded = atob(token);
+                    const decoded = atob(decodeURIComponent(token));
                     if (decoded.includes("_ZAYIKS_ULTRA_PASS")) {
                         const timestamp = parseInt(decoded.split("_")[0]);
                         const now = Date.now();
@@ -151,7 +151,7 @@
                 window.userIP = ipData.ip.replace(/\./g, '_'); 
             } catch (e) {
                 try {
-                    let fallbackReq = await fetch('https://ipapi.co/json/');
+                    let fallbackReq = await fetch('https://ipwho.is/');
                     let fallbackData = await fallbackReq.json();
                     window.userIP = fallbackData.ip.replace(/\./g, '_');
                 } catch (err) {
