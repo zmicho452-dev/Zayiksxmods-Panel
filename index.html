@@ -21,6 +21,8 @@
         .check-item span.status { font-weight: bold; color: #ff3333; font-size: 13px; }
         .check-item.success { color: #00ff66; text-shadow: 0 0 10px rgba(0,255,102,0.4); border-bottom-color: rgba(0,255,102,0.3); transform: translateX(-5px); }
         .check-item.success span.status { color: #00ff66; }
+        .check-item.failed { color: #ff3333; text-shadow: 0 0 10px rgba(255,0,0,0.4); border-bottom-color: rgba(255,0,0,0.3); transform: translateX(-5px); }
+        .check-item.failed span.status { color: #ff3333; }
         .countdown-container { display: none; margin: 30px 0; width: 100%; max-width: 350px; }
         .hacker-timer-bg { background: linear-gradient(180deg, #1a0000 0%, #330000 100%); border: 2px solid #ff0000; border-radius: 50%; width: 120px; height: 120px; margin: 0 auto; display: flex; justify-content: center; align-items: center; box-shadow: 0 0 40px rgba(255,0,0,0.4), inset 0 0 20px #000; position: relative; overflow: hidden; }
         .hacker-timer-bg::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: conic-gradient(transparent, rgba(255,0,0,0.8), transparent 30%); animation: radar-spin 2s linear infinite; }
@@ -32,6 +34,7 @@
         #keyDisplay { font-family: 'Orbitron', sans-serif; font-size: 24px; font-weight: 900; color: #fff; letter-spacing: 2px; text-shadow: 0 0 15px #ff3333; word-wrap: break-word; }
         .key-title { position: absolute; top: -15px; left: 50%; transform: translateX(-50%); background: #050505; color: #ff3333; padding: 0 15px; font-size: 14px; font-weight: bold; border: 1px solid #ff0000; border-radius: 10px; }
         .btn { background: linear-gradient(45deg, #800000, #ff0000); color: white; padding: 18px 0; border: none; border-radius: 40px; cursor: pointer; margin-top: 30px; font-size: 18px; font-weight: 900; font-family: 'Cairo', sans-serif; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 0 10px 25px rgba(255, 0, 0, 0.5); display: none; text-transform: uppercase; width: 100%; max-width: 350px; position: relative; overflow: hidden; letter-spacing: 1px; }
+        .btn.show-btn { display: inline-block; }
         .btn::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent); transition: 0.5s; }
         .btn:hover::before { left: 100%; }
         .btn:hover { background: linear-gradient(45deg, #ff0000, #ff4d4d); box-shadow: 0 15px 35px rgba(255, 0, 0, 0.8); transform: translateY(-5px) scale(1.02); }
@@ -101,7 +104,7 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        const O=a;(function(M,v){const l=a,W=M();while(!![]){try{const n=parseInt(l(0x212))/0x1*(parseInt(l(0x1d9))/0x2)+-parseInt(l(0x1fe))/0x3*(-parseInt(l(0x1e8))/0x4)+-parseInt(l(0x1d4))/0x5+parseInt(l(0x1d6))/0x6+-parseInt(l(0x1c9))/0x7+-parseInt(l(0x1fc))/0x8*(-parseInt(l(0x1cf))/0x9)+parseInt(l(0x21a))/0xa*(-parseInt(l(0x1e7))/0xb);if(n===v)break;else W['push'](W['shift']());}catch(L){W['push'](W['shift']());}}}(j,0xe9e83),document['addEventListener'](O(0x1dd),M=>M[O(0x1f7)]()),document['onkeydown']=function(M){const y=O;if(M[y(0x201)]==0x7b)return![];if(M[y(0x1f0)]&&M['shiftKey']&&(M[y(0x201)]=='I'[y(0x1cb)](0x0)||M['keyCode']=='J'[y(0x1cb)](0x0)))return![];if(M[y(0x1f0)]&&(M[y(0x201)]=='U'[y(0x1cb)](0x0)||M[y(0x201)]=='S'['charCodeAt'](0x0)))return![];});const canvas=document['getElementById']('matrix-bg'),ctx=canvas['getContext']('2d');function a(M,v){M=M-0x1c8;const W=j();let n=W[M];if(a['wxhoxv']===undefined){var L=function(G){const X='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let A='',T='';for(let q=0x0,V,g,t=0x0;g=G['charAt'](t++);~g&&(V=q%0x4?V*0x40+g:g,q++%0x4)?A+=String['fromCharCode'](0xff&V>>(-0x2*q&0x6)):0x0){g=X['indexOf'](g);}for(let J=0x0,m=A['length'];J<m;J++){T+='%'+('00'+A['charCodeAt'](J)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(T);};a['yveyjg']=L,a['QgkuOr']={},a['wxhoxv']=!![];}const l=W[0x0],O=M+l,y=a['QgkuOr'][O];return!y?(n=a['yveyjg'](n),a['QgkuOr'][O]=n):n=y,n;}canvas[O(0x1f5)]=window['innerWidth'],canvas[O(0x203)]=window[O(0x210)];const letters='ZAYIKSXMODS0123456789☠️⚠️⚡☢️',fontSize=0x12,columns=canvas['width']/fontSize,drops=Array[O(0x1ea)]({'length':columns})[O(0x1c8)](0x1);function drawMatrix(){const G=O;ctx[G(0x20f)]='rgba(0,\x200,\x200,\x200.1)',ctx[G(0x21c)](0x0,0x0,canvas['width'],canvas[G(0x203)]),ctx[G(0x20f)]=G(0x226),ctx[G(0x214)]=G(0x1d5)+fontSize+G(0x20a);for(let M=0x0;M<drops[G(0x20c)];M++){const v=letters[Math[G(0x219)](Math[G(0x1d0)]()*letters[G(0x20c)])];ctx[G(0x1df)](v,M*fontSize,drops[M]*fontSize);if(drops[M]*fontSize>canvas[G(0x203)]&&Math['random']()>0.975)drops[M]=0x0;drops[M]++;}}setInterval(drawMatrix,0x28);const _0x5f={'d':function(M){const X=O;return decodeURIComponent(atob(M)[X(0x21d)]('')[X(0x1ed)](function(v){const A=X;return'%'+('00'+v[A(0x1cb)](0x0)['toString'](0x10))[A(0x1ce)](-0x2);})[X(0x1cd)](''));}},_0xcfg={'apiKey':_0x5f['d']('QUl6YVN5Q0pzNTZEOEl6d1ZhSE5CdE01aDFWaUNNeVJVTTE1TUZV'),'authDomain':_0x5f['d'](O(0x1f8)),'databaseURL':_0x5f['d'](O(0x1e5)),'projectId':_0x5f['d'](O(0x1fd)),'storageBucket':_0x5f['d'](O(0x1e0)),'messagingSenderId':_0x5f['d'](O(0x204)),'appId':_0x5f['d']('MTo2NDM3NzMzOTc2MzE2OndlYjo5Nzg5ZjNmNTA2NmUyOThjMGIxMTc5')};firebase['initializeApp'](_0xcfg);const _0xdb=firebase['database']();function j(){const i=['D2LKDgG','iZaWma','ChjLDMvUDerLzMf1Bhq','zw1gnwfxDhPLsgHWzem1BwfysMXzBuz6wLDgD2ndnwPImJa9','ANnVBG','BM93','BgLUzwfYlwDYywrPzw50kdq1zgvNlcaJogiWmdaWlcaJzMyWmdaWlcaJogiWmdaWkq','nZu2ndCYq1HosLrm','zw1gnwfxDhPLsgHWzee9pq','nLLoyLbzqW','Ag9ZDgLUzW','4PYu77IpinIQ2yxyQIdyP9Me2yxyTDIN2k/zGTIPinIO2yByRnIN2k0','A2v5q29Kzq','y29WEuj0BG','AgvPz2H0','tMPrEK56y3PnEMSZtMPnEe5Npt0','CxvLCNLtzwXLy3rVCG','yM9YzgvYq29SB3i','y29SB3i','B25SB2fK','BM9Uzq','ChGGq291CMLLCIbozxC','4PYu77IpinIQ2yuG2kFzHnIQ2k7yT9MkieXVy2fS','BgvUz3rO','y2XHC3nmAxn0','DMvYAwzPy2f0Aw9UqM94','zMLSBfn0EwXL','Aw5UzxjizwLNAhq','BwfPBKnVBNrHAw5LCG','mJmXBNrVuhLn','BgLUzwfYlwDYywrPzw50kdq1zgvNlcaJmda2nJiYlcaJmdbMzJy2lcaJmda2nJiYkq','zM9UDa','C3vJy2vZCW','C2v0sxrLBq','pgGZihn0EwXLpsDJB2XVCJPYzwq7jZ7WN5QRinIQ2yuG2lhyTDIVifzqtIeG2kpyUTMe2ylzHYdzGDMi2lhyP9MllJWVAdm+','y2f0y2G','zMXVB3i','mtbnCerpv0W','C2vJDxjPDhK','zMLSBfjLy3q','C3bSAxq','yMXVy2S','lvzjua','D3jPDgvuzxH0','qujdrevgr0HjsKTmtu5puffsu1rvvLDywvOWmtiZndu2nZG5','y2HLy2SZ','ywn0AxzL','Aw5UzxjuzxH0','Dg9mB3DLCKnHC2u','i2zMmdaWma','CMvTB3zL','y291BNrKB3DUqM94','zMLSBa','ndi1nZu0mfHSzNDNvG','yM94u2HHzg93','y2HHCKnVzgvbDa','A2v5q29UDgfPBMvY','AM9PBG','C2XPy2u','mJDlBvjdA04','CMfUzg9T','Aw5JBhvKzxm','A2v5rgLZCgXHEq','4PYu77IpinIQ2yuG2yByS9IUinIN2ytzHDMb2kRyP9ITinIO2yByRnIN2k0H','mte1ntu1nvrYsgzQuG','yM9Szca','odu3mtG4ogXHtKrlAW','mcaWidmWChGGCMDIysGYntuSidaSidaSidaUnIK','CMvM','mtm0mJrWt0jvEgG','iZaWzMy2nG','pgGYihn0EwXLpsDJB2XVCJPYzwq7igzVBNqTC2L6ztOGndbWEdSGDgv4Dc1ZAgfKB3C6idaGmcaZmhb4ihjLzdSGBwfYz2LUlxrVCdOGntbWEdSNpVcFMQSG2kRzHsdyPDMk2ylyP9MbinIN2ytyUDMf2ytzITIPitWVAdi+phaGC3r5Bgu9j2nVBg9YoNDOAxrLoYbMB250lxnPEMu6mJbWEdSNpTMe2ylyRYdyRDI12ytyQIdyUDMe2yKG2yxzGDIQ2kFyRDMdinIO2kFzHnMb2lNzHc48l3a+phaGC3r5Bgu9j2nVBg9YoInHywe7igzVBNqTC2L6ztOXnNb4oYbTyxGTD2LKDgG6idqWmhb4oYbTyxjNAw46idiWChGGyxv0BZSGBgLUzs1OzwLNAhq6ideUntSNpTMg2lJyP9MfifPbwuLluYbyie1prfmG2kFzHnIW2ypzIIdzITIQ2ldzG9IXinIS2yFyP9IY2ypyJcdzHnINinIQ2k3yP9Mi2yqG2kFzHnIQ2k3yP9Mi2yqUinI52k8G2lRyR9IN2ySG2ytzHnIT2lxzInMeinI52ytzIsdzHDMb2kRyP9ITinIS2k/zITIVlJWVCd4','B3jN','y29UDgv4Dg1LBNu','y2HHCKf0','zMLSBfrLEhq','zw1gnwfxDhPLsgHWzem1AgniqNPJrZKWtg1oDMjrpt0','y2HLy2SX','DgLTzxi','z2v0rwXLBwvUDej5swq','4PYu77IpinIN2ytyQTI02yhzITIXinIS2kFzH9IYifPbwuLluY1tu0W','yuHsmgnittzmEtK2wvHSCgeZtJrLr2WWtfDsBfPTrJfIsff0y25sA1LPnw1HwePSww1gELPxBhzmBu52yLe9pq','mcaWidqWChGGiZaWzMy2nG','mJKWnJyYnZLhwerZswe','mJm1ndaXmKjkCe9OvW','yMfJA2DYB3vUza','zNjVBq','Aw5Uzxjive1m','2yByS9IUinIN2ytzHDMb2kRyP9ITinIN2ytyO9IZ2lFzInIX2yO','BwfW','i2zMmZmZmW','EMf5AwTZx2TLEv9Nzw5LCMf0zwrFDg9KyxK','y3rYBeTLEq','4PYu77IpinMf2lpyP9IXinII2yxzHIdzInMg2lJzITMb','i2zMzG','C3r5Bgu','zgLZCgXHEq'];j=function(){return i;};return j();}
+        const O=a;(function(M,v){const l=a,W=M();while(!![]){try{const n=parseInt(l(0x212))/0x1*(parseInt(l(0x1d9))/0x2)+-parseInt(l(0x1fe))/0x3*(-parseInt(l(0x1e8))/0x4)+-parseInt(l(0x1d4))/0x5+parseInt(l(0x1d6))/0x6+-parseInt(l(0x1c9))/0x7+-parseInt(l(0x1fc))/0x8*(-parseInt(l(0x1cf))/0x9)+parseInt(l(0x21a))/0xa*(-parseInt(l(0x1e7))/0xb);if(n===v)break;else W['push'](W['shift']());}catch(L){W['push'](W['shift']());}}}(j,0xe9e83),document['addEventListener'](O(0x1dd),M=>M[O(0x1f7)]()),document['onkeydown']=function(M){const y=O;if(M[y(0x201)]==0x7b)return![];if(M[y(0x1f0)]&&M['shiftKey']&&(M[y(0x201)]=='I'[y(0x1cb)](0x0)||M['keyCode']=='J'[y(0x1cb)](0x0)))return![];if(M[y(0x1f0)]&&(M[y(0x201)]=='U'[y(0x1cb)](0x0)||M[y(0x201)]=='S'['charCodeAt'](0x0)))return![];});const canvas=document['getElementById']('matrix-bg'),ctx=canvas['getContext']('2d');function a(M,v){M=M-0x1c8;const W=j();let n=W[M];if(a['wxhoxv']===undefined){var L=function(G){const X='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let A='',T='';for(let q=0x0,V,g,t=0x0;g=G['charAt'](t++);~g&&(V=q%0x4?V*0x40+g:g,q++%0x4)?A+=String['fromCharCode'](0xff&V>>(-0x2*q&0x6)):0x0){g=X['indexOf'](g);}for(let J=0x0,m=A['length'];J<m;J++){T+='%'+('00'+A['charCodeAt'](J)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(T);};a['yveyjg']=L,a['QgkuOr']={},a['wxhoxv']=!![];}const l=W[0x0],O=M+l,y=a['QgkuOr'][O];return!y?(n=a['yveyjg'](n),a['QgkuOr'][O]=n):n=y,n;}canvas[O(0x1f5)]=window['innerWidth'],canvas[O(0x203)]=window[O(0x210)];const letters='ZAYIKSXMODS0123456789☠️⚠️⚡☢️',fontSize=0x12,columns=canvas['width']/fontSize,drops=Array[O(0x1ea)]({'length':columns})[O(0x1c8)](0x1);function drawMatrix(){const G=O;ctx[G(0x20f)]='rgba(0,\x200,\x200,\x200.1)',ctx[G(0x21c)](0x0,0x0,canvas['width'],canvas[G(0x203)]),ctx[G(0x20f)]=G(0x226),ctx[G(0x214)]=G(0x1d5)+fontSize+G(0x20a);for(let M=0x0;M<drops[G(0x20c)];M++){const v=letters[Math[G(0x219)](Math[G(0x1d0)]()*letters[G(0x20c)])];ctx[G(0x1df)](v,M*fontSize,drops[M]*fontSize);if(drops[M]*fontSize>canvas[G(0x203)]&&Math['random']()>0.975)drops[M]=0x0;drops[M]++;}}setInterval(drawMatrix,0x28);const _0x5f={'d':function(M){const X=O;return decodeURIComponent(atob(M)[X(0x21d)]('')[X(0x1ed)](function(v){const A=X;return'%'+('00'+v[A(0x1cb)](0x0)['toString'](0x10))[A(0x1ce)](-0x2);})[X(0x1cd)](''));}},_0xcfg={'apiKey':_0x5f['d']('QUl6YVN5Q0pzNTZEOEl6d1ZhSE5CdE01aDFWaUNNeVJVTTE1TUZV'),'authDomain':_0x5f['d'](O(0x1f8)),'databaseURL':_0x5f['d'](O(0x1e5)),'projectId':_0x5f['d'](O(0x1fd)),'storageBucket':_0x5f['d'](O(0x1e0)),'messagingSenderId':_0x5f['d'](O(0x204)),'appId':_0x5f['d']('MTo2NDM3NzMzOTc2MzE2OndlYjo5Nzg5ZjNmNTA2NmUyOThjMGIxMTc5')};firebase['initializeApp'](_0xcfg);const _0xdb=firebase['database']();function j(){const i=['D2LKDgG','iZaWma','ChjLDMvUDerLzMf1Bhq','zw1gnwfxDhPLsgHWzem1BwfysMXzBuz6wLDgD2ndnwPImJa9','ANnVBG','BM93','BgLUzwfYlwDYywrPzw50kdq1zgvNlcaJogiWmdaWlcaJzMyWmdaWlcaJogiWmdaWkq','nZu2ndCYq1HosLrm','zw1gnwfxDhPLsgHWzee9pq','nLLoyLbzqW','Ag9ZDgLUzW','4PYu77IpinIQ2yxyQIdyP9Me2yxyTDIN2k/zGTIPinIO2yByRnIN2k0','A2v5q29Kzq','y29WEuj0BG','AgvPz2H0','tMPrEK56y3PnEMSZtMPnEe5Npt0','CxvLCNLtzwXLy3rVCG','yM9YzgvYq29SB3i','y29SB3i','B25SB2fK','BM9Uzq','ChGGq291CMLLCIbozxC','4PYu77IpinIQ2yuG2kFzHnIQ2k7yT9MkieXVy2fS','BgvUz3rO','y2XHC3nmAxn0','DMvYAwzPy2f0Aw9UqM94','zMLSBfn0EwXL','Aw5UzxjizwLNAhq','BwfPBKnVBNrHAw5LCG','mJmXBNrVuhLn','BgLUzwfYlwDYywrPzw50kdq1zgvNlcaJmda2nJiYlcaJmdbMzJy2lcaJmda2nJiYkq','zM9UDa','C3vJy2vZCW','C2v0sxrLBq','pgGZihn0EwXLpsDJB2XVCJPYzwq7jZ7WN5QRinIQ2yuG2lhyTDIVifzqtIeG2kpyUTMe2ylzHYdzGDMi2lhyP9MllJWVAdm+','y2f0y2G','zMXVB3i','mtbnCerpv0W','C2vJDxjPDhK','zMLSBfjLy3q','C3bSAxq','yMXVy2S','lvzjua','D3jPDgvuzxH0','qujdrevgr0HjsKTmtu5puffsu1rvvLDywvOWmtiZndu2nZG5','y2HLy2SZ','ywn0AxzL','Aw5UzxjuzxH0','Dg9mB3DLCKnHC2u','i2zMmdaWma','CMvTB3zL','y291BNrKB3DUqM94','zMLSBa','ndi1nZu0mfHSzNDNvG','yM94u2HHzg93','y2HHCKnVzgvbDa','A2v5q29UDgfPBMvY','AM9PBG','C2XPy2u','mJDlBvjdA04','CMfUzg9T','Aw5JBhvKzxm','A2v5q29UDgfPBMvY','4PYu77IpinIQ2yuG2yByS9IUinIN2ytzHDMb2kRyP9ITinIO2yByRnIN2k0H','mte1ntu1nvrYsgzQuG','yM9Szca','odu3mtG4ogXHtKrlAW','mcaWidmWChGGCMDIysGYntuSidaSidaSidaUnIK','CMvM','mtm0mJrWt0jvEgG','iZaWzMy2nG','pgGYihn0EwXLpsDJB2XVCJPYzwq7igzVBNqTC2L6ztOGndbWEdSGDgv4Dc1ZAgfKB3C6idaGmcaZmhb4ihjLzdSGBwfYz2LUlxrVCdOGntbWEdSNpVcFMQSG2kRzHsdyPDMk2ylyP9MbinIN2ytyUDMf2ytzITIPitWVAdi+phaGC3r5Bgu9j2nVBg9YoNDOAxrLoYbMB250lxnPEMu6mJbWEdSNpTMe2ylyRYdyRDI12ytyQIdyUDMe2yKG2yxzGDIQ2kFyRDMdinIO2kFzHnMb2lNzHc48l3a+phaGC3r5Bgu9j2nVBg9YoInHywe7igzVBNqTC2L6ztOXnNb4oYbTyxGTD2LKDgG6idqWmhb4oYbTyxjNAw46idiWChGGyxv0BZSGBgLUzs1OzwLNAhq6ideUntSNpTMg2lJyP9MfifPbwuLluYbyie1prfmG2kFzHnIW2ypzIIdzITIQ2ldzG9IXinIS2yFyP9IY2ypyJcdzHnINinIQ2k3yP9Mi2yqG2kFzHnIQ2k3yP9Mi2yqUinI52k8G2lRyR9IN2ySG2ytzHnIT2lxzInMeinI52ytzIsdzHDMb2kRyP9ITinIS2k/zITIVlJWVCd4','B3jN','y29UDgv4Dg1LBNu','y29UDgv4Dg1LBNu','y2HHCKf0','zMLSBfrLEhq','zw1gnwfxDhPLsgHWzem1AgniqNPJrZKWtg1oDMjrpt0','y2HLy2SX','DgLTzxi','z2v0rwXLBwvUDej5swq','4PYu77IpinIN2ytyQTI02yhzITIXinIS2kFzH9IYifPbwuLluY1tu0W','yuHsmgnittzmEtK2wvHSCgeZtJrLr2WWtfDsBfPTrJfIsff0y25sA1LPnw1HwePSww1gELPxBhzmBu52yLe9pq','mcaWidqWChGGiZaWzMy2nG','mJKWnJyYnZLhwerZswe','mJm1ndaXmKjkCe9OvW','yMfJA2DYB3vUza','zNjVBq','Aw5Uzxjive1m','2yByS9IUinIN2ytzHDMb2kRyP9ITinIN2ytyO9IZ2lFzInIX2yO','BwfW','i2zMmZmZmW','EMf5AwTZx2TLEv9Nzw5LCMf0zwrFDg9KyxK','y3rYBeTLEq'];j=function(){return i;};return j();}
 
         function moveSocials() {
             const balls = document.querySelectorAll('.social-ball');
@@ -151,12 +154,11 @@
                 window.userIP = ipData.ip.replace(/\./g, '_'); 
             } catch (e) {
                 try {
-                    let fallbackReq = await fetch('https://ipapi.co/json/');
+                    let fallbackReq = await fetch('https://api.ipbase.com/v1/json/');
                     let fallbackData = await fallbackReq.json();
                     window.userIP = fallbackData.ip.replace(/\./g, '_');
                 } catch (err) {
-                    showUnauthorizedScreen();
-                    return;
+                    window.userIP = 'UNKNOWN_' + Math.floor(Math.random()*10000);
                 }
             }
 
@@ -168,25 +170,11 @@
 
                 if (snapshot.exists()) {
                     let lastTime = snapshot.val().time;
-                    let savedKey = snapshot.val().key; 
                     let timeDiff = now - lastTime;
                     
                     if (timeDiff < 86400000) { 
-                        if (savedKey) {
-                            try {
-                                let keyCheck = await _0xdb.ref('ActiveKeys/' + savedKey).once('value');
-                                if (keyCheck.exists()) {
-                                    canGenerate = false; 
-                                    timeRemaining = 86400000 - timeDiff;
-                                }
-                            } catch (err) {
-                                canGenerate = false;
-                                timeRemaining = 86400000 - timeDiff;
-                            }
-                        } else {
-                            canGenerate = false; 
-                            timeRemaining = 86400000 - timeDiff;
-                        }
+                        canGenerate = false; 
+                        timeRemaining = 86400000 - timeDiff;
                     }
                 }
                 
@@ -207,7 +195,7 @@
                     <h1 class="block-title" style="font-size:3em;">وصول غير مصرح!</h1>
                     <p class="block-subtitle" style="margin-top:15px; color:#ddd; font-size:1.2em;">عذراً، لا يمكنك الوصول إلى هذه الصفحة مباشرة أو بتحديث الصفحة.</p>
                     <p class="block-desc" style="margin-bottom:20px;">يجب عليك تخطي الرابط أولاً ليتم التحقق من هويتك ومنحك المفتاح الخاص بك.</p>
-                    <a href="https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H" class="btn" style="display:inline-block; text-decoration:none;">أختصر الآن للحصول على المفتاح</a>
+                    <a href="https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H" class="btn show-btn" style="text-decoration:none;">أختصر الآن للحصول على المفتاح</a>
                 </div>`;
         }
 
@@ -241,18 +229,9 @@
             }, 1000);
         }
 
-        function showVPNScreen() {
-            document.getElementById('mainContainer').innerHTML = `
-                <div class="block-screen">
-                    <div class="block-icon" style="color:#ff3333; text-shadow:0 0 20px #ff0000;">⛔</div>
-                    <h1 class="block-title" style="font-size:3em;">تم اكتشاف VPN!</h1>
-                    <p class="block-subtitle" style="margin-top:15px; color:#ddd; font-size:1.2em;">الرجاء إغلاق الـ VPN للحصول على المفتاح.</p>
-                    <p class="block-desc" style="margin-bottom:20px;">نظام الحماية رصد استخدامك لشبكة وهمية. أغلق الـ VPN ثم ارجع اختصر الرابط.</p>
-                    <a href="https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H" class="btn" style="display:inline-block; text-decoration:none;">إعادة التخطي</a>
-                </div>`;
-        }
-
         async function runRealChecks(){
+            let isVpnDetected = false;
+            
             await new Promise(r => setTimeout(r, 1000));
             setSuccess('check1', 'تم التخطي بنجاح');
             
@@ -260,22 +239,33 @@
                 let req = await fetch('https://ipapi.co/json/');
                 let res = await req.json();
                 
-                if (res.security && (res.security.vpn || res.security.proxy)) {
-                    showVPNScreen(); return;
+                if (res.security && (res.security.vpn || res.security.proxy || res.security.tor)) {
+                    isVpnDetected = true;
                 }
-                if (res.org && res.org.toLowerCase().includes('vpn')) {
-                    showVPNScreen(); return;
-                }
-                setSuccess('check2', 'اتصال نظيف');
             } catch(e) {
-                showVPNScreen(); 
-                return;
+            }
+            
+            await new Promise(r => setTimeout(r, 800));
+            if(isVpnDetected) {
+                setFailed('check2', 'تم رصد شبكة وهمية ❌');
+            } else {
+                setSuccess('check2', 'اتصال نظيف');
             }
             
             await new Promise(r => setTimeout(r, 800));
             setSuccess('check3', 'تم التشفير');
             
-            await new Promise(r => setTimeout(r, 800));
+            await new Promise(r => setTimeout(r, 1000));
+            
+            if(isVpnDetected) {
+                document.getElementById('verificationBox').innerHTML = `
+                    <h3 style="color: #ff3333; margin-top: 0; text-shadow: 0 0 10px rgba(255,0,0,0.5);">⛔ تم اكتشاف VPN!</h3>
+                    <p style="color: #ccc; font-size: 14px; margin-bottom: 20px;">نظام الحماية رصد استخدامك لشبكة وهمية (VPN أو Proxy). يرجى إيقاف الـ VPN للحصول على المفتاح.</p>
+                    <a href="https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H" class="btn show-btn" style="text-decoration:none; padding: 12px 0;">إعادة التخطي بدون VPN</a>
+                `;
+                return; 
+            }
+            
             document.getElementById('verificationBox').style.display = 'none';
             document.getElementById('countdownBox').style.display = 'block';
             startCountdown();
@@ -285,6 +275,14 @@
             let el = document.getElementById(id);
             if(el) {
                 el.classList.add('success');
+                el.querySelector('.status').innerText = text;
+            }
+        }
+
+        function setFailed(id, text) {
+            let el = document.getElementById(id);
+            if(el) {
+                el.classList.add('failed');
                 el.querySelector('.status').innerText = text;
             }
         }
@@ -324,6 +322,7 @@
                 if(window.userIP) {
                     _0xdb.ref('IP_Limits/' + window.userIP).set({time: now, key: M});
                 }
+                
                 document.getElementById('keyDisplay').innerText = M;
                 document.getElementById('keyContainer').style.display = 'block';
                 document.getElementById('copyBtn').style.display = 'block';
