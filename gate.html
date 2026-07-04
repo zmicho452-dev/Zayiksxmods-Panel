@@ -7,10 +7,10 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap');
         body { margin: 0; background-color: #050505; color: white; font-family: 'Cairo', sans-serif; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
-        .box { background: rgba(20, 0, 0, 0.9); border: 2px solid #ff0000; border-radius: 15px; padding: 40px; box-shadow: 0 0 30px rgba(255, 0, 0, 0.4); max-width: 400px; width: 90%; transition: all 0.5s ease; }
+        .box { background: rgba(10, 0, 0, 0.85); border: 2px solid #ff0000; border-radius: 20px; padding: 40px; box-shadow: 0 0 30px rgba(255, 0, 0, 0.4), inset 0 0 20px rgba(255, 0, 0, 0.1); max-width: 400px; width: 90%; transition: all 0.5s ease; backdrop-filter: blur(5px); }
         h1 { color: #ff3333; margin-top: 0; text-shadow: 0 0 10px #ff0000; font-size: 2.2em; }
         p { color: #ccc; font-size: 1.1em; margin-bottom: 30px; line-height: 1.6; }
-        .btn { background: linear-gradient(45deg, #800000, #ff0000); color: white; padding: 15px 30px; border: none; border-radius: 30px; cursor: pointer; font-size: 18px; font-weight: 900; font-family: 'Cairo', sans-serif; text-decoration: none; display: inline-block; transition: 0.3s; box-shadow: 0 5px 15px rgba(255, 0, 0, 0.5); width: 100%; box-sizing: border-box; }
+        .btn { background: linear-gradient(45deg, #800000, #ff0000); color: white; padding: 15px 30px; border: none; border-radius: 30px; cursor: pointer; font-size: 18px; font-weight: 900; font-family: 'Cairo', sans-serif; text-decoration: none; display: inline-block; transition: 0.3s; box-shadow: 0 5px 15px rgba(255, 0, 0, 0.5); width: 100%; box-sizing: border-box; text-transform: uppercase; }
         .btn:hover { background: linear-gradient(45deg, #ff0000, #ff4d4d); transform: scale(1.05); }
         .loader { border: 4px solid rgba(255,255,255,0.1); border-top: 4px solid #00ff66; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px auto; display: none; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -20,26 +20,21 @@
 <body>
     <div class="box" id="authBox">
         <div id="loader" class="loader"></div>
-        <h1 id="titleText">غير مصرح به 🚫</h1>
-        <p id="descText">لا يمكنك الحصول على المفتاح مباشرة هكذا. يجب عليك تخطي الرابط أولاً ليتم التحقق من هويتك.</p>
+        <h1 id="titleText">بوابة التحقق 🛡️</h1>
+        <p id="descText">يجب عليك تخطي الرابط لتأكيد هويتك وتفعيل الجلسة المشفرة الخاصة بك لإنشاء المفتاح.</p>
         <button class="btn" id="actionBtn" onclick="startShortening()">اختصر الرابط للحصول على المفتاح</button>
     </div>
 
     <script>
-        // منع فتح الموقع داخل إطار (iframe)
         if (window.top !== window.self) { window.top.location = window.self.location; }
 
-        // === رابط موقع الاختصار الخاص بك ===
         const shortenerUrl = "https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H";
-        
         const startTime = localStorage.getItem("zayiks_shortening_started");
 
         if (startTime) {
             const timeDiff = Date.now() - parseInt(startTime);
             
-            // يجب أن يستغرق الاختصار 15 ثانية على الأقل، ولا يتجاوز 30 دقيقة
-            if (timeDiff >= 15000 && timeDiff <= 1800000) {
-                
+            if (timeDiff >= 5000 && timeDiff <= 3600000) {
                 document.getElementById('titleText').innerText = "تم التحقق بنجاح ✅";
                 document.getElementById('titleText').style.color = "#00ff66";
                 document.getElementById('titleText').style.textShadow = "0 0 15px #00ff66";
@@ -50,7 +45,6 @@
 
                 localStorage.removeItem("zayiks_shortening_started");
 
-                // توليد جلسة مشفرة وإدخاله للصفحة الرئيسية
                 setTimeout(() => {
                     const now = Date.now().toString();
                     const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
@@ -58,20 +52,20 @@
                     window.location.replace("index.html?verify_token=" + secureToken);
                 }, 2000);
 
-            } else if (timeDiff < 15000) {
-                // رجع بسرعة (تحايل)
+            } else if (timeDiff < 5000) {
                 document.getElementById('titleText').innerText = "تم كشف التحايل ⚠️";
-                document.getElementById('descText').innerText = "لقد عدت بسرعة غير منطقية! لا يمكنك تخطي الرابط في ثوانٍ معدودة. حاول مجدداً بشكل صحيح.";
+                document.getElementById('descText').innerText = "العملية تمت بسرعة غير منطقية. الرجاء إكمال التخطي بشكل صحيح.";
+                document.getElementById('actionBtn').innerText = "إعادة المحاولة";
                 localStorage.removeItem("zayiks_shortening_started");
             } else {
-                // تأخر جداً
-                document.getElementById('descText').innerText = "انتهت مهلة الاختصار لجلستك السابقة. الرجاء المحاولة مرة أخرى.";
+                document.getElementById('titleText').innerText = "انتهت المهلة ⏳";
+                document.getElementById('descText').innerText = "انتهت مهلة جلستك السابقة. الرجاء المحاولة مرة أخرى.";
+                document.getElementById('actionBtn').innerText = "تحديث الجلسة";
                 localStorage.removeItem("zayiks_shortening_started");
             }
         }
 
         function startShortening() {
-            // تسجيل وقت الخروج والتوجه للوسيط
             localStorage.setItem("zayiks_shortening_started", Date.now());
             window.location.href = shortenerUrl;
         }
