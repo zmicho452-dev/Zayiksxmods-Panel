@@ -16,7 +16,7 @@
             100% { text-shadow: 0 0 10px #ff0000, 0 0 20px #9b0000; transform: scale(1); }
         }
         h1 { font-family: 'Orbitron', sans-serif; color: #fff; font-size: 2.8em; font-weight: 900; animation: cyber-glow 2.5s infinite; margin-bottom: 25px; letter-spacing: 3px; }
-        .box-style { background: rgba(10, 0, 0, 0.85); border: 2px solid #ff0000; border-radius: 20px; box-shadow: 0 0 30px rgba(255, 0, 0, 0.2), inset 0 0 20px rgba(255, 0, 0, 0.1); padding: 25px; width: 100%; max-width: 400px; backdrop-filter: blur(5px); transition: all 0.5s ease; }
+        .box-style { background: rgba(10, 0, 0, 0.85); border: 2px solid #ff0000; border-radius: 20px; box-shadow: 0 0 30px rgba(255, 0, 0, 0.2), inset 0 0 20px rgba(255, 0, 0, 0.1); padding: 25px; width: 100%; max-width: 400px; backdrop-filter: blur(5px); }
         .check-item { font-size: 15px; margin: 15px 0; color: #aaa; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(255, 0, 0, 0.3); padding-bottom: 10px; transition: all 0.5s ease-in-out; }
         .check-item span.status { font-weight: bold; color: #ff3333; font-size: 13px; }
         .check-item.success { color: #00ff66; text-shadow: 0 0 10px rgba(0,255,102,0.4); border-bottom-color: rgba(0,255,102,0.3); transform: translateX(-5px); }
@@ -79,7 +79,7 @@
         <h1>ZAYIKS X MODS</h1>
         
         <div class="box-style" id="verificationBox">
-            <h3 style="color: #ff3333; margin-top: 0; text-shadow: 0 0 10px rgba(255,0,0,0.5);" id="verificationTitle">🛡️ جاري فحص الحماية...</h3>
+            <h3 id="verificationTitle" style="color: #ff3333; margin-top: 0; text-shadow: 0 0 10px rgba(255,0,0,0.5);">🛡️ جاري فحص الحماية...</h3>
             <div id="checkList">
                 <div class="check-item" id="check1">تخطي الرابط المختصر <span class="status">جاري...</span></div>
                 <div class="check-item" id="check2">فحص حظر VPN / Proxy <span class="status">جاري...</span></div>
@@ -235,50 +235,38 @@
         async function runRealChecks(){
             let isVpnDetected = false;
             
-            // الخطوة الأولى
             await new Promise(r => setTimeout(r, 1000));
             setSuccess('check1', 'تم التخطي بنجاح');
             
-            // الخطوة الثانية: فحص الـ VPN مع حماية من الأخطاء العشوائية
             try {
-                // وضعنا مهلة زمنية حتى لا يعلق الفحص
-                const controller = new AbortController();
-                const timeoutId = setTimeout(() => controller.abort(), 4000);
-                let req = await fetch('https://ipapi.co/json/', { signal: controller.signal });
+                let req = await fetch('https://ipapi.co/json/');
                 let res = await req.json();
-                clearTimeout(timeoutId);
                 
-                // التأكد من عدم وجود خطأ من السيرفر (Rate Limit) لكي لا نظلم المستخدم
                 if (!res.error && res.security && (res.security.vpn || res.security.proxy || res.security.tor)) {
                     isVpnDetected = true;
                 }
             } catch(e) {
-                // إذا فشل الاتصال، نعتبره نظيفاً لتجنب حظر الأبرياء
                 isVpnDetected = false;
             }
             
             await new Promise(r => setTimeout(r, 800));
             if(isVpnDetected) {
-                // نلونها بالأحمر ولكن نترك الفحص يكمل ليعطي طابع أسطوري
                 setFailed('check2', 'تم رصد شبكة وهمية ❌');
             } else {
                 setSuccess('check2', 'اتصال نظيف');
             }
             
-            // الخطوة الثالثة والأخيرة (يكملها حتى لو كان مشغل VPN)
             await new Promise(r => setTimeout(r, 800));
             setSuccess('check3', 'تم التشفير');
             
-            await new Promise(r => setTimeout(r, 1200));
+            await new Promise(r => setTimeout(r, 1000));
             
-            // الآن نقرر: إذا كان الـ VPN شغال، نظهر رسالة الطرد المدمجة داخل الصندوق
             if(isVpnDetected) {
                 document.getElementById('verificationTitle').innerText = '⛔ تم رفض الوصول';
                 document.getElementById('checkList').innerHTML = `
-                    <div style="animation: fadeIn 0.5s ease-in; text-align: center; margin-top: 15px;">
-                        <p style="color: #ccc; font-size: 15px; margin-bottom: 25px; line-height: 1.8;">
-                            نظام الحماية رصد استخدامك لشبكة وهمية (VPN أو Proxy).<br>
-                            يرجى <strong style="color: #ff3333;">إيقاف الـ VPN</strong> وإعادة تخطي الرابط من البداية.
+                    <div style="text-align: center; margin-top: 15px; animation: fadeIn 0.5s ease-in;">
+                        <p style="color: #ccc; font-size: 14px; margin-bottom: 20px; line-height: 1.8;">
+                            نظام الحماية رصد استخدامك لشبكة وهمية (VPN أو Proxy).<br>يرجى إيقاف الـ VPN وإعادة التخطي.
                         </p>
                         <a href="https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H" class="btn show-btn" style="text-decoration:none; padding: 12px 0; font-size: 16px; margin-top: 0;">إعادة الاختصار بدون VPN</a>
                     </div>
@@ -286,7 +274,6 @@
                 return; 
             }
             
-            // إذا كان نظيفاً يكمل لإعطاء المفتاح
             document.getElementById('verificationBox').style.display = 'none';
             document.getElementById('countdownBox').style.display = 'block';
             startCountdown();
