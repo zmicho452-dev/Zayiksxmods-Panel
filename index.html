@@ -10,11 +10,7 @@
         #matrix-bg { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; opacity: 0.2; }
         .watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); font-family: 'Orbitron', sans-serif; font-size: 10vw; color: rgba(255, 0, 0, 0.03); white-space: nowrap; z-index: -1; pointer-events: none; }
         .content-wrapper { position: relative; z-index: 1; margin-top: 40px; display: flex; flex-direction: column; align-items: center; width: 100%; padding: 0 15px; box-sizing: border-box; }
-        @keyframes cyber-glow {
-            0% { text-shadow: 0 0 10px #ff0000, 0 0 20px #9b0000; transform: scale(1); }
-            50% { text-shadow: 0 0 25px #ff3333, 0 0 50px #ff0000; transform: scale(1.05); }
-            100% { text-shadow: 0 0 10px #ff0000, 0 0 20px #9b0000; transform: scale(1); }
-        }
+        @keyframes cyber-glow { 0% { text-shadow: 0 0 10px #ff0000, 0 0 20px #9b0000; transform: scale(1); } 50% { text-shadow: 0 0 25px #ff3333, 0 0 50px #ff0000; transform: scale(1.05); } 100% { text-shadow: 0 0 10px #ff0000, 0 0 20px #9b0000; transform: scale(1); } }
         h1 { font-family: 'Orbitron', sans-serif; color: #fff; font-size: 2.8em; font-weight: 900; animation: cyber-glow 2.5s infinite; margin-bottom: 25px; letter-spacing: 3px; }
         .box-style { background: rgba(10, 0, 0, 0.85); border: 2px solid #ff0000; border-radius: 20px; box-shadow: 0 0 30px rgba(255, 0, 0, 0.2), inset 0 0 20px rgba(255, 0, 0, 0.1); padding: 25px; width: 100%; max-width: 400px; backdrop-filter: blur(5px); }
         .check-item { font-size: 15px; margin: 15px 0; color: #aaa; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed rgba(255, 0, 0, 0.3); padding-bottom: 10px; transition: all 0.5s ease-in-out; }
@@ -36,15 +32,11 @@
         .btn:hover::before { left: 100%; }
         .btn:hover { background: linear-gradient(45deg, #ff0000, #ff4d4d); box-shadow: 0 15px 35px rgba(255, 0, 0, 0.8); transform: translateY(-5px) scale(1.02); }
         .btn:active { transform: translateY(2px) scale(0.98); }
+        .btn-auth { display: inline-block; text-decoration: none; max-width: 100%; }
         .info { color: #888; font-size: 13px; margin-top: 25px; display: none; line-height: 1.8; padding: 0 20px; }
         .info strong { color: #ff3333; }
-        .block-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; text-align: center; animation: fadeIn 0.5s ease-in; padding: 20px; }
-        .block-icon { font-size: 70px; margin-bottom: 5px; animation: pulse-icon 2s infinite; }
         @keyframes pulse-icon { 0% { transform: scale(1); text-shadow: 0 0 10px #ff0000; } 50% { transform: scale(1.1); text-shadow: 0 0 30px #ff0000; } 100% { transform: scale(1); text-shadow: 0 0 10px #ff0000; } }
-        .block-title { font-family: 'Cairo', sans-serif; color: #ff0000; font-size: 3em; font-weight: 900; margin: 0; text-shadow: 0 0 20px #ff0000, 0 0 40px #9b0000; line-height: 1.2; }
-        .block-subtitle { font-family: 'Cairo', sans-serif; font-size: 1.5em; font-weight: bold; color: #ffffff; margin-top: 30px; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-        .block-desc { font-family: 'Cairo', sans-serif; color: #888; font-size: 1.1em; max-width: 400px; line-height: 1.6; margin-top: 15px; }
-        .timer-box { margin-top: 35px; background: rgba(20, 0, 0, 0.8); border: 2px solid #ff0000; padding: 20px 40px; border-radius: 20px; box-shadow: 0 0 30px rgba(255,0,0,0.4); }
+        .timer-box { margin-top: 25px; background: rgba(20, 0, 0, 0.8); border: 2px solid #ff0000; padding: 15px 25px; border-radius: 20px; box-shadow: 0 0 30px rgba(255,0,0,0.4); }
         .timer-box p { margin: 0 0 10px 0; color: #aaa; font-size: 15px; font-weight: bold; }
         .block-timer { font-family: 'Orbitron', sans-serif; font-size: 2.5em; color: #00ff66; text-shadow: 0 0 20px #00ff66; font-weight: bold; letter-spacing: 2px; }
         .social-ball { position: fixed; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; text-decoration: none; z-index: 9999; background: rgba(10, 0, 0, 0.6); backdrop-filter: blur(8px); border: 2px solid transparent; box-shadow: 0 0 20px rgba(255, 0, 0, 0.4), inset 0 0 15px rgba(255, 0, 0, 0.2); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); overflow: hidden; }
@@ -121,6 +113,32 @@
         }
         moveSocials();
 
+        function renderAuthScreen(title, desc, icon, btnText, btnLink) {
+            document.getElementById('verificationBox').style.display = 'none';
+            document.getElementById('countdownBox').style.display = 'none';
+            document.getElementById('keyContainer').style.display = 'none';
+            document.getElementById('copyBtn').style.display = 'none';
+            document.getElementById('infoText').style.display = 'none';
+
+            let existingBlock = document.getElementById('blockUI');
+            if (existingBlock) existingBlock.remove();
+
+            const blockUI = document.createElement('div');
+            blockUI.id = 'blockUI';
+            blockUI.className = 'box-style';
+            blockUI.style.borderColor = '#ff0000';
+            blockUI.style.boxShadow = '0 0 40px rgba(255,0,0,0.6)';
+            
+            blockUI.innerHTML = `
+                <div style="font-size: 60px; margin-bottom: 10px; animation: pulse-icon 2s infinite;">${icon}</div>
+                <h2 style="color: #ff3333; margin: 0 0 15px 0; text-shadow: 0 0 10px rgba(255,0,0,0.5);">${title}</h2>
+                <p style="color: #ccc; font-size: 15px; line-height: 1.6; margin-bottom: 25px;">${desc}</p>
+                <a href="${btnLink}" class="btn btn-auth" style="display: block;">${btnText}</a>
+            `;
+            
+            document.getElementById('mainContainer').appendChild(blockUI);
+        }
+
         window.onload = async function() {
             if (window.top !== window.self) {
                 window.top.location = window.location.href;
@@ -138,7 +156,7 @@
                     if (decoded.includes('_ZAYIKS_ULTRA_PASS')) {
                         const timestamp = parseInt(decoded.split('_')[0]);
                         const now = Date.now();
-                        if (now - timestamp < 120000) {
+                        if (now - timestamp < 300000) { 
                             isAuthorized = true;
                             sessionStorage.removeItem('zayiks_secure_session');
                             window.history.replaceState({}, document.title, window.location.pathname);
@@ -148,7 +166,13 @@
             }
 
             if(!isAuthorized) {
-                showUnauthorizedScreen();
+                renderAuthScreen(
+                    "وصول غير مصرح 🚫",
+                    "عذراً، لا يمكنك الوصول إلى هذه الصفحة مباشرة أو بتحديث الصفحة. يجب عليك تخطي الرابط أولاً ليتم التحقق من هويتك ومنحك المفتاح.",
+                    "⚠️",
+                    "اختصر الآن للحصول على المفتاح",
+                    "gateway.html"
+                );
                 return;
             }
 
@@ -162,7 +186,13 @@
                     let fallbackData = await fallbackReq.json();
                     window.userIP = fallbackData.ip.replace(/\./g, '_');
                 } catch (err) {
-                    showUnauthorizedScreen();
+                    renderAuthScreen(
+                        "فشل الاتصال 📡",
+                        "تعذر الاتصال بخادم الحماية. يرجى التأكد من اتصالك بالإنترنت وإعادة المحاولة.",
+                        "🔌",
+                        "تحديث الصفحة",
+                        "javascript:location.reload();"
+                    );
                     return;
                 }
             }
@@ -203,28 +233,23 @@
                     runRealChecks(); 
                 }
             } catch (e) {
-                showUnauthorizedScreen();
+                renderAuthScreen(
+                    "وصول غير مصرح 🚫",
+                    "حدث خطأ أثناء فحص السجلات. يرجى إعادة تخطي الرابط لضمان أمان الاتصال.",
+                    "⚠️",
+                    "اختصر الآن للحصول على المفتاح",
+                    "gateway.html"
+                );
             }
         };
-        
-        function showUnauthorizedScreen() {
-            document.getElementById('mainContainer').innerHTML = `
-                <div class="block-screen">
-                    <div class="block-icon" style="color:#ff3333; text-shadow:0 0 20px #ff0000;">⚠️</div>
-                    <h1 class="block-title" style="font-size:3em;">وصول غير مصرح!</h1>
-                    <p class="block-subtitle" style="margin-top:15px; color:#ddd; font-size:1.2em;">عذراً، لا يمكنك الوصول إلى هذه الصفحة مباشرة أو بتحديث الصفحة.</p>
-                    <p class="block-desc" style="margin-bottom:20px;">يجب عليك تخطي الرابط أولاً ليتم التحقق من هويتك ومنحك المفتاح الخاص بك.</p>
-                    <a href="https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H" class="btn" style="display:inline-block; text-decoration:none;">أختصر الآن للحصول على المفتاح</a>
-                </div>`;
-        }
 
         function showBlockScreen(timeRemaining) {
-            document.getElementById('mainContainer').innerHTML = `
-                <div class="block-screen">
-                    <div class="block-icon">🚫</div>
-                    <h1 class="block-title">تم إيقاف<br>العملية!</h1>
-                    <p class="block-subtitle">لقد حصلت على مفتاحك بالفعل.</p>
-                    <p class="block-desc">نظام ZAYIKS X MODS الذكي يتذكر جهازك، لا تحاول التحايل. عد غداً للحصول على مفتاح جديد.</p>
+            document.getElementById('verificationBox').style.display = 'none';
+            document.getElementById('mainContainer').innerHTML += `
+                <div class="box-style" style="border-color: #ff0000;">
+                    <div style="font-size: 60px; margin-bottom: 10px;">🚫</div>
+                    <h2 style="color: #ff3333; margin: 0 0 15px 0;">تم إيقاف العملية</h2>
+                    <p style="color: #ccc; font-size: 15px;">لقد حصلت على مفتاحك بالفعل. نظام ZAYIKS الذكي يتذكر جهازك، عد غداً.</p>
                     <div class="timer-box">
                         <p>الوقت المتبقي لفتح القفل:</p>
                         <div id="blockTimer" class="block-timer">00:00:00</div>
@@ -248,17 +273,6 @@
             }, 1000);
         }
 
-        function showVPNScreen() {
-            document.getElementById('mainContainer').innerHTML = `
-                <div class="block-screen">
-                    <div class="block-icon" style="color:#ff3333; text-shadow:0 0 20px #ff0000;">⛔</div>
-                    <h1 class="block-title" style="font-size:3em;">تم اكتشاف VPN!</h1>
-                    <p class="block-subtitle" style="margin-top:15px; color:#ddd; font-size:1.2em;">الرجاء إغلاق الـ VPN للحصول على المفتاح.</p>
-                    <p class="block-desc" style="margin-bottom:20px;">نظام الحماية رصد استخدامك لشبكة وهمية. أغلق الـ VPN ثم ارجع اختصر الرابط.</p>
-                    <a href="https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H" class="btn" style="display:inline-block; text-decoration:none;">إعادة التخطي</a>
-                </div>`;
-        }
-
         async function runRealChecks(){
             await new Promise(r => setTimeout(r, 1000));
             setSuccess('check1', 'تم التخطي بنجاح');
@@ -268,7 +282,13 @@
                 let res = await req.json();
                 
                 if (res.success && res.security && (res.security.vpn || res.security.proxy || res.security.tor)) {
-                    showVPNScreen(); 
+                    renderAuthScreen(
+                        "تم اكتشاف VPN ⛔",
+                        "نظام الحماية رصد استخدامك لشبكة وهمية. أغلق الـ VPN ثم ارجع اختصر الرابط.",
+                        "🌐",
+                        "إعادة التخطي",
+                        "gateway.html"
+                    );
                     return;
                 }
                 setSuccess('check2', 'اتصال نظيف');
