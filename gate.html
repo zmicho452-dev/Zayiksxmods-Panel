@@ -6,16 +6,9 @@
 </head>
 <body>
     <script>
-        const urlParams = window.location.search;
-        const urlHash = window.location.hash;
-        
-        if (urlParams.includes("go=zayiks_secure") || urlHash.includes("zayiks_secure")) {
-            const now = Date.now().toString();
-            const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
-            window.location.replace("index.html?verify_token=" + secureToken);
-        } else {
-            window.location.replace("https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H");
-        }
+        const now = Date.now().toString();
+        const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
+        window.location.replace("index.html?verify_token=" + secureToken);
     </script>
 </body>
 </html>
