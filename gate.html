@@ -3,29 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZAYIKS X MODS - بوابة التحقق</title>
+    <title>ZAYIKS X MODS - SECURITY GATEWAY</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap');
-        body { margin: 0; background-color: #050505; color: white; font-family: 'Cairo', sans-serif; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
-        .box { background: rgba(10, 0, 0, 0.85); border: 2px solid #ff0000; border-radius: 20px; padding: 40px; box-shadow: 0 0 30px rgba(255, 0, 0, 0.4), inset 0 0 20px rgba(255, 0, 0, 0.1); max-width: 400px; width: 90%; transition: all 0.5s ease; backdrop-filter: blur(5px); }
-        h1 { color: #ff3333; margin-top: 0; text-shadow: 0 0 10px #ff0000; font-size: 2.2em; }
-        p { color: #ccc; font-size: 1.1em; margin-bottom: 30px; line-height: 1.6; }
-        .btn { background: linear-gradient(45deg, #800000, #ff0000); color: white; padding: 15px 30px; border: none; border-radius: 30px; cursor: pointer; font-size: 18px; font-weight: 900; font-family: 'Cairo', sans-serif; text-decoration: none; display: inline-block; transition: 0.3s; box-shadow: 0 5px 15px rgba(255, 0, 0, 0.5); width: 100%; box-sizing: border-box; text-transform: uppercase; }
-        .btn:hover { background: linear-gradient(45deg, #ff0000, #ff4d4d); transform: scale(1.05); }
-        .loader { border: 4px solid rgba(255,255,255,0.1); border-top: 4px solid #00ff66; border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite; margin: 0 auto 20px auto; display: none; }
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Orbitron:wght@700;900&display=swap');
+        body { margin: 0; padding: 0; background-color: #050505; color: white; font-family: 'Cairo', sans-serif; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
+        #particles { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; }
+        .cyber-box { background: rgba(10, 0, 0, 0.7); border: 2px solid #ff0000; border-radius: 25px; padding: 50px 40px; box-shadow: 0 0 40px rgba(255, 0, 0, 0.3), inset 0 0 20px rgba(255, 0, 0, 0.2); max-width: 450px; width: 90%; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); backdrop-filter: blur(10px); position: relative; z-index: 1; }
+        .cyber-box::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(45deg, #ff0000, transparent, transparent, #ff0000); z-index: -1; border-radius: 25px; animation: animateBorder 4s linear infinite; opacity: 0.5; }
+        @keyframes animateBorder { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
+        .icon-container { font-size: 65px; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255,0,0,0.8); animation: float 3s ease-in-out infinite; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
+        h1 { font-family: 'Orbitron', sans-serif; color: #fff; text-shadow: 0 0 15px #ff3333; font-size: 2.5em; margin: 0 0 15px 0; letter-spacing: 2px; }
+        p { color: #aaa; font-size: 1.1em; margin-bottom: 35px; line-height: 1.7; font-weight: bold; }
+        .btn { background: linear-gradient(45deg, #800000, #ff0000); color: white; padding: 18px 30px; border: none; border-radius: 40px; cursor: pointer; font-size: 19px; font-weight: 900; font-family: 'Cairo', sans-serif; text-decoration: none; display: inline-block; transition: 0.4s; box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4); width: 100%; box-sizing: border-box; position: relative; overflow: hidden; letter-spacing: 1px; }
+        .btn::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: 0.5s; }
+        .btn:hover::after { left: 100%; }
+        .btn:hover { background: linear-gradient(45deg, #ff0000, #ff4d4d); box-shadow: 0 15px 35px rgba(255, 0, 0, 0.7); transform: translateY(-3px) scale(1.02); }
+        .loader { border: 4px solid rgba(255,255,255,0.05); border-left-color: #00ff66; border-right-color: #00ff66; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin: 0 auto 25px auto; display: none; box-shadow: 0 0 20px rgba(0,255,102,0.3); }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .success-mode { border-color: #00ff66; box-shadow: 0 0 30px rgba(0, 255, 102, 0.4); }
+        .success-mode { border-color: #00ff66; box-shadow: 0 0 50px rgba(0, 255, 102, 0.3), inset 0 0 20px rgba(0, 255, 102, 0.1); }
+        .success-mode::before { background: linear-gradient(45deg, #00ff66, transparent, transparent, #00ff66); }
     </style>
 </head>
 <body>
-    <div class="box" id="authBox">
+    <canvas id="particles"></canvas>
+
+    <div class="cyber-box" id="authBox">
+        <div id="iconBox" class="icon-container">🛡️</div>
         <div id="loader" class="loader"></div>
-        <h1 id="titleText">بوابة التحقق 🛡️</h1>
-        <p id="descText">يجب عليك تخطي الرابط لتأكيد هويتك وتفعيل الجلسة المشفرة الخاصة بك لإنشاء المفتاح.</p>
-        <button class="btn" id="actionBtn" onclick="startShortening()">اختصر الرابط للحصول على المفتاح</button>
+        <h1 id="titleText">SECURITY CORE</h1>
+        <p id="descText">نظام الحماية يتطلب التحقق من هويتك. قم باجتياز البوابة لإنشاء الجلسة المشفرة وتفعيل المفتاح الخاص بك.</p>
+        <button class="btn" id="actionBtn" onclick="startShortening()">بدء بروتوكول التخطي</button>
     </div>
 
     <script>
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let particlesArray = [];
+        
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.005;
+                if(this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if(this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(255, 0, 0, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+        
+        function init() { for(let i = 0; i < 100; i++) particlesArray.push(new Particle()); }
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for(let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animate);
+        }
+        init(); animate();
+
         if (window.top !== window.self) { window.top.location = window.self.location; }
 
         const shortenerUrl = "https://short-jambo.ink/ZAYIKS_X_MODS_GET_KEY_24H";
@@ -35,10 +86,11 @@
             const timeDiff = Date.now() - parseInt(startTime);
             
             if (timeDiff >= 5000 && timeDiff <= 3600000) {
-                document.getElementById('titleText').innerText = "تم التحقق بنجاح ✅";
+                document.getElementById('iconBox').style.display = "none";
+                document.getElementById('titleText').innerText = "ACCESS GRANTED";
                 document.getElementById('titleText').style.color = "#00ff66";
-                document.getElementById('titleText').style.textShadow = "0 0 15px #00ff66";
-                document.getElementById('descText').innerText = "جاري تحويلك بأمان لاستلام المفتاح الخاص بك...";
+                document.getElementById('titleText').style.textShadow = "0 0 20px #00ff66";
+                document.getElementById('descText').innerText = "تم التحقق من الشبكة بنجاح. جاري فتح البوابة الآمنة لاستلام المفتاح...";
                 document.getElementById('actionBtn').style.display = "none";
                 document.getElementById('loader').style.display = "block";
                 document.getElementById('authBox').classList.add('success-mode');
@@ -50,16 +102,18 @@
                     const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
                     sessionStorage.setItem("zayiks_secure_session", secureToken);
                     window.location.replace("index.html?verify_token=" + secureToken);
-                }, 2000);
+                }, 2500);
 
             } else if (timeDiff < 5000) {
-                document.getElementById('titleText').innerText = "تم كشف التحايل ⚠️";
-                document.getElementById('descText').innerText = "العملية تمت بسرعة غير منطقية. الرجاء إكمال التخطي بشكل صحيح.";
-                document.getElementById('actionBtn').innerText = "إعادة المحاولة";
+                document.getElementById('iconBox').innerText = "⚠️";
+                document.getElementById('titleText').innerText = "SYSTEM BREACH";
+                document.getElementById('descText').innerText = "تم رصد محاولة تخطي غير نظامية. يجب إكمال الرابط بشكل صحيح وتجنب السرعة المفرطة.";
+                document.getElementById('actionBtn').innerText = "إعادة التخطي";
                 localStorage.removeItem("zayiks_shortening_started");
             } else {
-                document.getElementById('titleText').innerText = "انتهت المهلة ⏳";
-                document.getElementById('descText').innerText = "انتهت مهلة جلستك السابقة. الرجاء المحاولة مرة أخرى.";
+                document.getElementById('iconBox').innerText = "⏳";
+                document.getElementById('titleText').innerText = "SESSION TIMEOUT";
+                document.getElementById('descText').innerText = "انتهت صلاحية الجلسة بسبب التأخر. يرجى تنشيط بروتوكول التخطي من جديد.";
                 document.getElementById('actionBtn').innerText = "تحديث الجلسة";
                 localStorage.removeItem("zayiks_shortening_started");
             }
