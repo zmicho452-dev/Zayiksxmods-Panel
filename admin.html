@@ -13,7 +13,7 @@
         #loginScreen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: radial-gradient(circle, #1a0000 0%, #000000 100%); }
         .login-box { background: var(--panel-bg); border: 2px solid var(--main-red); padding: 40px; border-radius: 15px; box-shadow: 0 0 30px rgba(255,0,0,0.4); text-align: center; width: 90%; max-width: 400px; backdrop-filter: blur(10px); }
         .login-box h1 { margin-bottom: 25px; font-size: 28px; text-shadow: var(--text-glow); letter-spacing: 2px; }
-        input { width: 100%; padding: 15px; margin: 10px 0; background: rgba(0,0,0,0.7); border: 1px solid var(--dark-red); color: #fff; border-radius: 8px; outline: none; font-family: inherit; font-size: 16px; transition: 0.3s; text-align: center; }
+        input { width: 100%; padding: 15px; margin: 10px 0; background: rgba(0,0,0,0.7); border: 1px solid var(--dark-red); color: #fff; border-radius: 8px; outline: none; font-family: inherit; font-size: 16px; transition: 0.3s; }
         input:focus { border-color: var(--main-red); box-shadow: 0 0 15px rgba(255,0,0,0.5); }
         button.primary-btn { background: linear-gradient(45deg, var(--dark-red), var(--main-red)); color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: 900; font-size: 16px; width: 100%; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(255,0,0,0.3); }
         button.primary-btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(255,0,0,0.8); }
@@ -39,7 +39,7 @@
         
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         
-        .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 8px; border: 1px solid #330000; }
+        .table-responsive { overflow-x: auto; border-radius: 8px; border: 1px solid #330000; }
         table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.6); font-family: 'Cairo', sans-serif; min-width: 600px; }
         th, td { padding: 12px 15px; text-align: center; border-bottom: 1px solid #220000; white-space: nowrap; }
         th { background: #1a0000; color: var(--main-red); font-family: 'Orbitron', sans-serif; font-size: 13px; }
@@ -51,7 +51,6 @@
         .bg-red { background: rgba(255,0,0,0.1); color: #ff3333; border: 1px solid #ff3333; }
         
         .action-btn { background: #333; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.2s; margin: 2px; font-weight: bold; font-family: 'Orbitron', sans-serif; }
-        .btn-reset { background: #ff9900; color: #000; }
         .btn-renew { background: #00ff66; color: #000; }
         .btn-delete { background: var(--main-red); }
         .action-btn:hover { filter: brightness(1.2); }
@@ -61,6 +60,10 @@
         
         .btn-boo { background: #00ff66; color: #000; border: none; font-size: 18px; font-weight: 900; padding: 15px; width: 100%; border-radius: 8px; cursor: pointer; box-shadow: 0 0 15px rgba(0,255,102,0.3); transition: 0.3s; }
         .btn-boo:hover { background: #00cc55; box-shadow: 0 0 25px rgba(0,255,102,0.6); }
+
+        .reset-box { background: #110000; border: 1px solid #ff3333; padding: 20px; border-radius: 10px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
+        .reset-box input { margin: 0; flex: 1; min-width: 200px; border-color: #ff3333; }
+        .reset-box button { margin: 0; width: 150px; background: linear-gradient(45deg, #ff9900, #ff5500); padding: 15px; font-size: 14px; }
 
         @keyframes pulse { 0% { box-shadow: inset 0 0 10px rgba(255,0,0,0.2); } 50% { box-shadow: inset 0 0 40px rgba(255,0,0,0.6); } 100% { box-shadow: inset 0 0 10px rgba(255,0,0,0.2); } }
 
@@ -91,7 +94,7 @@
             <h1>ZAYIKS X MODS <span style="color: #666; font-size: 14px;">// VIP PANEL</span></h1>
             <div class="user-info">
                 <span class="role-badge" id="userRank">ROLE: UNKNOWN</span>
-                <button class="action-btn" style="padding: 8px 15px;" onclick="logout()">LOGOUT</button>
+                <button class="action-btn" style="padding: 8px 15px; margin: 0;" onclick="logout()">LOGOUT</button>
             </div>
         </header>
         
@@ -129,6 +132,16 @@
 
                 <div id="tab-active" class="tab-content">
                     <div class="card">
+                        
+                        <div class="reset-box">
+                            <div>
+                                <span style="display: block; font-weight: bold; color: #ff3333; margin-bottom: 5px;">🛠️ MANUAL KEY RESET</span>
+                                <span style="font-size: 11px; color: #aaa; font-family: 'Cairo';">أدخل المفتاح هنا لفصل الجهاز عنه</span>
+                            </div>
+                            <input type="text" id="manualKeyInput" placeholder="أدخل المفتاح...">
+                            <button class="primary-btn" onclick="manualReset()">RESET KEY</button>
+                        </div>
+
                         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--dark-red); padding-bottom: 10px; margin-bottom: 20px;">
                             <h2 style="border: none; margin: 0; padding: 0;">LIVE ACTIVE KEYS</h2>
                             <span id="keyCountDisplay" style="color: #aaa; font-size: 14px; font-weight: bold;">0 KEYS</span>
@@ -169,7 +182,9 @@
                         
                         <div class="card">
                             <h2>KILL SWITCH</h2>
-                            <p style="color: #aaa; font-size: 13px; margin-bottom: 20px;">Triggers immediate termination for all connected clients. Use with caution.</p>
+                            <div style="background: #111; border: 1px solid #333; padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center;">
+                                <span id="boomStatusText" style="font-size: 16px; font-weight: bold;">STATUS: LOADING...</span>
+                            </div>
                             <div style="display: flex; gap: 15px;">
                                 <button class="btn-boom" onclick="fireBoom()">💥 BOOM (ON)</button>
                                 <button class="btn-boo" onclick="stopBoom()">🛡️ RESTORE (OFF)</button>
@@ -212,11 +227,11 @@
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getDatabase, ref, onValue, set, update, push, remove, serverTimestamp, query, limitToLast } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
+    <script>
         const firebaseConfig = {
             apiKey: "AIzaSyCJs56D8IzwVaHNBtM5h1ViCMyRUM15MFU",
             authDomain: "zayiksxxit.firebaseapp.com",
@@ -227,9 +242,9 @@
             appId: "1:643773976316:web:9789f3f5066e298c0b1179"
         };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getDatabase(app);
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.database();
         
         const MAIN_ADMIN = 'cCVdbNGtnGgoxQrHKG82eNwU5tY2';
         let curUser = null; let isOwner = false; let srvOn = true; let pKeys = false; let pBoom = false;
@@ -241,7 +256,7 @@
             event.currentTarget.classList.add('active');
         };
 
-        onAuthStateChanged(auth, u => {
+        auth.onAuthStateChanged(u => {
             if (u) { curUser = u; checkRank(u.uid); } 
             else { document.getElementById('loginScreen').style.display = 'flex'; document.getElementById('adminDashboard').style.display = 'none'; }
         });
@@ -249,17 +264,17 @@
         window.login = function() { 
             const e = document.getElementById('authEmail').value; const p = document.getElementById('authPass').value;
             if(!e || !p) return;
-            signInWithEmailAndPassword(auth, e, p).catch(err => document.getElementById('errTxt').innerText = err.message); 
+            auth.signInWithEmailAndPassword(e, p).catch(err => document.getElementById('errTxt').innerText = err.message); 
         }
-        window.logout = function() { signOut(auth); }
+        window.logout = function() { auth.signOut(); }
 
         function checkRank(uid) {
             if (uid === MAIN_ADMIN) { isOwner = true; pKeys = true; pBoom = true; setupUI('OWNER (ROOT)'); } 
             else {
-                onValue(ref(db, 'SubAdmins/' + uid), s => {
+                db.ref('SubAdmins/' + uid).once('value', s => {
                     if (s.exists()) { isOwner = false; pKeys = s.val().canManageKeys; pBoom = s.val().canUseBoom; setupUI('MODERATOR'); } 
                     else { alert('Access Denied'); logout(); }
-                }, { onlyOnce: true });
+                });
             }
         }
 
@@ -272,10 +287,10 @@
             setInterval(updateTimers, 1000);
         }
 
-        function wLog(act, det) { push(ref(db, 'Logs'), { time: Date.now(), user: curUser.email, action: act, details: det }); }
+        function wLog(act, det) { db.ref('Logs').push({ time: firebase.database.ServerValue.TIMESTAMP, user: curUser.email, action: act, details: det }); }
 
         function loadOwnerData() {
-            onValue(ref(db, 'AdminData/ServerStatus'), s => {
+            db.ref('AdminData/ServerStatus').on('value', s => {
                 if(s.exists()) {
                     srvOn = s.val().isActive;
                     const b = document.getElementById('srvBtn');
@@ -285,7 +300,19 @@
                     document.getElementById('srvMsg').value = s.val().message || "";
                 }
             });
-            onValue(query(ref(db, 'Logs'), limitToLast(100)), s => {
+
+            db.ref('AdminCommands/Kill_Switch').on('value', s => {
+                let statusEl = document.getElementById('boomStatusText');
+                if(s.exists() && s.val() === "BOOM") {
+                    statusEl.innerText = "🔴 BOOM IS ACTIVE!";
+                    statusEl.style.color = "#ff3333";
+                } else {
+                    statusEl.innerText = "🟢 SAFE (OFF)";
+                    statusEl.style.color = "#00ff66";
+                }
+            });
+
+            db.ref('Logs').limitToLast(100).on('value', s => {
                 let tb = document.getElementById('tbLogs'); tb.innerHTML = '';
                 let logs = []; s.forEach(c => { logs.unshift(c.val()); });
                 logs.forEach(l => { 
@@ -296,13 +323,13 @@
             });
         }
 
-        window.togSrv = function() { update(ref(db, 'AdminData/ServerStatus'), { isActive: !srvOn }); wLog("Server Status", !srvOn ? "Started" : "Stopped"); }
-        window.setMsg = function() { update(ref(db, 'AdminData/ServerStatus'), { message: document.getElementById('srvMsg').value }); wLog("Server Message", "Updated MSG"); alert("Message Saved!"); }
+        window.togSrv = function() { db.ref('AdminData/ServerStatus').update({ isActive: !srvOn }); wLog("Server Status", !srvOn ? "Started" : "Stopped"); }
+        window.setMsg = function() { db.ref('AdminData/ServerStatus').update({ message: document.getElementById('srvMsg').value }); wLog("Server Message", "Updated MSG"); alert("Message Saved!"); }
         
         window.fireBoom = function() {
             if(!isOwner && !pBoom) return alert('Permission Denied');
             if(confirm("CRITICAL WARNING: Send BOOM command?")) { 
-                update(ref(db, 'AdminCommands'), { Kill_Switch: "BOOM" }); 
+                db.ref('AdminCommands').update({ Kill_Switch: "BOOM" }); 
                 wLog("KILL SWITCH", "BOOM INITIATED"); 
             }
         }
@@ -310,7 +337,7 @@
         window.stopBoom = function() {
             if(!isOwner && !pBoom) return alert('Permission Denied');
             if(confirm("Restore system to normal?")) { 
-                update(ref(db, 'AdminCommands'), { Kill_Switch: "OFF" }); 
+                db.ref('AdminCommands').update({ Kill_Switch: "OFF" }); 
                 wLog("KILL SWITCH", "DEACTIVATED (OFF)"); 
             }
         }
@@ -318,13 +345,13 @@
         window.addMod = function() {
             let u = document.getElementById('modUid').value; let e = document.getElementById('modEmail').value;
             if(!u || !e) return alert("Fill fields");
-            set(ref(db, 'SubAdmins/' + u), { email: e, canManageKeys: document.getElementById('pKeys').checked, canUseBoom: document.getElementById('pBoom').checked });
+            db.ref('SubAdmins/' + u).set({ email: e, canManageKeys: document.getElementById('pKeys').checked, canUseBoom: document.getElementById('pBoom').checked });
             wLog("Auth Management", "Added/Updated Mod: " + e); alert("Saved!");
         }
 
         let activeKeysData = {};
         function loadKeys() {
-            onValue(ref(db, 'ActiveKeys'), s => {
+            db.ref('ActiveKeys').on('value', s => {
                 let tb = document.getElementById('tbActive'); 
                 if(!tb) return;
                 tb.innerHTML = '';
@@ -337,33 +364,30 @@
                 
                 let count = 0;
                 s.forEach(c => {
-                    count++;
-                    let k = c.key; let d = c.val();
-                    
-                    // إصلاح مشكلة المفاتيح القديمة جداً
-                    if (typeof d !== 'object' || d === null) {
-                        d = { deviceID: 'none', usageState: 'غير مستخدم', durationHours: 24 };
-                    }
-                    
-                    activeKeysData[k] = d;
-                    
-                    let dev = (!d.deviceID || d.deviceID === 'none') ? 'Waiting...' : d.deviceID;
-                    let hrs = d.durationHours || 24; 
-                    let st = d.usageState || 'غير مستخدم';
-                    
-                    let stBadge = st === 'مستخدم' ? '<span class="badge bg-green">ACTIVE</span>' : '<span class="badge bg-orange">UNUSED</span>';
-                    
-                    tb.innerHTML += `<tr id="row-${k}">
-                        <td style="font-weight:bold; letter-spacing: 1px;">${k}</td>
-                        <td id="time-${k}" style="font-family: monospace; font-size: 14px; font-weight:bold;">-</td>
-                        <td style="font-size:11px; max-width: 150px; overflow: hidden; text-overflow: ellipsis;" title="${dev}">${dev}</td>
-                        <td>${stBadge}</td>
-                        <td style="min-width: 200px;">
-                            <button class="action-btn btn-reset" onclick="rstKey('${k}')">RESET</button>
-                            <button class="action-btn btn-renew" onclick="rnwKey('${k}')">+24H</button>
-                            <button class="action-btn btn-delete" onclick="delKey('${k}', 'ActiveKeys')">DEL</button>
-                        </td>
-                    </tr>`;
+                    try {
+                        let k = c.key; let d = c.val();
+                        if (typeof d !== 'object' || d === null) {
+                            d = { deviceID: 'none', usageState: 'غير مستخدم', durationHours: 24 };
+                        }
+                        
+                        activeKeysData[k] = d;
+                        count++;
+                        
+                        let dev = (!d.deviceID || d.deviceID === 'none') ? 'Waiting...' : d.deviceID;
+                        let isUsed = (d.deviceID && d.deviceID !== 'none');
+                        let stBadge = isUsed ? '<span class="badge bg-green">ACTIVE</span>' : '<span class="badge bg-orange">UNUSED</span>';
+                        
+                        tb.innerHTML += `<tr id="row-${k}">
+                            <td style="font-weight:bold; letter-spacing: 1px;">${k}</td>
+                            <td id="time-${k}" style="font-family: monospace; font-size: 14px; font-weight:bold;">-</td>
+                            <td style="font-size:11px; max-width: 150px; overflow: hidden; text-overflow: ellipsis;" title="${dev}">${dev}</td>
+                            <td>${stBadge}</td>
+                            <td style="min-width: 150px;">
+                                <button class="action-btn btn-renew" onclick="rnwKey('${k}')">+24H</button>
+                                <button class="action-btn btn-delete" onclick="delKey('${k}', 'ActiveKeys')">DEL</button>
+                            </td>
+                        </tr>`;
+                    } catch(err) {}
                 });
                 document.getElementById('keyCountDisplay').innerText = count + " KEYS";
                 updateTimers();
@@ -371,7 +395,7 @@
         }
 
         function loadExpiredKeys() {
-            onValue(ref(db, 'ExpiredKeys'), s => {
+            db.ref('ExpiredKeys').on('value', s => {
                 let tb = document.getElementById('tbExpired'); 
                 if(!tb) return;
                 tb.innerHTML = '';
@@ -423,19 +447,27 @@
         window.genKey = function() {
             let n = document.getElementById('kName').value.trim(); let h = parseInt(document.getElementById('kHours').value) || 24;
             let k = n !== "" ? n : 'ZAYIKS-' + Math.random().toString(36).substr(2, 5).toUpperCase() + '-VIP';
-            set(ref(db, 'ActiveKeys/' + k), { createdAt: serverTimestamp(), status: 'active', usageState: 'غير مستخدم', deviceID: 'none', secretKey: 'ZAYIKS_X_MODS_0658946573', durationHours: h }).then(() => {
+            db.ref('ActiveKeys/' + k).set({ createdAt: firebase.database.ServerValue.TIMESTAMP, status: 'active', usageState: 'غير مستخدم', deviceID: 'none', secretKey: 'ZAYIKS_X_MODS_0658946573', durationHours: h }).then(() => {
                 let rBox = document.getElementById('kResultBox');
                 rBox.style.display = 'block'; document.getElementById('kResultTxt').innerText = k;
                 wLog("Key Generator", "Created: " + k + " (" + h + "h)");
             });
         }
 
-        window.rstKey = function(k) { 
-            if(confirm("Are you sure you want to RESET this key?\nThis will disconnect the current device.")) { 
-                update(ref(db, 'ActiveKeys/' + k), { deviceID: 'none', usageState: 'غير مستخدم', StartTime: null }); 
-                wLog("Device Reset", k); 
-                alert("تم عمل ريست للمفتاح بنجاح! يمكن لجهاز جديد استخدامه الآن.");
-            } 
+        window.manualReset = function() {
+            let k = document.getElementById('manualKeyInput').value.trim();
+            if(k === "") { alert("يرجى كتابة المفتاح أولاً!"); return; }
+            
+            db.ref('ActiveKeys/' + k).once('value', s => {
+                if(s.exists()) {
+                    db.ref('ActiveKeys/' + k).update({ deviceID: 'none', usageState: 'غير مستخدم', StartTime: null });
+                    wLog("Manual Reset", k);
+                    alert("✅ تم عمل ريست للمفتاح بنجاح! (" + k + ")");
+                    document.getElementById('manualKeyInput').value = "";
+                } else {
+                    alert("❌ هذا المفتاح غير موجود!");
+                }
+            });
         }
         
         window.rnwKey = function(k) {
@@ -443,7 +475,7 @@
                 let d = activeKeysData[k];
                 if(d) {
                     let curHrs = d.durationHours || 24;
-                    update(ref(db, 'ActiveKeys/' + k), { durationHours: curHrs + 24 });
+                    db.ref('ActiveKeys/' + k).update({ durationHours: curHrs + 24 });
                     wLog("Key Renewed", k + " (+24h)");
                 }
             }
@@ -451,7 +483,7 @@
 
         window.delKey = function(k, path) { 
             if(confirm("Permanently delete this key?")) { 
-                remove(ref(db, path + '/' + k)); 
+                db.ref(path + '/' + k).remove(); 
                 wLog("Key Deleted", k + " from " + path); 
             } 
         }
