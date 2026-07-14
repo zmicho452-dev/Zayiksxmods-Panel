@@ -2,141 +2,145 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ZAYIKS VIP PANEL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAYIKS X MODS - VIP COMMAND CENTER</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Cairo:wght@600;800&display=swap');
-        :root { --main-red: #ff0033; --dark-red: #800000; --bg-color: #030000; --panel-bg: #0a0000; --glow: 0 0 15px rgba(255, 0, 51, 0.6); }
-        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
-        body { background-color: var(--bg-color); color: #fff; font-family: 'Orbitron', sans-serif; overflow-x: hidden; }
+        :root { --red-glow: 0 0 15px rgba(255, 0, 0, 0.8); --neon-red: #ff0033; --dark-bg: #050505; --card-bg: rgba(15, 0, 0, 0.9); }
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+        body { background-color: var(--dark-bg); color: #fff; font-family: 'Orbitron', sans-serif; overflow-x: hidden; background-image: radial-gradient(circle at 50% 0%, #220000 0%, #000 70%); background-attachment: fixed; }
         
-        #loginScreen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: radial-gradient(circle at center, #1a0000 0%, #000 100%); }
-        .login-box { background: var(--panel-bg); border: 1px solid var(--main-red); padding: 40px 30px; border-radius: 20px; box-shadow: var(--glow); text-align: center; width: 90%; max-width: 350px; }
-        .login-box h1 { margin-bottom: 25px; font-size: 24px; text-shadow: var(--glow); letter-spacing: 2px; }
-        input { width: 100%; padding: 15px; margin: 10px 0; background: #000; border: 1px solid #330000; color: #00ff66; border-radius: 10px; outline: none; font-family: inherit; transition: 0.3s; text-align: center; }
-        input:focus { border-color: var(--main-red); box-shadow: 0 0 10px rgba(255,0,0,0.3); }
-        button.primary-btn { background: linear-gradient(45deg, var(--dark-red), var(--main-red)); color: white; padding: 15px; border: none; border-radius: 10px; cursor: pointer; font-weight: 900; font-size: 16px; width: 100%; margin-top: 15px; text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 5px 15px rgba(255,0,0,0.4); }
-        
-        #adminDashboard { display: none; flex-direction: column; height: 100vh; }
-        header { background: linear-gradient(180deg, #110000 0%, #000 100%); border-bottom: 1px solid var(--main-red); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--glow); z-index: 10; }
-        header h1 { font-size: 18px; text-shadow: var(--glow); }
-        .role-badge { background: rgba(0,255,102,0.1); border: 1px solid #00ff66; color: #00ff66; padding: 5px 10px; border-radius: 8px; font-size: 10px; }
-        
-        .nav-scroll { display: flex; overflow-x: auto; background: #050505; border-bottom: 1px solid #330000; padding: 10px; gap: 10px; scrollbar-width: none; }
-        .nav-scroll::-webkit-scrollbar { display: none; }
-        .nav-btn { background: #111; border: 1px solid #333; color: #aaa; padding: 12px 20px; border-radius: 10px; font-family: inherit; font-size: 12px; font-weight: bold; cursor: pointer; white-space: nowrap; transition: 0.3s; }
-        .nav-btn.active { background: rgba(255,0,51,0.1); color: #fff; border-color: var(--main-red); box-shadow: inset 0 0 10px rgba(255,0,0,0.3); }
-        
-        .content-area { flex: 1; padding: 20px; overflow-y: auto; background: radial-gradient(circle at top, #0a0000, #000); }
-        .tab-content { display: none; animation: slideUp 0.3s ease; }
-        .tab-content.active { display: block; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        #loginScreen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+        .login-box { background: #0a0000; border: 2px solid var(--neon-red); padding: 40px; border-radius: 20px; box-shadow: var(--red-glow); text-align: center; width: 90%; max-width: 400px; }
+        .login-box h1 { margin-bottom: 25px; font-size: 28px; text-shadow: var(--red-glow); letter-spacing: 3px; }
+        input { width: 100%; padding: 15px; margin: 10px 0; background: #000; border: 1px solid #550000; color: #fff; border-radius: 10px; font-family: 'Cairo', sans-serif; font-size: 15px; transition: 0.3s; text-align: center; }
+        input:focus { border-color: var(--neon-red); box-shadow: 0 0 10px rgba(255,0,0,0.3); }
+        .btn { background: linear-gradient(45deg, #800000, #ff0000); color: white; padding: 15px; border: none; border-radius: 10px; cursor: pointer; font-weight: 900; font-size: 16px; width: 100%; margin-top: 15px; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; box-shadow: 0 5px 15px rgba(255,0,0,0.3); }
+        .btn:hover { transform: translateY(-2px); box-shadow: var(--red-glow); }
 
-        .card-container { display: flex; flex-direction: column; gap: 15px; }
-        .data-card { background: #0a0a0a; border: 1px solid #330000; border-radius: 15px; padding: 15px; position: relative; overflow: hidden; }
-        .data-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--main-red); }
-        .data-card.active-key::before { background: #00ff66; }
-        .data-card.unused-key::before { background: #ffaa00; }
+        #adminDashboard { display: none; padding: 20px; max-width: 1400px; margin: 0 auto; }
+        header { display: flex; justify-content: space-between; align-items: center; background: #0a0000; padding: 20px 30px; border-radius: 15px; border: 1px solid #330000; margin-bottom: 25px; box-shadow: 0 10px 30px rgba(0,0,0,0.8); }
+        header h1 { font-size: 24px; text-shadow: var(--red-glow); margin: 0; }
+        .role-badge { background: rgba(0, 255, 102, 0.1); border: 1px solid #00ff66; color: #00ff66; padding: 8px 15px; border-radius: 8px; font-size: 12px; font-weight: bold; margin-right: 15px; }
         
-        .card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #333; padding-bottom: 10px; margin-bottom: 10px; }
-        .key-title { font-size: 16px; color: #fff; font-weight: bold; letter-spacing: 1px; word-break: break-all; }
-        .key-time { font-family: 'Cairo', monospace; font-size: 14px; font-weight: bold; }
-        
-        .info-row { display: flex; justify-content: space-between; font-size: 11px; color: #888; margin-bottom: 5px; }
-        .info-row span { color: #ccc; }
-        
-        .action-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 15px; }
-        .action-btn { padding: 10px; border-radius: 8px; border: none; font-weight: bold; font-size: 11px; cursor: pointer; color: #000; }
-        .btn-reset { background: #ffaa00; }
-        .btn-renew { background: #00ff66; }
-        .btn-del { background: var(--main-red); color: white; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-bottom: 25px; }
+        .card { background: var(--card-bg); border: 1px solid #440000; padding: 25px; border-radius: 15px; box-shadow: 0 10px 20px rgba(0,0,0,0.5); position: relative; overflow: hidden; }
+        .card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: linear-gradient(90deg, transparent, var(--neon-red), transparent); }
+        .card h2 { color: var(--neon-red); font-size: 18px; margin-bottom: 20px; border-bottom: 1px dashed #330000; padding-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
 
-        .sys-card { background: #110000; border: 1px solid var(--main-red); padding: 20px; border-radius: 15px; margin-bottom: 20px; text-align: center; }
-        .boom-btn { background: #000; color: var(--main-red); border: 2px solid var(--main-red); padding: 20px; width: 100%; border-radius: 10px; font-size: 24px; font-weight: 900; letter-spacing: 3px; cursor: pointer; text-shadow: var(--glow); animation: pulse 2s infinite; margin-bottom: 10px; }
-        .restore-btn { background: #00ff66; color: #000; border: none; padding: 15px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
-        @keyframes pulse { 0% { box-shadow: inset 0 0 10px rgba(255,0,0,0.2); } 50% { box-shadow: inset 0 0 30px rgba(255,0,0,0.6); } 100% { box-shadow: inset 0 0 10px rgba(255,0,0,0.2); } }
+        .btn-boom { background: #000; color: var(--neon-red); border: 2px solid var(--neon-red); font-size: 24px; font-weight: 900; padding: 20px; width: 100%; border-radius: 10px; cursor: pointer; text-shadow: var(--red-glow); box-shadow: inset 0 0 15px rgba(255,0,0,0.2); transition: 0.3s; animation: pulse 1.5s infinite; margin-bottom: 15px; }
+        .btn-boom:hover { background: var(--neon-red); color: #000; text-shadow: none; box-shadow: 0 0 30px var(--neon-red); }
+        .btn-boo { background: #00ff66; color: #000; border: none; font-size: 16px; font-weight: 900; padding: 15px; width: 100%; border-radius: 10px; cursor: pointer; box-shadow: 0 5px 15px rgba(0,255,102,0.3); }
+        @keyframes pulse { 0% { box-shadow: inset 0 0 10px rgba(255,0,0,0.2); } 50% { box-shadow: inset 0 0 40px rgba(255,0,0,0.6); } 100% { box-shadow: inset 0 0 10px rgba(255,0,0,0.2); } }
 
-        .log-item { background: #111; padding: 10px; border-left: 3px solid #00ff66; margin-bottom: 10px; font-size: 11px; border-radius: 4px; }
-        .log-item span { color: #888; display: block; margin-bottom: 3px; }
+        .table-container { overflow-x: auto; background: #050000; border-radius: 10px; border: 1px solid #330000; }
+        table { width: 100%; border-collapse: collapse; font-family: 'Cairo', sans-serif; min-width: 800px; }
+        th, td { padding: 15px; text-align: center; border-bottom: 1px solid #1a0000; font-size: 14px; }
+        th { background: #110000; color: var(--neon-red); font-family: 'Orbitron', sans-serif; font-size: 13px; letter-spacing: 1px; }
+        tr:hover { background: rgba(255,0,0,0.05); }
+        
+        .badge { padding: 5px 10px; border-radius: 6px; font-size: 12px; font-weight: bold; font-family: 'Orbitron', sans-serif; }
+        .bg-green { background: rgba(0,255,102,0.1); color: #00ff66; border: 1px solid #00ff66; }
+        .bg-orange { background: rgba(255,153,0,0.1); color: #ff9900; border: 1px solid #ff9900; }
+
+        .action-btn { border: none; padding: 8px 15px; border-radius: 6px; font-weight: bold; font-size: 12px; cursor: pointer; font-family: 'Orbitron', sans-serif; margin: 0 3px; transition: 0.2s; }
+        .btn-rst { background: #ffaa00; color: #000; }
+        .btn-rnw { background: #00ff66; color: #000; }
+        .btn-del { background: var(--neon-red); color: #fff; }
+        .action-btn:hover { filter: brightness(1.2); transform: scale(1.05); }
+
+        .log-box { max-height: 300px; overflow-y: auto; padding-right: 10px; }
+        .log-item { background: #000; border-left: 3px solid #00ff66; padding: 12px; margin-bottom: 10px; border-radius: 0 8px 8px 0; font-family: 'Cairo', sans-serif; font-size: 13px; }
+        .log-time { color: #888; font-size: 11px; font-family: 'Orbitron', sans-serif; margin-bottom: 5px; display: block; }
+        
+        .owner-only { display: none; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #330000; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--neon-red); }
     </style>
 </head>
 <body>
 
     <div id="loginScreen">
         <div class="login-box">
-            <h1>ZAYIKS VIP</h1>
-            <input type="email" id="authEmail" placeholder="ADMIN EMAIL">
+            <h1>SYSTEM LOGIN</h1>
+            <input type="email" id="authEmail" placeholder="EMAIL">
             <input type="password" id="authPass" placeholder="PASSWORD">
-            <button class="primary-btn" onclick="login()">AUTHORIZE</button>
-            <p id="errTxt" style="color: #ff3333; margin-top: 15px; font-size: 12px;"></p>
+            <button class="btn" onclick="login()">AUTHORIZE</button>
+            <p id="errTxt" style="color: #ff3333; margin-top: 15px; font-size: 13px; font-weight: bold;"></p>
         </div>
     </div>
 
     <div id="adminDashboard">
         <header>
-            <h1>ZAYIKS X MODS</h1>
-            <span class="role-badge" id="userRank">ROLE</span>
+            <h1>ZAYIKS X MODS <span style="font-size: 14px; color: #666;">// VIP PANEL</span></h1>
+            <div style="display: flex; align-items: center;">
+                <span id="userRank" class="role-badge">ROLE</span>
+                <button class="btn" style="width: auto; margin: 0; padding: 10px 20px; font-size: 12px;" onclick="logout()">LOGOUT</button>
+            </div>
         </header>
-        
-        <div class="nav-scroll">
-            <button class="nav-btn active" onclick="openTab('tab-gen')">🔑 GENERATOR</button>
-            <button class="nav-btn" onclick="openTab('tab-active')">🟢 ACTIVE KEYS</button>
-            <button class="nav-btn" onclick="openTab('tab-sys')">⚙️ SYSTEM & BOOM</button>
-            <button class="nav-btn" onclick="openTab('tab-logs')">📜 LOGS</button>
-        </div>
-        
-        <div class="content-area">
-            
-            <div id="tab-gen" class="tab-content active">
-                <div class="sys-card">
-                    <h2 style="color: var(--main-red); margin-bottom: 15px;">CREATE VIP KEY</h2>
-                    <input type="text" id="kName" placeholder="Custom Name (Optional)">
-                    <input type="number" id="kHours" placeholder="Duration in Hours" value="24">
-                    <button class="primary-btn" onclick="genKey()">GENERATE</button>
-                    <div id="kResultBox" style="display: none; margin-top: 20px; padding: 15px; background: rgba(0,255,102,0.1); border: 1px solid #00ff66; border-radius: 10px;">
-                        <span style="color: #00ff66; font-size: 16px; font-weight: bold;" id="kResultTxt"></span>
-                    </div>
-                </div>
-            </div>
 
-            <div id="tab-active" class="tab-content">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <h2 style="color: #fff; font-size: 16px;">LIVE DATABASE</h2>
-                    <span id="keyCount" style="color: #888; font-size: 12px;">0 KEYS</span>
+        <div class="grid">
+            <div class="card owner-only">
+                <h2>⚙️ SYSTEM & BOOM</h2>
+                <div style="display: flex; justify-content: space-between; background: #000; padding: 15px; border-radius: 10px; border: 1px solid #330000; margin-bottom: 20px; align-items: center;">
+                    <span style="font-weight: bold; font-size: 14px;">SERVER STATUS:</span>
+                    <button id="srvBtn" class="action-btn" style="padding: 10px 20px; font-size: 14px;" onclick="togSrv()">ACTIVE</button>
                 </div>
-                <div class="card-container" id="keysContainer">
-                    <!-- Keys will be injected here as Cards -->
-                </div>
-            </div>
-
-            <div id="tab-sys" class="tab-content">
-                <div class="sys-card">
-                    <h2 style="color: var(--main-red); margin-bottom: 15px;">KILL SWITCH (BOOM)</h2>
-                    <button class="boom-btn" onclick="fireBoom()">💥 BOOM 💥</button>
-                    <button class="restore-btn" onclick="stopBoom()">🛡️ RESTORE (BOO)</button>
-                </div>
+                <input type="text" id="srvMsg" placeholder="Maintenance message...">
+                <button class="btn" style="margin-top: 5px; margin-bottom: 25px; padding: 12px;" onclick="setMsg()">UPDATE MESSAGE</button>
                 
-                <div class="sys-card" style="border-color: #333;">
-                    <h2 style="color: #fff; margin-bottom: 15px;">SERVER STATUS</h2>
-                    <button id="srvBtn" class="primary-btn" style="margin-top: 0; margin-bottom: 15px;" onclick="togSrv()">ONLINE</button>
-                    <input type="text" id="srvMsg" placeholder="Maintenance message...">
-                    <button class="action-btn btn-renew" style="width: 100%; padding: 12px;" onclick="setMsg()">SAVE MESSAGE</button>
+                <button class="btn-boom" onclick="fireBoom()">💥 BOOM 💥</button>
+                <button class="btn-boo" onclick="stopBoom()">🛡️ OFF (RESTORE)</button>
+            </div>
+
+            <div class="card mod-keys">
+                <h2>🔑 KEY GENERATOR</h2>
+                <input type="text" id="kName" placeholder="Custom Key Name (Optional)">
+                <input type="number" id="kHours" placeholder="Duration in Hours" value="24">
+                <button class="btn" onclick="genKey()">GENERATE KEY</button>
+                <div id="kResultBox" style="display: none; margin-top: 20px; padding: 15px; background: rgba(0,255,102,0.1); border: 1px solid #00ff66; border-radius: 10px; text-align: center;">
+                    <span style="color: #00ff66; font-size: 18px; font-weight: bold; letter-spacing: 1px;" id="kResultTxt"></span>
                 </div>
             </div>
 
-            <div id="tab-logs" class="tab-content">
-                <h2 style="color: #fff; font-size: 16px; margin-bottom: 15px;">SECURITY LOGS</h2>
-                <div id="logsContainer"></div>
+            <div class="card owner-only">
+                <h2>👥 ADD MODERATOR</h2>
+                <input type="text" id="modUid" placeholder="Moderator UID">
+                <input type="email" id="modEmail" placeholder="Moderator Email">
+                <div style="background: #000; padding: 15px; border-radius: 10px; border: 1px solid #330000; margin-top: 10px;">
+                    <label style="display: block; margin-bottom: 10px; cursor: pointer;"><input type="checkbox" id="pKeys"> Create & Manage Keys</label>
+                    <label style="display: block; cursor: pointer;"><input type="checkbox" id="pBoom"> Execute BOOM</label>
+                </div>
+                <button class="btn" onclick="addMod()">SAVE PERMISSIONS</button>
             </div>
+        </div>
 
+        <div class="card mod-keys">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #330000; padding-bottom: 15px; margin-bottom: 20px;">
+                <h2 style="border: none; margin: 0; padding: 0;">📋 LIVE ACTIVE KEYS</h2>
+                <span id="keyCount" style="color: #888; font-family: 'Cairo'; font-weight: bold;">0 KEYS</span>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead><tr><th>KEY</th><th>TIME LEFT</th><th>DEVICE IP / ID</th><th>STATUS</th><th>ACTIONS</th></tr></thead>
+                    <tbody id="tbActive"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card owner-only">
+            <h2>📜 SYSTEM LOGS</h2>
+            <div class="log-box" id="logBox"></div>
         </div>
     </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-        import { getDatabase, ref, onValue, set, update, push, remove, serverTimestamp, query, limitToLast } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
+    <script>
         const firebaseConfig = {
             apiKey: "AIzaSyCJs56D8IzwVaHNBtM5h1ViCMyRUM15MFU",
             authDomain: "zayiksxxit.firebaseapp.com",
@@ -147,83 +151,92 @@
             appId: "1:643773976316:web:9789f3f5066e298c0b1179"
         };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getDatabase(app);
-        
-        let curUser = null; let srvOn = true;
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.database();
+        const MAIN_ADMIN = 'cCVdbNGtnGgoxQrHKG82eNwU5tY2';
+        let curUser = null; let isOwner = false; let srvOn = true; let pKeys = false; let pBoom = false;
+        let keysDataObj = {};
 
-        window.openTab = function(tabId) {
-            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.currentTarget.classList.add('active');
-        };
-
-        onAuthStateChanged(auth, u => {
-            if (u) { 
-                curUser = u; 
-                document.getElementById('loginScreen').style.display = 'none'; 
-                document.getElementById('adminDashboard').style.display = 'flex';
-                document.getElementById('userRank').innerText = "OWNER (ROOT)";
-                loadSystemData();
-                loadKeys();
-                setInterval(updateKeyTimers, 1000);
-            } else { 
-                document.getElementById('loginScreen').style.display = 'flex'; 
-                document.getElementById('adminDashboard').style.display = 'none'; 
-            }
+        auth.onAuthStateChanged(u => {
+            if (u) { curUser = u; checkRank(u.uid); } 
+            else { document.getElementById('loginScreen').style.display = 'flex'; document.getElementById('adminDashboard').style.display = 'none'; }
         });
 
-        window.login = function() { 
-            const e = document.getElementById('authEmail').value; const p = document.getElementById('authPass').value;
-            if(!e || !p) return;
-            signInWithEmailAndPassword(auth, e, p).catch(err => document.getElementById('errTxt').innerText = err.message); 
+        function login() { 
+            let e = document.getElementById('authEmail').value; let p = document.getElementById('authPass').value;
+            auth.signInWithEmailAndPassword(e, p).catch(err => document.getElementById('errTxt').innerText = err.message); 
+        }
+        function logout() { auth.signOut(); }
+
+        function checkRank(uid) {
+            if (uid === MAIN_ADMIN) { isOwner = true; pKeys = true; pBoom = true; setupUI('OWNER (ROOT)'); } 
+            else {
+                db.ref('SubAdmins/' + uid).once('value', s => {
+                    if (s.exists()) { isOwner = false; pKeys = s.val().canManageKeys; pBoom = s.val().canUseBoom; setupUI('MODERATOR'); } 
+                    else { alert('Access Denied'); logout(); }
+                });
+            }
         }
 
-        function wLog(act, det) { push(ref(db, 'Logs'), { time: Date.now(), user: curUser.email, action: act, details: det }); }
+        function setupUI(role) {
+            document.getElementById('loginScreen').style.display = 'none'; 
+            document.getElementById('adminDashboard').style.display = 'block'; 
+            document.getElementById('userRank').innerText = role;
+            if(isOwner) { document.querySelectorAll('.owner-only').forEach(e => e.style.display = 'block'); loadOwnerData(); }
+            if(pKeys) { loadKeys(); } else { document.querySelectorAll('.mod-keys').forEach(e => e.style.display = 'none'); }
+            setInterval(updateKeyTimers, 1000);
+        }
 
-        function loadSystemData() {
-            onValue(ref(db, 'AdminData/ServerStatus'), s => {
+        function wLog(act, det) { db.ref('Logs').push({ time: firebase.database.ServerValue.TIMESTAMP, user: curUser.email, action: act, details: det }); }
+
+        function loadOwnerData() {
+            db.ref('AdminData/ServerStatus').on('value', s => {
                 if(s.exists()) {
                     srvOn = s.val().isActive;
                     const b = document.getElementById('srvBtn');
-                    b.innerText = srvOn ? "🟢 SERVER IS ONLINE" : "🔴 SERVER IS OFFLINE";
-                    b.style.background = srvOn ? "#008000" : "#800000";
+                    b.innerText = srvOn ? "ONLINE" : "OFFLINE";
+                    b.style.background = srvOn ? "#00ff66" : "#ff3333";
+                    b.style.color = "#000";
                     document.getElementById('srvMsg').value = s.val().message || "";
                 }
             });
-            onValue(query(ref(db, 'Logs'), limitToLast(30)), s => {
-                let box = document.getElementById('logsContainer'); box.innerHTML = '';
+            db.ref('Logs').limitToLast(50).on('value', s => {
+                let box = document.getElementById('logBox'); box.innerHTML = '';
                 let logs = []; s.forEach(c => { logs.unshift(c.val()); });
                 logs.forEach(l => { 
                     let d = new Date(l.time).toLocaleString();
-                    box.innerHTML += `<div class="log-item"><span>${d} | ${l.user}</span><strong style="color:#fff;">${l.action}:</strong> ${l.details}</div>`; 
+                    box.innerHTML += `<div class="log-item"><span class="log-time">${d} | ${l.user}</span><strong style="color:#00ff66;">${l.action}:</strong> <span style="color:#fff;">${l.details}</span></div>`; 
                 });
             });
         }
 
-        window.togSrv = function() { update(ref(db, 'AdminData/ServerStatus'), { isActive: !srvOn }); wLog("Server", !srvOn ? "Turned ON" : "Turned OFF"); }
-        window.setMsg = function() { update(ref(db, 'AdminData/ServerStatus'), { message: document.getElementById('srvMsg').value }); wLog("Server", "Message Updated"); alert("Saved!"); }
+        function togSrv() { db.ref('AdminData/ServerStatus').update({ isActive: !srvOn }); wLog("Server", !srvOn ? "Turned ON" : "Turned OFF"); }
+        function setMsg() { db.ref('AdminData/ServerStatus').update({ message: document.getElementById('srvMsg').value }); wLog("Server", "Message Updated"); alert("Saved!"); }
         
-        window.fireBoom = function() {
-            if(confirm("CRITICAL: Send BOOM command? This terminates all active apps.")) { 
-                update(ref(db, 'AdminCommands'), { Kill_Switch: "BOOM" }); 
+        function fireBoom() {
+            if(!isOwner && !pBoom) return alert('Permission Denied');
+            if(confirm("CRITICAL: Send BOOM command to terminate clients?")) { 
+                db.ref('AdminCommands').update({ Kill_Switch: "BOOM" }); 
                 wLog("KILL SWITCH", "BOOM FIRED!"); 
-                alert("BOOM COMMAND SENT!");
             }
         }
-        window.stopBoom = function() {
-            update(ref(db, 'AdminCommands'), { Kill_Switch: "BOO" }); 
-            wLog("KILL SWITCH", "RESTORED TO BOO"); 
-            alert("SYSTEM RESTORED (BOO)");
+        function stopBoom() {
+            if(!isOwner && !pBoom) return alert('Permission Denied');
+            db.ref('AdminCommands').update({ Kill_Switch: "OFF" }); 
+            wLog("KILL SWITCH", "RESTORED (OFF)"); 
         }
 
-        let keysDataObj = {};
+        function addMod() {
+            let u = document.getElementById('modUid').value; let e = document.getElementById('modEmail').value;
+            if(!u || !e) return;
+            db.ref('SubAdmins/' + u).set({ email: e, canManageKeys: document.getElementById('pKeys').checked, canUseBoom: document.getElementById('pBoom').checked });
+            wLog("Auth", "Updated Mod: " + e); alert("Saved!");
+        }
+
         function loadKeys() {
-            onValue(ref(db, 'ActiveKeys'), s => {
-                let container = document.getElementById('keysContainer'); 
-                container.innerHTML = '';
+            db.ref('ActiveKeys').on('value', s => {
+                let tb = document.getElementById('tbActive'); tb.innerHTML = '';
                 keysDataObj = {};
                 let count = 0;
                 
@@ -232,25 +245,22 @@
                     let k = c.key; let d = c.val();
                     keysDataObj[k] = d;
                     
-                    let dev = (d.deviceID === 'none' || !d.deviceID) ? 'Not Bound' : d.deviceID;
-                    let hrs = d.durationHours || 24; 
-                    let isUsed = (d.deviceID !== 'none' && d.deviceID != null);
-                    let cardClass = isUsed ? 'active-key' : 'unused-key';
+                    let dev = (!d.deviceID || d.deviceID === 'none') ? 'Waiting...' : d.deviceID;
+                    let isUsed = (d.deviceID && d.deviceID !== 'none');
+                    let stBadge = isUsed ? '<span class="badge bg-green">ACTIVE</span>' : '<span class="badge bg-orange">UNUSED</span>';
                     
-                    container.innerHTML += `
-                    <div class="data-card ${cardClass}" id="card-${k}">
-                        <div class="card-header">
-                            <div class="key-title">${k}</div>
-                            <div class="key-time" id="time-${k}">--:--:--</div>
-                        </div>
-                        <div class="info-row">DURATION: <span>${hrs} Hours</span></div>
-                        <div class="info-row">DEVICE IP/ID: <span>${dev}</span></div>
-                        <div class="action-grid">
-                            <button class="action-btn btn-reset" onclick="rstKey('${k}')">RESET ID</button>
-                            <button class="action-btn btn-renew" onclick="rnwKey('${k}')">+24 HOURS</button>
-                            <button class="action-btn btn-del" onclick="delKey('${k}')">DELETE</button>
-                        </div>
-                    </div>`;
+                    tb.innerHTML += `
+                    <tr>
+                        <td style="font-weight:bold; letter-spacing: 1px;">${k}</td>
+                        <td id="time-${k}" style="font-weight:bold;">--:--:--</td>
+                        <td style="font-size:11px; color:#aaa;">${dev}</td>
+                        <td>${stBadge}</td>
+                        <td>
+                            <button class="action-btn btn-rst" onclick="rstKey('${k}')">RESET</button>
+                            <button class="action-btn btn-rnw" onclick="rnwKey('${k}')">+24H</button>
+                            <button class="action-btn btn-del" onclick="delKey('${k}')">DEL</button>
+                        </td>
+                    </tr>`;
                 });
                 document.getElementById('keyCount').innerText = count + " KEYS";
                 updateKeyTimers();
@@ -264,9 +274,8 @@
                 let el = document.getElementById('time-' + k);
                 if(!el) continue;
                 
-                if (d.deviceID === 'none' || !d.StartTime) {
-                    el.style.color = '#ffaa00';
-                    el.innerText = 'UNUSED';
+                if (!d.deviceID || d.deviceID === 'none' || !d.StartTime) {
+                    el.style.color = '#ffaa00'; el.innerText = (d.durationHours || 24) + 'H (Unused)';
                     continue;
                 }
                 
@@ -275,50 +284,47 @@
                 let rem = limit - diff;
                 
                 if (rem > 0) {
-                    let h = Math.floor(rem / 3600000);
-                    let m = Math.floor((rem % 3600000) / 60000);
-                    let s = Math.floor((rem % 60000) / 1000);
+                    let h = Math.floor(rem / 3600000); let m = Math.floor((rem % 3600000) / 60000); let s = Math.floor((rem % 60000) / 1000);
                     el.style.color = rem < 3600000 ? '#ff3333' : '#00ff66';
-                    el.innerText = `${h}H ${m}M ${s}S`;
+                    el.innerText = `${h}h ${m}m ${s}s`;
                 } else {
-                    el.style.color = '#ff3333';
-                    el.innerText = 'EXPIRED';
+                    el.style.color = '#ff3333'; el.innerText = 'EXPIRED';
                 }
             }
         }
 
-        window.genKey = function() {
+        function genKey() {
             let n = document.getElementById('kName').value.trim(); let h = parseInt(document.getElementById('kHours').value) || 24;
             let k = n !== "" ? n : 'ZAYIKS-' + Math.random().toString(36).substr(2, 5).toUpperCase() + '-VIP';
-            set(ref(db, 'ActiveKeys/' + k), { createdAt: serverTimestamp(), status: 'active', usageState: 'غير مستخدم', deviceID: 'none', secretKey: 'ZAYIKS_X_MODS_0658946573', durationHours: h }).then(() => {
+            db.ref('ActiveKeys/' + k).set({ createdAt: firebase.database.ServerValue.TIMESTAMP, status: 'active', usageState: 'غير مستخدم', deviceID: 'none', secretKey: 'ZAYIKS_X_MODS_0658946573', durationHours: h }).then(() => {
                 let rBox = document.getElementById('kResultBox');
                 rBox.style.display = 'block'; document.getElementById('kResultTxt').innerText = k;
                 wLog("Generated", k);
             });
         }
 
-        window.rstKey = function(k) { 
-            if(confirm("Reset this key so a new device can use it?")) { 
-                update(ref(db, 'ActiveKeys/' + k), { deviceID: 'none', usageState: 'غير مستخدم', StartTime: null }); 
-                wLog("Reset", k); 
+        function rstKey(k) { 
+            if(confirm("Disconnect this key from device?")) { 
+                db.ref('ActiveKeys/' + k).update({ deviceID: 'none', usageState: 'غير مستخدم', StartTime: null }); 
+                wLog("Reset Key", k); 
             } 
         }
         
-        window.rnwKey = function(k) {
-            if(confirm("Add 24 hours to this key?")) {
+        function rnwKey(k) {
+            if(confirm("Add +24 Hours?")) {
                 let d = keysDataObj[k];
                 if(d) {
                     let curHrs = d.durationHours || 24;
-                    update(ref(db, 'ActiveKeys/' + k), { durationHours: curHrs + 24 });
-                    wLog("Renewed", k + " (+24h)");
+                    db.ref('ActiveKeys/' + k).update({ durationHours: curHrs + 24 });
+                    wLog("Renewed Key", k + " (+24h)");
                 }
             }
         }
 
-        window.delKey = function(k) { 
-            if(confirm("Delete this key permanently?")) { 
-                remove(ref(db, 'ActiveKeys/' + k)); 
-                wLog("Deleted", k); 
+        function delKey(k) { 
+            if(confirm("Delete this key?")) { 
+                db.ref('ActiveKeys/' + k).remove(); 
+                wLog("Deleted Key", k); 
             } 
         }
     </script>
