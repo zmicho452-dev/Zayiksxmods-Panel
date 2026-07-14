@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZAYIKS ADMIN PANEL</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap');
+        body { margin: 0; padding: 0; background-color: #050505; color: white; font-family: monospace; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        h1, h2 { font-family: 'Orbitron', sans-serif; color: #ff3333; text-shadow: 0 0 10px #ff0000; }
+        #loginScreen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; }
+        .login-box { background: #0a0000; border: 2px solid #ff0000; padding: 40px; border-radius: 10px; width: 300px; text-align: center; }
+        input[type="text"], input[type="email"], input[type="password"], input[type="number"] { width: 90%; padding: 10px; margin: 10px 0; background: #111; border: 1px solid #ff3333; color: white; border-radius: 5px; }
+        button { background: #800000; color: white; padding: 10px 20px; border: 1px solid #ff0000; cursor: pointer; font-weight: bold; width: 100%; margin-top: 10px; transition: 0.3s; }
+        button:hover { background: #ff0000; box-shadow: 0 0 15px #ff0000; }
+        #adminDashboard { display: none; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .card { background: #0f0000; border: 1px solid #ff3333; padding: 20px; border-radius: 10px; }
+        .btn-small { width: auto; padding: 5px 10px; margin: 2px; font-size: 12px; }
+        .btn-danger { background: #aa0000; }
+        .btn-boom { background: #000; color: #ff0000; border: 2px solid #ff0000; font-size: 20px; padding: 20px; text-shadow: 0 0 10px #ff0000; }
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 12px; }
+        th, td { border: 1px solid #ff3333; padding: 8px; text-align: left; }
+        th { background: #330000; }
+        .owner-only { display: none; }
+    </style>
+</head>
+<body>
+    <div id="loginScreen">
+        <div class="login-box">
+            <h1>SYSTEM LOGIN</h1>
+            <input type="email" id="authEmail" placeholder="Email">
+            <input type="password" id="authPass" placeholder="Password">
+            <button onclick="login()">LOGIN</button>
+            <p id="errTxt" style="color: red;"></p>
+        </div>
+    </div>
+    <div class="container" id="adminDashboard">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <h1>ZAYIKS X MODS CONTROL PANEL</h1>
+            <div>
+                <span id="userRank" style="color: #00ff66; margin-right: 20px;"></span>
+                <button class="btn-small" onclick="logout()">LOGOUT</button>
+            </div>
+        </div>
+        <div class="grid">
+            <div class="card mod-keys">
+                <h2>KEY GENERATOR</h2>
+                <input type="text" id="kName" placeholder="Custom Name (Optional)">
+                <input type="number" id="kHours" placeholder="Duration in Hours" value="24">
+                <button onclick="genKey()">GENERATE KEY</button>
+                <p id="kResult" style="color: #00ff66; margin-top: 10px;"></p>
+            </div>
+            <div class="card owner-only">
+                <h2>SERVER & BOOM</h2>
+                <button id="srvBtn" onclick="togSrv()" style="margin-bottom: 10px;">SERVER: ACTIVE</button>
+                <input type="text" id="srvMsg" placeholder="Maintenance message">
+                <button onclick="setMsg()" style="margin-bottom: 20px;">SET MESSAGE</button>
+                <button class="btn-boom" onclick="fireBoom()">💥 FIRE BOOM COMMAND 💥</button>
+            </div>
+            <div class="card owner-only">
+                <h2>ADD MODERATOR</h2>
+                <input type="text" id="modUid" placeholder="Moderator UID">
+                <input type="email" id="modEmail" placeholder="Moderator Email">
+                <label><input type="checkbox" id="pKeys"> Manage Keys</label><br>
+                <label><input type="checkbox" id="pBoom"> Use Boom</label><br>
+                <button onclick="addMod()">ADD / UPDATE MODERATOR</button>
+            </div>
+        </div>
+        <div class="card mod-keys" style="margin-top: 20px;">
+            <h2>ACTIVE KEYS</h2>
+            <div style="overflow-x: auto;">
+                <table>
+                    <thead><tr><th>KEY</th><th>HOURS</th><th>STATUS</th><th>DEVICE</th><th>ACTIONS</th></tr></thead>
+                    <tbody id="kTb"></tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card owner-only" style="margin-top: 20px;">
+            <h2>SYSTEM LOGS</h2>
+            <div style="overflow-x: auto; max-height: 300px;">
+                <table>
+                    <thead><tr><th>TIME</th><th>USER</th><th>ACTION</th><th>DETAILS</th></tr></thead>
+                    <tbody id="logTb"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getDatabase, ref, onValue, set, update, push, remove, serverTimestamp, query, limitToLast } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCJs56D8IzwVaHNBtM5h1ViCMyRUM15MFU",
+            authDomain: "zayiksxxit.firebaseapp.com",
+            databaseURL: "https://zayiksxxit-default-rtdb.firebaseio.com",
+            projectId: "zayiksxxit",
+            storageBucket: "zayiksxxit.firebasestorage.app",
+            messagingSenderId: "643773976316",
+            appId: "1:643773976316:web:9789f3f5066e298c0b1179"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getDatabase(app);
+        
+        const MAIN_ADMINS = ['cCVdbNGtnGgoxQrHKG82eNwU5tY2'];
+        let curUser = null; let isOwner = false; let srvOn = true; let pKeys = false; let pBoom = false;
+
+        onAuthStateChanged(auth, u => {
+            if (u) { curUser = u; checkRank(u.uid); } 
+            else { document.getElementById('loginScreen').style.display = 'flex'; document.getElementById('adminDashboard').style.display = 'none'; }
+        });
+
+        window.login = function() { 
+            signInWithEmailAndPassword(auth, document.getElementById('authEmail').value, document.getElementById('authPass').value).catch(e => document.getElementById('errTxt').innerText = e.message); 
+        }
+        window.logout = function() { signOut(auth); }
+
+        function checkRank(uid) {
+            if (MAIN_ADMINS.includes(uid)) { isOwner = true; pKeys = true; pBoom = true; setupUI('OWNER'); } 
+            else {
+                onValue(ref(db, 'SubAdmins/' + uid), s => {
+                    if (s.exists()) { isOwner = false; pKeys = s.val().canManageKeys; pBoom = s.val().canUseBoom; setupUI('MODERATOR'); } 
+                    else { alert('Unauthorized!'); logout(); }
+                }, { onlyOnce: true });
+            }
+        }
+
+        function setupUI(role) {
+            document.getElementById('loginScreen').style.display = 'none'; document.getElementById('adminDashboard').style.display = 'block'; document.getElementById('userRank').innerText = "ROLE: " + role;
+            if(isOwner) { document.querySelectorAll('.owner-only').forEach(e => e.style.display = 'block'); loadOwnerData(); }
+            if(pKeys) loadKeys();
+            if(!pKeys) document.querySelectorAll('.mod-keys').forEach(e => e.style.display = 'none');
+        }
+
+        function wLog(act, det) { push(ref(db, 'Logs'), { time: Date.now(), user: curUser.email, action: act, details: det }); }
+
+        function loadOwnerData() {
+            onValue(ref(db, 'AdminData/ServerStatus'), s => {
+                if(s.exists()) {
+                    srvOn = s.val().isActive;
+                    document.getElementById('srvBtn').innerText = srvOn ? "SERVER: ACTIVE" : "SERVER: OFFLINE";
+                    document.getElementById('srvBtn').style.background = srvOn ? "#008000" : "#ff0000";
+                    document.getElementById('srvMsg').value = s.val().message || "";
+                }
+            });
+            onValue(query(ref(db, 'Logs'), limitToLast(50)), s => {
+                let tb = document.getElementById('logTb'); tb.innerHTML = '';
+                let logs = []; s.forEach(c => { logs.unshift(c.val()); });
+                logs.forEach(l => { tb.innerHTML += `<tr><td>${new Date(l.time).toLocaleString()}</td><td>${l.user}</td><td>${l.action}</td><td>${l.details}</td></tr>`; });
+            });
+        }
+
+        window.togSrv = function() { update(ref(db, 'AdminData/ServerStatus'), { isActive: !srvOn }); wLog("Server Toggle", !srvOn ? "Turned ON" : "Turned OFF"); }
+        window.setMsg = function() { update(ref(db, 'AdminData/ServerStatus'), { message: document.getElementById('srvMsg').value }); }
+        
+        window.fireBoom = function() {
+            if(!isOwner && !pBoom) return alert('No Permission');
+            if(confirm("DANGER: FIRE BOOM?")) { update(ref(db, 'AdminCommands'), { Kill_Switch: "BOO" }); wLog("FIRE BOOM", "Boom command sent"); }
+        }
+
+        window.addMod = function() {
+            let u = document.getElementById('modUid').value; let e = document.getElementById('modEmail').value;
+            set(ref(db, 'SubAdmins/' + u), { email: e, canManageKeys: document.getElementById('pKeys').checked, canUseBoom: document.getElementById('pBoom').checked });
+            wLog("Added Moderator", e); alert("Moderator updated!");
+        }
+
+        function loadKeys() {
+            onValue(ref(db, 'ActiveKeys'), s => {
+                let tb = document.getElementById('kTb'); tb.innerHTML = '';
+                s.forEach(c => {
+                    let k = c.key; let d = c.val();
+                    let dev = d.deviceID === 'none' ? 'NONE' : d.deviceID;
+                    let hrs = d.durationHours || 24; let st = d.usageState || 'غير مستخدم';
+                    let stCol = st === 'مستخدم' ? '#00ff66' : '#ff9900';
+                    tb.innerHTML += `<tr><td>${k}</td><td>${hrs}</td><td style="color:${stCol}">${st}</td><td>${dev}</td>
+                    <td><button class="btn-small" onclick="rstKey('${k}')">RESET</button>
+                    <button class="btn-small btn-danger" onclick="delKey('${k}')">DELETE</button></td></tr>`;
+                });
+            });
+        }
+
+        window.genKey = function() {
+            let n = document.getElementById('kName').value.trim(); let h = parseInt(document.getElementById('kHours').value) || 24;
+            let k = n !== "" ? n : 'ZAYIKS-' + Math.random().toString(36).substr(2, 5).toUpperCase() + '-VIP';
+            set(ref(db, 'ActiveKeys/' + k), { createdAt: serverTimestamp(), status: 'active', usageState: 'غير مستخدم', deviceID: 'none', secretKey: 'ZAYIKS_X_MODS_0658946573', durationHours: h }).then(() => {
+                document.getElementById('kResult').innerText = "GENERATED: " + k; wLog("Generated Key", k + " (" + h + "h)");
+            });
+        }
+
+        window.rstKey = function(k) { if(confirm("Reset key?")) { update(ref(db, 'ActiveKeys/' + k), { deviceID: 'none', usageState: 'غير مستخدم', StartTime: null }); wLog("Reset Key", k); } }
+        window.delKey = function(k) { if(confirm("Delete key?")) { remove(ref(db, 'ActiveKeys/' + k)); wLog("Deleted Key", k); } }
+    </script>
+</body>
+</html>
