@@ -354,10 +354,12 @@
 
         let activeKeysData = {};
         function loadKeys() {
+            let tb = document.getElementById('tbActive'); 
+            if(!tb) return;
+            
+            tb.innerHTML = '<tr><td colspan="5" style="color: #ff9900;">⏳ جاري جلب البيانات من السيرفر...</td></tr>';
+
             db.ref('ActiveKeys').on('value', s => {
-                let tb = document.getElementById('tbActive'); 
-                if(!tb) return;
-                
                 activeKeysData = {};
                 let count = 0;
                 let htmlContent = '';
@@ -387,21 +389,27 @@
                                     <button class="action-btn btn-delete" onclick="delKey('${k}', 'ActiveKeys')">DEL</button>
                                 </td>
                             </tr>`;
-                        } catch(err) {}
+                        } catch(err) { console.error(err); }
                     });
+                    tb.innerHTML = htmlContent;
+                } else {
+                    tb.innerHTML = '<tr><td colspan="5" style="color: #aaa;">لا توجد مفاتيح نشطة حالياً.</td></tr>';
                 }
                 
-                tb.innerHTML = htmlContent;
                 document.getElementById('keyCountDisplay').innerText = count + " KEYS";
                 updateTimers();
+                
+            }, (error) => {
+                alert("مشكلة في التصاريح: " + error.message);
+                tb.innerHTML = `<tr><td colspan="5" style="color: red;">خطأ الصلاحيات: تأكد من تحديث قوانين فايربيس (Rules).</td></tr>`;
             });
         }
 
         function loadExpiredKeys() {
+            let tb = document.getElementById('tbExpired'); 
+            if(!tb) return;
+            
             db.ref('ExpiredKeys').on('value', s => {
-                let tb = document.getElementById('tbExpired'); 
-                if(!tb) return;
-                
                 let htmlContent = '';
                 if (s.exists()) {
                     s.forEach(c => {
@@ -416,8 +424,12 @@
                             <td><button class="action-btn btn-delete" onclick="delKey('${k}', 'ExpiredKeys')">PERMA-DEL</button></td>
                         </tr>`;
                     });
+                    tb.innerHTML = htmlContent;
+                } else {
+                    tb.innerHTML = '<tr><td colspan="4" style="color: #aaa;">لا توجد مفاتيح منتهية.</td></tr>';
                 }
-                tb.innerHTML = htmlContent;
+            }, (error) => {
+                tb.innerHTML = `<tr><td colspan="4" style="color: red;">خطأ في الصلاحيات.</td></tr>`;
             });
         }
 
