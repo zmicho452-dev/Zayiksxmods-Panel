@@ -266,6 +266,7 @@
             if(!e || !p) return;
             auth.signInWithEmailAndPassword(e, p).catch(err => document.getElementById('errTxt').innerText = err.message); 
         }
+        
         window.logout = function() { auth.signOut(); }
 
         function checkRank(uid) {
@@ -315,11 +316,13 @@
             db.ref('Logs').limitToLast(100).on('value', s => {
                 let tb = document.getElementById('tbLogs'); tb.innerHTML = '';
                 let logs = []; s.forEach(c => { logs.unshift(c.val()); });
+                let logsHtml = '';
                 logs.forEach(l => { 
                     let d = new Date(l.time);
                     let fDate = d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
-                    tb.innerHTML += `<tr><td>${fDate}</td><td style="color:#00ff66;">${l.user}</td><td>${l.action}</td><td style="font-family: Cairo;">${l.details}</td></tr>`; 
+                    logsHtml += `<tr><td>${fDate}</td><td style="color:#00ff66;">${l.user}</td><td>${l.action}</td><td style="font-family: Cairo;">${l.details}</td></tr>`; 
                 });
+                tb.innerHTML = logsHtml;
             });
         }
 
@@ -354,41 +357,41 @@
             db.ref('ActiveKeys').on('value', s => {
                 let tb = document.getElementById('tbActive'); 
                 if(!tb) return;
-                tb.innerHTML = '';
-                activeKeysData = {};
                 
-                if (!s.exists()) {
-                    document.getElementById('keyCountDisplay').innerText = "0 KEYS";
-                    return;
+                activeKeysData = {};
+                let count = 0;
+                let htmlContent = '';
+                
+                if (s.exists()) {
+                    s.forEach(c => {
+                        try {
+                            let k = c.key; let d = c.val();
+                            if (typeof d !== 'object' || d === null) {
+                                d = { deviceID: 'none', usageState: 'غير مستخدم', durationHours: 24 };
+                            }
+                            
+                            activeKeysData[k] = d;
+                            count++;
+                            
+                            let dev = (!d.deviceID || d.deviceID === 'none') ? 'Waiting...' : d.deviceID;
+                            let isUsed = (d.deviceID && d.deviceID !== 'none');
+                            let stBadge = isUsed ? '<span class="badge bg-green">ACTIVE</span>' : '<span class="badge bg-orange">UNUSED</span>';
+                            
+                            htmlContent += `<tr id="row-${k}">
+                                <td style="font-weight:bold; letter-spacing: 1px;">${k}</td>
+                                <td id="time-${k}" style="font-family: monospace; font-size: 14px; font-weight:bold;">-</td>
+                                <td style="font-size:11px; max-width: 150px; overflow: hidden; text-overflow: ellipsis;" title="${dev}">${dev}</td>
+                                <td>${stBadge}</td>
+                                <td style="min-width: 150px;">
+                                    <button class="action-btn btn-renew" onclick="rnwKey('${k}')">+24H</button>
+                                    <button class="action-btn btn-delete" onclick="delKey('${k}', 'ActiveKeys')">DEL</button>
+                                </td>
+                            </tr>`;
+                        } catch(err) {}
+                    });
                 }
                 
-                let count = 0;
-                s.forEach(c => {
-                    try {
-                        let k = c.key; let d = c.val();
-                        if (typeof d !== 'object' || d === null) {
-                            d = { deviceID: 'none', usageState: 'غير مستخدم', durationHours: 24 };
-                        }
-                        
-                        activeKeysData[k] = d;
-                        count++;
-                        
-                        let dev = (!d.deviceID || d.deviceID === 'none') ? 'Waiting...' : d.deviceID;
-                        let isUsed = (d.deviceID && d.deviceID !== 'none');
-                        let stBadge = isUsed ? '<span class="badge bg-green">ACTIVE</span>' : '<span class="badge bg-orange">UNUSED</span>';
-                        
-                        tb.innerHTML += `<tr id="row-${k}">
-                            <td style="font-weight:bold; letter-spacing: 1px;">${k}</td>
-                            <td id="time-${k}" style="font-family: monospace; font-size: 14px; font-weight:bold;">-</td>
-                            <td style="font-size:11px; max-width: 150px; overflow: hidden; text-overflow: ellipsis;" title="${dev}">${dev}</td>
-                            <td>${stBadge}</td>
-                            <td style="min-width: 150px;">
-                                <button class="action-btn btn-renew" onclick="rnwKey('${k}')">+24H</button>
-                                <button class="action-btn btn-delete" onclick="delKey('${k}', 'ActiveKeys')">DEL</button>
-                            </td>
-                        </tr>`;
-                    } catch(err) {}
-                });
+                tb.innerHTML = htmlContent;
                 document.getElementById('keyCountDisplay').innerText = count + " KEYS";
                 updateTimers();
             });
@@ -398,21 +401,23 @@
             db.ref('ExpiredKeys').on('value', s => {
                 let tb = document.getElementById('tbExpired'); 
                 if(!tb) return;
-                tb.innerHTML = '';
-                if (!s.exists()) return;
                 
-                s.forEach(c => {
-                    let k = c.key; let d = c.val();
-                    if (typeof d !== 'object' || d === null) d = {};
-                    let dev = d.deviceID || 'Unknown';
-                    let expTime = d.status === 'expired' ? '<span class="badge bg-red">EXPIRED</span>' : '<span class="badge bg-orange">ARCHIVED</span>';
-                    tb.innerHTML += `<tr>
-                        <td style="color:#aaa;">${k}</td>
-                        <td style="font-size:11px;">${dev}</td>
-                        <td>${expTime}</td>
-                        <td><button class="action-btn btn-delete" onclick="delKey('${k}', 'ExpiredKeys')">PERMA-DEL</button></td>
-                    </tr>`;
-                });
+                let htmlContent = '';
+                if (s.exists()) {
+                    s.forEach(c => {
+                        let k = c.key; let d = c.val();
+                        if (typeof d !== 'object' || d === null) d = {};
+                        let dev = d.deviceID || 'Unknown';
+                        let expTime = d.status === 'expired' ? '<span class="badge bg-red">EXPIRED</span>' : '<span class="badge bg-orange">ARCHIVED</span>';
+                        htmlContent += `<tr>
+                            <td style="color:#aaa;">${k}</td>
+                            <td style="font-size:11px;">${dev}</td>
+                            <td>${expTime}</td>
+                            <td><button class="action-btn btn-delete" onclick="delKey('${k}', 'ExpiredKeys')">PERMA-DEL</button></td>
+                        </tr>`;
+                    });
+                }
+                tb.innerHTML = htmlContent;
             });
         }
 
@@ -445,47 +450,58 @@
         }
 
         window.genKey = function() {
-            let n = document.getElementById('kName').value.trim(); let h = parseInt(document.getElementById('kHours').value) || 24;
+            let n = document.getElementById('kName').value.trim(); 
+            let h = parseInt(document.getElementById('kHours').value) || 24;
             let k = n !== "" ? n : 'ZAYIKS-' + Math.random().toString(36).substr(2, 5).toUpperCase() + '-VIP';
-            db.ref('ActiveKeys/' + k).set({ createdAt: firebase.database.ServerValue.TIMESTAMP, status: 'active', usageState: 'غير مستخدم', deviceID: 'none', secretKey: 'ZAYIKS_X_MODS_0658946573', durationHours: h }).then(() => {
+            
+            db.ref('ActiveKeys/' + k).set({ 
+                createdAt: firebase.database.ServerValue.TIMESTAMP, 
+                status: 'active', 
+                usageState: 'غير مستخدم', 
+                deviceID: 'none', 
+                secretKey: 'ZAYIKS_X_MODS_0658946573', 
+                durationHours: h 
+            }).then(() => {
                 let rBox = document.getElementById('kResultBox');
-                rBox.style.display = 'block'; document.getElementById('kResultTxt').innerText = k;
+                rBox.style.display = 'block'; 
+                document.getElementById('kResultTxt').innerText = k;
                 wLog("Key Generator", "Created: " + k + " (" + h + "h)");
             });
         }
 
         window.manualReset = function() {
             let k = document.getElementById('manualKeyInput').value.trim();
-            if(k === "") { alert("يرجى كتابة المفتاح أولاً!"); return; }
+            if(k === "") { alert("Please enter the key first!"); return; }
             
             db.ref('ActiveKeys/' + k).once('value', s => {
                 if(s.exists()) {
                     db.ref('ActiveKeys/' + k).update({ deviceID: 'none', usageState: 'غير مستخدم', StartTime: null });
                     wLog("Manual Reset", k);
-                    alert("✅ تم عمل ريست للمفتاح بنجاح! (" + k + ")");
+                    alert("Key Reset Successful! (" + k + ")");
                     document.getElementById('manualKeyInput').value = "";
                 } else {
-                    alert("❌ هذا المفتاح غير موجود!");
+                    alert("Key not found in Active Keys!");
                 }
             });
         }
-        
-        window.rnwKey = function(k) {
-            if(confirm("Add +24 Hours to this key?")) {
-                let d = activeKeysData[k];
-                if(d) {
-                    let curHrs = d.durationHours || 24;
-                    db.ref('ActiveKeys/' + k).update({ durationHours: curHrs + 24 });
-                    wLog("Key Renewed", k + " (+24h)");
+
+        window.rnwKey = function(key) {
+            db.ref('ActiveKeys/' + key).once('value', s => {
+                if(s.exists()) {
+                    let currentHours = s.val().durationHours || 24;
+                    db.ref('ActiveKeys/' + key).update({ durationHours: currentHours + 24 });
+                    wLog("Key Management", "Added 24H to: " + key);
+                    alert("Time extended by 24 Hours!");
                 }
-            }
+            });
         }
 
-        window.delKey = function(k, path) { 
-            if(confirm("Permanently delete this key?")) { 
-                db.ref(path + '/' + k).remove(); 
-                wLog("Key Deleted", k + " from " + path); 
-            } 
+        window.delKey = function(key, path) {
+            if(confirm("Are you sure you want to delete this key?")) {
+                db.ref(path + '/' + key).remove().then(() => {
+                    wLog("Key Management", "Deleted Key: " + key + " from " + path);
+                });
+            }
         }
     </script>
 </body>
