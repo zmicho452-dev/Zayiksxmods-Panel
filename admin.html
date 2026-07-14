@@ -2,210 +2,139 @@
 <html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZAYIKS X MODS - VIP ADMIN</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ZAYIKS VIP PANEL</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Cairo:wght@600;800&display=swap');
-        :root { --main-red: #ff0000; --dark-red: #800000; --bg-color: #050505; --panel-bg: rgba(15, 0, 0, 0.85); --text-glow: 0 0 10px rgba(255, 0, 0, 0.8); }
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root { --main-red: #ff0033; --dark-red: #800000; --bg-color: #030000; --panel-bg: #0a0000; --glow: 0 0 15px rgba(255, 0, 51, 0.6); }
+        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
         body { background-color: var(--bg-color); color: #fff; font-family: 'Orbitron', sans-serif; overflow-x: hidden; }
         
-        #loginScreen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: radial-gradient(circle, #1a0000 0%, #000000 100%); }
-        .login-box { background: var(--panel-bg); border: 2px solid var(--main-red); padding: 40px; border-radius: 15px; box-shadow: 0 0 30px rgba(255,0,0,0.4); text-align: center; width: 90%; max-width: 400px; backdrop-filter: blur(10px); }
-        .login-box h1 { margin-bottom: 25px; font-size: 28px; text-shadow: var(--text-glow); letter-spacing: 2px; }
-        input { width: 100%; padding: 15px; margin: 10px 0; background: rgba(0,0,0,0.7); border: 1px solid var(--dark-red); color: #fff; border-radius: 8px; outline: none; font-family: inherit; font-size: 16px; transition: 0.3s; }
-        input:focus { border-color: var(--main-red); box-shadow: 0 0 15px rgba(255,0,0,0.5); }
-        button.primary-btn { background: linear-gradient(45deg, var(--dark-red), var(--main-red)); color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: 900; font-size: 16px; width: 100%; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(255,0,0,0.3); }
-        button.primary-btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(255,0,0,0.8); }
-
-        #adminDashboard { display: none; height: 100vh; flex-direction: column; }
-        header { background: #0a0000; border-bottom: 2px solid var(--main-red); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 0 20px rgba(255,0,0,0.3); }
-        header h1 { font-size: 22px; text-shadow: var(--text-glow); }
-        .user-info { display: flex; align-items: center; gap: 15px; }
-        .role-badge { background: rgba(0,255,102,0.1); border: 1px solid #00ff66; color: #00ff66; padding: 5px 10px; border-radius: 5px; font-size: 12px; }
+        #loginScreen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: radial-gradient(circle at center, #1a0000 0%, #000 100%); }
+        .login-box { background: var(--panel-bg); border: 1px solid var(--main-red); padding: 40px 30px; border-radius: 20px; box-shadow: var(--glow); text-align: center; width: 90%; max-width: 350px; }
+        .login-box h1 { margin-bottom: 25px; font-size: 24px; text-shadow: var(--glow); letter-spacing: 2px; }
+        input { width: 100%; padding: 15px; margin: 10px 0; background: #000; border: 1px solid #330000; color: #00ff66; border-radius: 10px; outline: none; font-family: inherit; transition: 0.3s; text-align: center; }
+        input:focus { border-color: var(--main-red); box-shadow: 0 0 10px rgba(255,0,0,0.3); }
+        button.primary-btn { background: linear-gradient(45deg, var(--dark-red), var(--main-red)); color: white; padding: 15px; border: none; border-radius: 10px; cursor: pointer; font-weight: 900; font-size: 16px; width: 100%; margin-top: 15px; text-transform: uppercase; letter-spacing: 2px; box-shadow: 0 5px 15px rgba(255,0,0,0.4); }
         
-        .main-layout { display: flex; flex: 1; overflow: hidden; }
-        .sidebar { width: 250px; background: #0a0000; border-right: 1px solid var(--dark-red); display: flex; flex-direction: column; padding: 20px 0; }
-        .nav-btn { background: transparent; border: none; color: #aaa; padding: 15px 25px; text-align: left; font-size: 15px; font-family: inherit; cursor: pointer; transition: 0.3s; border-left: 3px solid transparent; }
-        .nav-btn:hover, .nav-btn.active { background: rgba(255,0,0,0.1); color: #fff; border-left-color: var(--main-red); text-shadow: var(--text-glow); }
+        #adminDashboard { display: none; flex-direction: column; height: 100vh; }
+        header { background: linear-gradient(180deg, #110000 0%, #000 100%); border-bottom: 1px solid var(--main-red); padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--glow); z-index: 10; }
+        header h1 { font-size: 18px; text-shadow: var(--glow); }
+        .role-badge { background: rgba(0,255,102,0.1); border: 1px solid #00ff66; color: #00ff66; padding: 5px 10px; border-radius: 8px; font-size: 10px; }
         
-        .content-area { flex: 1; padding: 30px; overflow-y: auto; background: radial-gradient(circle at top right, #110000, #000000); }
-        .tab-content { display: none; animation: fadeIn 0.4s ease; }
+        .nav-scroll { display: flex; overflow-x: auto; background: #050505; border-bottom: 1px solid #330000; padding: 10px; gap: 10px; scrollbar-width: none; }
+        .nav-scroll::-webkit-scrollbar { display: none; }
+        .nav-btn { background: #111; border: 1px solid #333; color: #aaa; padding: 12px 20px; border-radius: 10px; font-family: inherit; font-size: 12px; font-weight: bold; cursor: pointer; white-space: nowrap; transition: 0.3s; }
+        .nav-btn.active { background: rgba(255,0,51,0.1); color: #fff; border-color: var(--main-red); box-shadow: inset 0 0 10px rgba(255,0,0,0.3); }
+        
+        .content-area { flex: 1; padding: 20px; overflow-y: auto; background: radial-gradient(circle at top, #0a0000, #000); }
+        .tab-content { display: none; animation: slideUp 0.3s ease; }
         .tab-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .card { background: var(--panel-bg); border: 1px solid var(--dark-red); padding: 25px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
-        .card h2 { margin-bottom: 20px; color: var(--main-red); font-size: 20px; border-bottom: 1px dashed var(--dark-red); padding-bottom: 10px; }
+        .card-container { display: flex; flex-direction: column; gap: 15px; }
+        .data-card { background: #0a0a0a; border: 1px solid #330000; border-radius: 15px; padding: 15px; position: relative; overflow: hidden; }
+        .data-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--main-red); }
+        .data-card.active-key::before { background: #00ff66; }
+        .data-card.unused-key::before { background: #ffaa00; }
         
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #333; padding-bottom: 10px; margin-bottom: 10px; }
+        .key-title { font-size: 16px; color: #fff; font-weight: bold; letter-spacing: 1px; word-break: break-all; }
+        .key-time { font-family: 'Cairo', monospace; font-size: 14px; font-weight: bold; }
         
-        table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.6); border-radius: 8px; overflow: hidden; font-family: 'Cairo', sans-serif; }
-        th, td { padding: 12px 15px; text-align: center; border-bottom: 1px solid #220000; }
-        th { background: #1a0000; color: var(--main-red); font-family: 'Orbitron', sans-serif; font-size: 14px; }
-        tr:hover { background: rgba(255,0,0,0.05); }
+        .info-row { display: flex; justify-content: space-between; font-size: 11px; color: #888; margin-bottom: 5px; }
+        .info-row span { color: #ccc; }
         
-        .badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
-        .bg-green { background: rgba(0,255,102,0.1); color: #00ff66; border: 1px solid #00ff66; }
-        .bg-orange { background: rgba(255,153,0,0.1); color: #ff9900; border: 1px solid #ff9900; }
-        .bg-red { background: rgba(255,0,0,0.1); color: #ff3333; border: 1px solid #ff3333; }
-        
-        .action-btn { background: #333; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.2s; margin: 2px; font-weight: bold; }
-        .btn-reset { background: #ff9900; color: #000; }
-        .btn-renew { background: #00ff66; color: #000; }
-        .btn-delete { background: var(--main-red); }
-        .action-btn:hover { filter: brightness(1.2); }
+        .action-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 15px; }
+        .action-btn { padding: 10px; border-radius: 8px; border: none; font-weight: bold; font-size: 11px; cursor: pointer; color: #000; }
+        .btn-reset { background: #ffaa00; }
+        .btn-renew { background: #00ff66; }
+        .btn-del { background: var(--main-red); color: white; }
 
-        .btn-boom { background: #000; color: var(--main-red); border: 2px solid var(--main-red); font-size: 24px; font-weight: 900; padding: 25px; width: 100%; border-radius: 12px; cursor: pointer; text-shadow: var(--text-glow); box-shadow: inset 0 0 20px rgba(255,0,0,0.2); transition: 0.3s; animation: pulse 1.5s infinite; }
-        .btn-boom:hover { background: var(--main-red); color: #000; text-shadow: none; box-shadow: 0 0 30px var(--main-red); }
-        @keyframes pulse { 0% { box-shadow: inset 0 0 10px rgba(255,0,0,0.2); } 50% { box-shadow: inset 0 0 40px rgba(255,0,0,0.6); } 100% { box-shadow: inset 0 0 10px rgba(255,0,0,0.2); } }
+        .sys-card { background: #110000; border: 1px solid var(--main-red); padding: 20px; border-radius: 15px; margin-bottom: 20px; text-align: center; }
+        .boom-btn { background: #000; color: var(--main-red); border: 2px solid var(--main-red); padding: 20px; width: 100%; border-radius: 10px; font-size: 24px; font-weight: 900; letter-spacing: 3px; cursor: pointer; text-shadow: var(--glow); animation: pulse 2s infinite; margin-bottom: 10px; }
+        .restore-btn { background: #00ff66; color: #000; border: none; padding: 15px; width: 100%; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; }
+        @keyframes pulse { 0% { box-shadow: inset 0 0 10px rgba(255,0,0,0.2); } 50% { box-shadow: inset 0 0 30px rgba(255,0,0,0.6); } 100% { box-shadow: inset 0 0 10px rgba(255,0,0,0.2); } }
 
-        @media (max-width: 768px) {
-            .main-layout { flex-direction: column; }
-            .sidebar { width: 100%; flex-direction: row; flex-wrap: wrap; border-right: none; border-bottom: 1px solid var(--dark-red); padding: 10px; justify-content: center; }
-            .nav-btn { padding: 10px; font-size: 12px; border-left: none; border-bottom: 3px solid transparent; }
-            .nav-btn:hover, .nav-btn.active { border-left: none; border-bottom-color: var(--main-red); }
-            .grid-2 { grid-template-columns: 1fr; }
-            .content-area { padding: 15px; }
-            table { font-size: 11px; }
-            th, td { padding: 8px 5px; }
-        }
+        .log-item { background: #111; padding: 10px; border-left: 3px solid #00ff66; margin-bottom: 10px; font-size: 11px; border-radius: 4px; }
+        .log-item span { color: #888; display: block; margin-bottom: 3px; }
     </style>
 </head>
 <body>
 
     <div id="loginScreen">
         <div class="login-box">
-            <h1>ZAYIKS CORE</h1>
-            <input type="email" id="authEmail" placeholder="Admin Email">
-            <input type="password" id="authPass" placeholder="Access Code">
+            <h1>ZAYIKS VIP</h1>
+            <input type="email" id="authEmail" placeholder="ADMIN EMAIL">
+            <input type="password" id="authPass" placeholder="PASSWORD">
             <button class="primary-btn" onclick="login()">AUTHORIZE</button>
-            <p id="errTxt" style="color: #ff3333; margin-top: 15px; font-size: 14px; font-weight: bold;"></p>
+            <p id="errTxt" style="color: #ff3333; margin-top: 15px; font-size: 12px;"></p>
         </div>
     </div>
 
     <div id="adminDashboard">
         <header>
-            <h1>ZAYIKS X MODS <span style="color: #666; font-size: 14px;">// VIP PANEL</span></h1>
-            <div class="user-info">
-                <span class="role-badge" id="userRank">ROLE: UNKNOWN</span>
-                <button class="action-btn" style="padding: 8px 15px;" onclick="logout()">LOGOUT</button>
-            </div>
+            <h1>ZAYIKS X MODS</h1>
+            <span class="role-badge" id="userRank">ROLE</span>
         </header>
         
-        <div class="main-layout">
-            <div class="sidebar">
-                <button class="nav-btn active" onclick="openTab('tab-generate')">🔑 KEY GENERATOR</button>
-                <button class="nav-btn" onclick="openTab('tab-active')">🟢 ACTIVE KEYS</button>
-                <button class="nav-btn" onclick="openTab('tab-expired')">🔴 EXPIRED KEYS</button>
-                <button class="nav-btn owner-only" onclick="openTab('tab-system')">⚙️ SYSTEM & BOOM</button>
-                <button class="nav-btn owner-only" onclick="openTab('tab-users')">👥 MODERATORS</button>
-                <button class="nav-btn owner-only" onclick="openTab('tab-logs')">📜 SYSTEM LOGS</button>
-            </div>
+        <div class="nav-scroll">
+            <button class="nav-btn active" onclick="openTab('tab-gen')">🔑 GENERATOR</button>
+            <button class="nav-btn" onclick="openTab('tab-active')">🟢 ACTIVE KEYS</button>
+            <button class="nav-btn" onclick="openTab('tab-sys')">⚙️ SYSTEM & BOOM</button>
+            <button class="nav-btn" onclick="openTab('tab-logs')">📜 LOGS</button>
+        </div>
+        
+        <div class="content-area">
             
-            <div class="content-area">
-                
-                <div id="tab-generate" class="tab-content active">
-                    <div class="card">
-                        <h2>CREATE NEW VIP KEY</h2>
-                        <div class="grid-2">
-                            <div>
-                                <label style="color: #aaa; font-size: 12px;">Custom Name (Optional)</label>
-                                <input type="text" id="kName" placeholder="e.g. VVIP-TEST-KEY">
-                            </div>
-                            <div>
-                                <label style="color: #aaa; font-size: 12px;">Duration (Hours)</label>
-                                <input type="number" id="kHours" value="24">
-                            </div>
-                        </div>
-                        <button class="primary-btn" onclick="genKey()" style="max-width: 300px;">GENERATE KEY</button>
-                        <div id="kResultBox" style="display: none; margin-top: 20px; padding: 15px; background: rgba(0,255,102,0.1); border: 1px solid #00ff66; border-radius: 8px; text-align: center;">
-                            <span style="color: #00ff66; font-size: 20px; font-weight: bold; letter-spacing: 2px;" id="kResultTxt"></span>
-                        </div>
+            <div id="tab-gen" class="tab-content active">
+                <div class="sys-card">
+                    <h2 style="color: var(--main-red); margin-bottom: 15px;">CREATE VIP KEY</h2>
+                    <input type="text" id="kName" placeholder="Custom Name (Optional)">
+                    <input type="number" id="kHours" placeholder="Duration in Hours" value="24">
+                    <button class="primary-btn" onclick="genKey()">GENERATE</button>
+                    <div id="kResultBox" style="display: none; margin-top: 20px; padding: 15px; background: rgba(0,255,102,0.1); border: 1px solid #00ff66; border-radius: 10px;">
+                        <span style="color: #00ff66; font-size: 16px; font-weight: bold;" id="kResultTxt"></span>
                     </div>
                 </div>
-
-                <div id="tab-active" class="tab-content">
-                    <div class="card">
-                        <h2>LIVE ACTIVE KEYS</h2>
-                        <div style="overflow-x: auto;">
-                            <table>
-                                <thead><tr><th>KEY</th><th>TIME LEFT</th><th>DEVICE IP/ID</th><th>STATE</th><th>ACTIONS</th></tr></thead>
-                                <tbody id="tbActive"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="tab-expired" class="tab-content">
-                    <div class="card">
-                        <h2>ARCHIVED / EXPIRED KEYS</h2>
-                        <div style="overflow-x: auto;">
-                            <table>
-                                <thead><tr><th>KEY</th><th>DEVICE IP/ID</th><th>EXPIRED AT</th><th>ACTIONS</th></tr></thead>
-                                <tbody id="tbExpired"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="tab-system" class="tab-content owner-only">
-                    <div class="grid-2">
-                        <div class="card">
-                            <h2>SERVER MAINTENANCE</h2>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: #111; padding: 15px; border-radius: 8px; border: 1px solid #333;">
-                                <span style="font-size: 16px; font-weight: bold;">Status:</span>
-                                <button id="srvBtn" class="action-btn" style="padding: 10px 20px; font-size: 14px;" onclick="togSrv()">ACTIVE</button>
-                            </div>
-                            <label style="color: #aaa; font-size: 12px;">Maintenance Message (Shown to users)</label>
-                            <input type="text" id="srvMsg" placeholder="Server is down for update...">
-                            <button class="primary-btn" onclick="setMsg()">UPDATE MESSAGE</button>
-                        </div>
-                        
-                        <div class="card">
-                            <h2>KILL SWITCH</h2>
-                            <p style="color: #aaa; font-size: 13px; margin-bottom: 20px;">Triggers immediate termination for all connected ZAYIKS clients.</p>
-                            <button class="btn-boom" onclick="fireBoom()">💥 BOOM 💥</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="tab-users" class="tab-content owner-only">
-                    <div class="card">
-                        <h2>ADD / MANAGE SUB-ADMINS</h2>
-                        <div class="grid-2">
-                            <div>
-                                <input type="text" id="modUid" placeholder="Admin UID (From Firebase)">
-                                <input type="email" id="modEmail" placeholder="Admin Email">
-                            </div>
-                            <div style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; border: 1px solid #330000;">
-                                <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--main-red);">Permissions:</h3>
-                                <label style="display: block; margin-bottom: 10px; cursor: pointer;"><input type="checkbox" id="pKeys"> Create & Manage Keys</label>
-                                <label style="display: block; cursor: pointer;"><input type="checkbox" id="pBoom"> Execute BOOM Command</label>
-                            </div>
-                        </div>
-                        <button class="primary-btn" style="max-width: 300px;" onclick="addMod()">SAVE PERMISSIONS</button>
-                    </div>
-                </div>
-
-                <div id="tab-logs" class="tab-content owner-only">
-                    <div class="card">
-                        <h2>SECURITY LOGS</h2>
-                        <div style="overflow-x: auto;">
-                            <table>
-                                <thead><tr><th>DATE & TIME</th><th>ADMIN EMAIL</th><th>ACTION</th><th>TARGET / DETAILS</th></tr></thead>
-                                <tbody id="tbLogs"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
             </div>
+
+            <div id="tab-active" class="tab-content">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h2 style="color: #fff; font-size: 16px;">LIVE DATABASE</h2>
+                    <span id="keyCount" style="color: #888; font-size: 12px;">0 KEYS</span>
+                </div>
+                <div class="card-container" id="keysContainer">
+                    <!-- Keys will be injected here as Cards -->
+                </div>
+            </div>
+
+            <div id="tab-sys" class="tab-content">
+                <div class="sys-card">
+                    <h2 style="color: var(--main-red); margin-bottom: 15px;">KILL SWITCH (BOOM)</h2>
+                    <button class="boom-btn" onclick="fireBoom()">💥 BOOM 💥</button>
+                    <button class="restore-btn" onclick="stopBoom()">🛡️ RESTORE (BOO)</button>
+                </div>
+                
+                <div class="sys-card" style="border-color: #333;">
+                    <h2 style="color: #fff; margin-bottom: 15px;">SERVER STATUS</h2>
+                    <button id="srvBtn" class="primary-btn" style="margin-top: 0; margin-bottom: 15px;" onclick="togSrv()">ONLINE</button>
+                    <input type="text" id="srvMsg" placeholder="Maintenance message...">
+                    <button class="action-btn btn-renew" style="width: 100%; padding: 12px;" onclick="setMsg()">SAVE MESSAGE</button>
+                </div>
+            </div>
+
+            <div id="tab-logs" class="tab-content">
+                <h2 style="color: #fff; font-size: 16px; margin-bottom: 15px;">SECURITY LOGS</h2>
+                <div id="logsContainer"></div>
+            </div>
+
         </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
         import { getDatabase, ref, onValue, set, update, push, remove, serverTimestamp, query, limitToLast } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         const firebaseConfig = {
@@ -222,8 +151,7 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
         
-        const MAIN_ADMIN = 'cCVdbNGtnGgoxQrHKG82eNwU5tY2';
-        let curUser = null; let isOwner = false; let srvOn = true; let pKeys = false; let pBoom = false;
+        let curUser = null; let srvOn = true;
 
         window.openTab = function(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -233,8 +161,18 @@
         };
 
         onAuthStateChanged(auth, u => {
-            if (u) { curUser = u; checkRank(u.uid); } 
-            else { document.getElementById('loginScreen').style.display = 'flex'; document.getElementById('adminDashboard').style.display = 'none'; }
+            if (u) { 
+                curUser = u; 
+                document.getElementById('loginScreen').style.display = 'none'; 
+                document.getElementById('adminDashboard').style.display = 'flex';
+                document.getElementById('userRank').innerText = "OWNER (ROOT)";
+                loadSystemData();
+                loadKeys();
+                setInterval(updateKeyTimers, 1000);
+            } else { 
+                document.getElementById('loginScreen').style.display = 'flex'; 
+                document.getElementById('adminDashboard').style.display = 'none'; 
+            }
         });
 
         window.login = function() { 
@@ -242,123 +180,93 @@
             if(!e || !p) return;
             signInWithEmailAndPassword(auth, e, p).catch(err => document.getElementById('errTxt').innerText = err.message); 
         }
-        window.logout = function() { signOut(auth); }
-
-        function checkRank(uid) {
-            if (uid === MAIN_ADMIN) { isOwner = true; pKeys = true; pBoom = true; setupUI('OWNER (ROOT)'); } 
-            else {
-                onValue(ref(db, 'SubAdmins/' + uid), s => {
-                    if (s.exists()) { isOwner = false; pKeys = s.val().canManageKeys; pBoom = s.val().canUseBoom; setupUI('MODERATOR'); } 
-                    else { alert('Access Denied'); logout(); }
-                }, { onlyOnce: true });
-            }
-        }
-
-        function setupUI(role) {
-            document.getElementById('loginScreen').style.display = 'none'; 
-            document.getElementById('adminDashboard').style.display = 'flex'; 
-            document.getElementById('userRank').innerText = "ROLE: " + role;
-            if(isOwner) { document.querySelectorAll('.owner-only').forEach(e => e.style.display = 'block'); loadOwnerData(); }
-            if(pKeys) { loadKeys(); loadExpiredKeys(); } else { document.querySelectorAll('.mod-keys').forEach(e => e.style.display = 'none'); }
-            setInterval(updateTimers, 1000);
-        }
 
         function wLog(act, det) { push(ref(db, 'Logs'), { time: Date.now(), user: curUser.email, action: act, details: det }); }
 
-        function loadOwnerData() {
+        function loadSystemData() {
             onValue(ref(db, 'AdminData/ServerStatus'), s => {
                 if(s.exists()) {
                     srvOn = s.val().isActive;
                     const b = document.getElementById('srvBtn');
-                    b.innerText = srvOn ? "ONLINE" : "OFFLINE";
-                    b.style.background = srvOn ? "#00ff66" : "#ff3333";
-                    b.style.color = "#000";
+                    b.innerText = srvOn ? "🟢 SERVER IS ONLINE" : "🔴 SERVER IS OFFLINE";
+                    b.style.background = srvOn ? "#008000" : "#800000";
                     document.getElementById('srvMsg').value = s.val().message || "";
                 }
             });
-            onValue(query(ref(db, 'Logs'), limitToLast(100)), s => {
-                let tb = document.getElementById('tbLogs'); tb.innerHTML = '';
+            onValue(query(ref(db, 'Logs'), limitToLast(30)), s => {
+                let box = document.getElementById('logsContainer'); box.innerHTML = '';
                 let logs = []; s.forEach(c => { logs.unshift(c.val()); });
                 logs.forEach(l => { 
-                    let d = new Date(l.time);
-                    let fDate = d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
-                    tb.innerHTML += `<tr><td>${fDate}</td><td style="color:#00ff66;">${l.user}</td><td>${l.action}</td><td style="font-family: Cairo;">${l.details}</td></tr>`; 
+                    let d = new Date(l.time).toLocaleString();
+                    box.innerHTML += `<div class="log-item"><span>${d} | ${l.user}</span><strong style="color:#fff;">${l.action}:</strong> ${l.details}</div>`; 
                 });
             });
         }
 
-        window.togSrv = function() { update(ref(db, 'AdminData/ServerStatus'), { isActive: !srvOn }); wLog("Server Status", !srvOn ? "Started" : "Stopped"); }
-        window.setMsg = function() { update(ref(db, 'AdminData/ServerStatus'), { message: document.getElementById('srvMsg').value }); wLog("Server Message", "Updated MSG"); }
+        window.togSrv = function() { update(ref(db, 'AdminData/ServerStatus'), { isActive: !srvOn }); wLog("Server", !srvOn ? "Turned ON" : "Turned OFF"); }
+        window.setMsg = function() { update(ref(db, 'AdminData/ServerStatus'), { message: document.getElementById('srvMsg').value }); wLog("Server", "Message Updated"); alert("Saved!"); }
         
         window.fireBoom = function() {
-            if(!isOwner && !pBoom) return alert('Permission Denied');
-            if(confirm("CRITICAL WARNING: This will terminate all clients. Proceed?")) { update(ref(db, 'AdminCommands'), { Kill_Switch: "BOO" }); wLog("COMMAND EXECUTION", "BOOM INITIATED"); }
+            if(confirm("CRITICAL: Send BOOM command? This terminates all active apps.")) { 
+                update(ref(db, 'AdminCommands'), { Kill_Switch: "BOOM" }); 
+                wLog("KILL SWITCH", "BOOM FIRED!"); 
+                alert("BOOM COMMAND SENT!");
+            }
+        }
+        window.stopBoom = function() {
+            update(ref(db, 'AdminCommands'), { Kill_Switch: "BOO" }); 
+            wLog("KILL SWITCH", "RESTORED TO BOO"); 
+            alert("SYSTEM RESTORED (BOO)");
         }
 
-        window.addMod = function() {
-            let u = document.getElementById('modUid').value; let e = document.getElementById('modEmail').value;
-            if(!u || !e) return alert("Fill fields");
-            set(ref(db, 'SubAdmins/' + u), { email: e, canManageKeys: document.getElementById('pKeys').checked, canUseBoom: document.getElementById('pBoom').checked });
-            wLog("Auth Management", "Added/Updated Mod: " + e); alert("Saved!");
-        }
-
-        let activeKeysData = {};
+        let keysDataObj = {};
         function loadKeys() {
             onValue(ref(db, 'ActiveKeys'), s => {
-                let tb = document.getElementById('tbActive'); tb.innerHTML = '';
-                activeKeysData = {};
+                let container = document.getElementById('keysContainer'); 
+                container.innerHTML = '';
+                keysDataObj = {};
+                let count = 0;
+                
                 s.forEach(c => {
+                    count++;
                     let k = c.key; let d = c.val();
-                    activeKeysData[k] = d;
+                    keysDataObj[k] = d;
                     
-                    let dev = d.deviceID === 'none' ? 'Waiting...' : d.deviceID;
+                    let dev = (d.deviceID === 'none' || !d.deviceID) ? 'Not Bound' : d.deviceID;
                     let hrs = d.durationHours || 24; 
-                    let st = d.usageState || 'غير مستخدم';
+                    let isUsed = (d.deviceID !== 'none' && d.deviceID != null);
+                    let cardClass = isUsed ? 'active-key' : 'unused-key';
                     
-                    let stBadge = st === 'مستخدم' ? '<span class="badge bg-green">ACTIVE</span>' : '<span class="badge bg-orange">UNUSED</span>';
-                    
-                    tb.innerHTML += `<tr id="row-${k}">
-                        <td style="font-weight:bold;">${k}</td>
-                        <td id="time-${k}" style="font-family: monospace; font-size: 14px; font-weight:bold;">-</td>
-                        <td style="font-size:11px;">${dev}</td>
-                        <td>${stBadge}</td>
-                        <td>
-                            <button class="action-btn btn-reset" onclick="rstKey('${k}')">RESET</button>
-                            <button class="action-btn btn-renew" onclick="rnwKey('${k}')">+24H</button>
-                            <button class="action-btn btn-delete" onclick="delKey('${k}', 'ActiveKeys')">DEL</button>
-                        </td>
-                    </tr>`;
+                    container.innerHTML += `
+                    <div class="data-card ${cardClass}" id="card-${k}">
+                        <div class="card-header">
+                            <div class="key-title">${k}</div>
+                            <div class="key-time" id="time-${k}">--:--:--</div>
+                        </div>
+                        <div class="info-row">DURATION: <span>${hrs} Hours</span></div>
+                        <div class="info-row">DEVICE IP/ID: <span>${dev}</span></div>
+                        <div class="action-grid">
+                            <button class="action-btn btn-reset" onclick="rstKey('${k}')">RESET ID</button>
+                            <button class="action-btn btn-renew" onclick="rnwKey('${k}')">+24 HOURS</button>
+                            <button class="action-btn btn-del" onclick="delKey('${k}')">DELETE</button>
+                        </div>
+                    </div>`;
                 });
-                updateTimers();
+                document.getElementById('keyCount').innerText = count + " KEYS";
+                updateKeyTimers();
             });
         }
 
-        function loadExpiredKeys() {
-            onValue(ref(db, 'ExpiredKeys'), s => {
-                let tb = document.getElementById('tbExpired'); tb.innerHTML = '';
-                s.forEach(c => {
-                    let k = c.key; let d = c.val();
-                    let dev = d.deviceID || 'Unknown';
-                    let expTime = d.status === 'expired' ? '<span class="badge bg-red">EXPIRED</span>' : 'Archived';
-                    tb.innerHTML += `<tr>
-                        <td style="color:#aaa;">${k}</td>
-                        <td style="font-size:11px;">${dev}</td>
-                        <td>${expTime}</td>
-                        <td><button class="action-btn btn-delete" onclick="delKey('${k}', 'ExpiredKeys')">PERMA-DEL</button></td>
-                    </tr>`;
-                });
-            });
-        }
-
-        function updateTimers() {
+        function updateKeyTimers() {
             let now = Date.now();
-            for (let k in activeKeysData) {
-                let d = activeKeysData[k];
+            for (let k in keysDataObj) {
+                let d = keysDataObj[k];
                 let el = document.getElementById('time-' + k);
                 if(!el) continue;
                 
                 if (d.deviceID === 'none' || !d.StartTime) {
-                    el.innerHTML = `<span style="color:#aaa;">${d.durationHours || 24}H (Not Started)</span>`;
+                    el.style.color = '#ffaa00';
+                    el.innerText = 'UNUSED';
                     continue;
                 }
                 
@@ -370,10 +278,11 @@
                     let h = Math.floor(rem / 3600000);
                     let m = Math.floor((rem % 3600000) / 60000);
                     let s = Math.floor((rem % 60000) / 1000);
-                    let color = rem < 3600000 ? '#ff3333' : '#00ff66';
-                    el.innerHTML = `<span style="color:${color};">${h}h ${m}m ${s}s</span>`;
+                    el.style.color = rem < 3600000 ? '#ff3333' : '#00ff66';
+                    el.innerText = `${h}H ${m}M ${s}S`;
                 } else {
-                    el.innerHTML = '<span class="badge bg-red">TIME UP</span>';
+                    el.style.color = '#ff3333';
+                    el.innerText = 'EXPIRED';
                 }
             }
         }
@@ -384,32 +293,32 @@
             set(ref(db, 'ActiveKeys/' + k), { createdAt: serverTimestamp(), status: 'active', usageState: 'غير مستخدم', deviceID: 'none', secretKey: 'ZAYIKS_X_MODS_0658946573', durationHours: h }).then(() => {
                 let rBox = document.getElementById('kResultBox');
                 rBox.style.display = 'block'; document.getElementById('kResultTxt').innerText = k;
-                wLog("Key Generator", "Created: " + k + " (" + h + "h)");
+                wLog("Generated", k);
             });
         }
 
         window.rstKey = function(k) { 
-            if(confirm("Disconnect this device to allow a new one?")) { 
+            if(confirm("Reset this key so a new device can use it?")) { 
                 update(ref(db, 'ActiveKeys/' + k), { deviceID: 'none', usageState: 'غير مستخدم', StartTime: null }); 
-                wLog("Device Reset", k); 
+                wLog("Reset", k); 
             } 
         }
         
         window.rnwKey = function(k) {
-            if(confirm("Add +24 Hours to this key?")) {
-                let d = activeKeysData[k];
+            if(confirm("Add 24 hours to this key?")) {
+                let d = keysDataObj[k];
                 if(d) {
                     let curHrs = d.durationHours || 24;
                     update(ref(db, 'ActiveKeys/' + k), { durationHours: curHrs + 24 });
-                    wLog("Key Renewed", k + " (+24h)");
+                    wLog("Renewed", k + " (+24h)");
                 }
             }
         }
 
-        window.delKey = function(k, path) { 
-            if(confirm("Permanently delete key?")) { 
-                remove(ref(db, path + '/' + k)); 
-                wLog("Key Deleted", k + " from " + path); 
+        window.delKey = function(k) { 
+            if(confirm("Delete this key permanently?")) { 
+                remove(ref(db, 'ActiveKeys/' + k)); 
+                wLog("Deleted", k); 
             } 
         }
     </script>
