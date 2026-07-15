@@ -50,6 +50,23 @@
         .card { background: var(--panel-bg); border: 1px solid var(--dark-red); padding: 25px; border-radius: 12px; margin-bottom: 25px; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .card h2 { margin-bottom: 20px; color: var(--main-red); font-size: 20px; border-bottom: 1px dashed var(--dark-red); padding-bottom: 10px; }
         
+        .epic-card { background: linear-gradient(135deg, #090000, #000000); border: 2px solid #ff0033; border-radius: 20px; padding: 25px; box-shadow: 0 0 30px rgba(255, 0, 51, 0.2), inset 0 0 15px rgba(255, 0, 51, 0.1); margin-bottom: 25px; position: relative; overflow: hidden; }
+        .epic-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,0,51,0.05), transparent); animation: cyber-sweep 3s infinite; pointer-events: none; }
+        @keyframes cyber-sweep { 100% { left: 200%; } }
+
+        .epic-btn { border: none; border-radius: 8px; cursor: pointer; font-weight: 900; font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; padding: 15px; width: 100%; transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden; color: #fff; }
+        .epic-btn:active { transform: scale(0.95); }
+        .epic-btn:hover { filter: brightness(1.2); transform: translateY(-3px); }
+        .btn-green { background: linear-gradient(45deg, #004d1a, #00cc44); border: 1px solid #00ff66; box-shadow: 0 0 15px rgba(0,255,102,0.3); text-shadow: 0 0 5px #000; }
+        .btn-red { background: linear-gradient(45deg, #4d0000, #cc0000); border: 1px solid #ff3333; box-shadow: 0 0 15px rgba(255,51,51,0.3); text-shadow: 0 0 5px #000; }
+        .btn-blue { background: linear-gradient(45deg, #002b4d, #0077cc); border: 1px solid #0088ff; box-shadow: 0 0 15px rgba(0,136,255,0.3); }
+        .btn-orange { background: linear-gradient(45deg, #4d2600, #cc6600); border: 1px solid #ff9900; box-shadow: 0 0 15px rgba(255,153,0,0.3); }
+
+        .status-dot { display: inline-block; border-radius: 50%; width: 14px; height: 14px; box-shadow: 0 0 10px currentColor; }
+        .dot-green { background-color: #00ff66; color: #00ff66; animation: blink-dot-fast 1.2s infinite alternate; }
+        .dot-red { background-color: #ff3333; color: #ff3333; animation: blink-dot-fast 0.6s infinite alternate; }
+        @keyframes blink-dot-fast { 0% { opacity: 0.3; transform: scale(0.8); } 100% { opacity: 1; transform: scale(1.3); box-shadow: 0 0 25px currentColor, 0 0 10px currentColor; } }
+
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         
         .table-responsive { overflow-x: auto; border-radius: 8px; border: 1px solid #330000; }
@@ -74,19 +91,10 @@
         .btn-reset-gold { background: linear-gradient(45deg, #FFB300, #FFD54F); color: #000; border: 2px solid #FFA000; border-radius: 8px; cursor: pointer; font-weight: 900; font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(255,179,0,0.6); }
         .btn-reset-gold:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(255,213,79,0.9); background: linear-gradient(45deg, #FFC107, #FFE082); }
 
-        .btn-boom { background: #000; color: var(--main-red); border: 2px solid var(--main-red); font-size: 18px; font-weight: 900; padding: 15px; width: 100%; border-radius: 8px; cursor: pointer; text-shadow: var(--text-glow); transition: 0.3s; }
-        .btn-boom.active { background: var(--main-red); color: #000; box-shadow: 0 0 30px var(--main-red); animation: pulse 1.5s infinite; }
-        
-        .btn-boo { background: #000; color: #00ff66; border: 2px solid #00ff66; font-size: 18px; font-weight: 900; padding: 15px; width: 100%; border-radius: 8px; cursor: pointer; transition: 0.3s; }
-        .btn-boo.active { background: #00ff66; color: #000; box-shadow: 0 0 25px rgba(0,255,102,0.6); }
-
-        @keyframes pulse { 0% { box-shadow: 0 0 10px rgba(255,0,0,0.5); } 50% { box-shadow: 0 0 30px rgba(255,0,0,1); } 100% { box-shadow: 0 0 10px rgba(255,0,0,0.5); } }
-
         .mod-list-item { background: #111; padding: 15px; margin-bottom: 10px; border: 1px solid #330000; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
 
         #bottomLogger { position: fixed; bottom: 0; left: 0; width: 100%; height: 40px; background: rgba(5,0,0,0.95); border-top: 1px solid var(--main-red); display: flex; align-items: center; padding: 0 20px; z-index: 1000; font-family: 'Cairo', sans-serif; box-shadow: 0 -5px 15px rgba(255,0,0,0.2); }
-        .log-indicator { width: 10px; height: 10px; background: #00ff66; border-radius: 50%; box-shadow: 0 0 10px #00ff66; margin-right: 15px; animation: blink 1s infinite; }
-        @keyframes blink { 50% { opacity: 0.3; } }
+        .log-indicator { width: 10px; height: 10px; background: #00ff66; border-radius: 50%; box-shadow: 0 0 10px #00ff66; margin-right: 15px; animation: blink-dot-fast 1s infinite alternate; }
         #liveLogText { color: #00ff66; font-size: 14px; font-weight: bold; }
 
         @media (max-width: 768px) {
@@ -124,8 +132,8 @@
                 <button class="nav-btn perm-view" onclick="openTab('tab-active')"><span class="glow-icon glow-green">🟢</span> ACTIVE KEYS</button>
                 <button class="nav-btn perm-view" onclick="openTab('tab-expired')"><span class="glow-icon">🔴</span> EXPIRED KEYS</button>
                 <button class="nav-btn tab-system-access" onclick="openTab('tab-system')"><span class="glow-icon">⚙️</span> SYSTEM & BOOM</button>
-                <button class="nav-btn tab-logs-access" onclick="openTab('tab-logs')"><span class="glow-icon glow-green">📜</span> SECURITY LOGS</button>
                 <button class="nav-btn" onclick="document.getElementById('permanent-mods-section').scrollIntoView({behavior: 'smooth'})"><span class="glow-icon glow-blue">👥</span> MODERATORS</button>
+                <button class="nav-btn tab-logs-access" onclick="openTab('tab-logs')"><span class="glow-icon glow-green">📜</span> SECURITY LOGS</button>
             </div>
             
             <div class="content-area">
@@ -206,39 +214,84 @@
 
                 <div id="tab-system" class="tab-content tab-system-access">
                     <div class="grid-2">
-                        <div class="card p-server-control" style="display:none;">
-                            <h2>SERVER CONTROL</h2>
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: #111; padding: 15px; border-radius: 8px; border: 1px solid #333;">
-                                <span style="font-size: 16px; font-weight: bold;">Status:</span>
-                                <button id="srvBtn" class="action-btn" style="padding: 10px 20px; font-size: 14px;" onclick="togSrv()">LOADING...</button>
-                            </div>
-                            <label style="color: #aaa; font-size: 12px;">Maintenance Message</label>
-                            <input type="text" id="srvMsg" placeholder="Server is under maintenance...">
-                            <button class="primary-btn" onclick="setMsg()">UPDATE MESSAGE</button>
-                        </div>
                         
-                        <div class="card p-boom-control" style="display:none;">
-                            <h2>KILL SWITCH</h2>
-                            <div style="background: #111; border: 1px solid #333; padding: 10px; border-radius: 8px; margin-bottom: 15px; text-align: center;">
-                                <span id="boomStatusText" style="font-size: 16px; font-weight: bold;">STATUS: LOADING...</span>
+                        <div class="epic-card p-server-control" style="display:none;">
+                            <h2 style="color: #0088ff; text-shadow: 0 0 10px #0088ff; border-bottom: 1px solid #004488;">🌐 GLOBAL SERVER & APP CONTROL</h2>
+                            
+                            <div style="background: #050000; border: 1px solid #004488; padding: 15px; border-radius: 12px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+                                <div style="display: flex; align-items: center; gap: 10px;">
+                                    <span style="font-size: 14px; font-weight: bold; color:#aaa;">WEB API STATUS:</span>
+                                    <span id="srvDot" class="status-dot dot-green"></span>
+                                    <span id="srvStatusTxt" style="font-size: 16px; font-weight: 900; color:#00ff66;">ONLINE</span>
+                                </div>
+                                <button id="srvBtn" class="epic-btn btn-red" style="width: auto; padding: 10px 15px; font-size:12px;" onclick="togSrv()">SHUTDOWN SERVER</button>
                             </div>
-                            <div style="display: flex; gap: 15px;">
-                                <button id="btnBoomOn" class="btn-boom" onclick="fireBoom()">💥 BOOM (ON)</button>
-                                <button id="btnBoomOff" class="btn-boo" onclick="stopBoom()">🛡️ RESTORE (OFF)</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <div id="tab-logs" class="tab-content tab-logs-access">
-                    <div class="card">
-                        <h2>SECURITY LOGS</h2>
-                        <div class="table-responsive" style="max-height: 400px;">
-                            <table>
-                                <thead><tr><th>DATE</th><th>USER</th><th>ACTION</th><th>DETAILS</th></tr></thead>
-                                <tbody id="tbLogs"></tbody>
-                            </table>
+                            <div style="border-top: 1px dashed #333; padding-top: 20px;">
+                                <h3 style="color: #aaa; margin-bottom: 15px; font-size: 14px; font-family: 'Cairo', sans-serif;">📱 التحكم الكامل في التطبيق (Remote Config)</h3>
+                                
+                                <label style="font-size: 12px; color: #888;">حالة التطبيق العامة</label>
+                                <select id="appStateSelect" style="background: rgba(0,0,0,0.8); border: 1px solid #0088ff;">
+                                    <option value="active">🟢 Active (يعمل طبيعي)</option>
+                                    <option value="maintenance">🟠 Maintenance (وضع الصيانة / إيقاف الدخول)</option>
+                                    <option value="update">🔵 Force Update (إجبار على التحديث)</option>
+                                    <option value="crash">🔴 KILL (تدمير / إغلاق التطبيق فجأة)</option>
+                                </select>
+
+                                <label style="font-size: 12px; color: #888;">رسالة النظام / الصيانة</label>
+                                <input type="text" id="appMsg" placeholder="الخادم تحت الصيانة، نعود قريباً..." style="border: 1px solid #0088ff;">
+
+                                <div class="grid-2" style="gap:10px;">
+                                    <div>
+                                        <label style="font-size: 12px; color: #888;">رابط التحديث (APK)</label>
+                                        <input type="text" id="appUpdateUrl" placeholder="https://..." style="border: 1px solid #0088ff;">
+                                    </div>
+                                    <div>
+                                        <label style="font-size: 12px; color: #888;">رابط التلغرام</label>
+                                        <input type="text" id="appTgUrl" placeholder="https://t.me/..." style="border: 1px solid #0088ff;">
+                                    </div>
+                                </div>
+
+                                <button class="epic-btn btn-blue" style="margin-top: 15px;" onclick="pushAppConfig()">🚀 PUSH CONFIG TO APP</button>
+                            </div>
                         </div>
+
+                        <div style="display: flex; flex-direction: column; gap: 20px;">
+                            
+                            <div class="epic-card p-boom-control" style="display:none; margin-bottom: 0;">
+                                <h2 style="color: #ff3333; text-shadow: 0 0 10px #ff3333; border-bottom: 1px solid #ff3333;">💥 CORE KILL SWITCH</h2>
+                                
+                                <div style="background: #050000; border: 1px solid #440000; padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: center; display: flex; align-items: center; justify-content: center; gap: 15px;">
+                                    <span style="font-size: 16px; color: #aaa; font-weight: bold;">SYSTEM STATUS:</span>
+                                    <span id="boomDot" class="status-dot dot-red"></span>
+                                    <span id="boomStatusText" style="font-size: 18px; font-weight: 900; letter-spacing: 2px; color: #ff3333;">LOADING...</span>
+                                </div>
+                                
+                                <div class="grid-2">
+                                    <button id="btnBoomOn" class="epic-btn btn-green" onclick="fireBoom()">💥 BOOM (ON)</button>
+                                    <button id="btnBoomOff" class="epic-btn btn-red" onclick="stopBoom()">🛑 BOOM OFF</button>
+                                </div>
+                            </div>
+
+                            <div class="epic-card p-server-control" style="display:none; margin-bottom: 0;">
+                                <h2 style="color: #ff9900; text-shadow: 0 0 10px #ff9900; border-bottom: 1px solid #ff9900;">⏳ MASS KEYS CONTROL</h2>
+                                <p style="color: #aaa; font-size: 12px; margin-bottom: 15px; font-family: 'Cairo', sans-serif;">تحكم جماعي لجميع المفاتيح النشطة (إيقاف الوقت للجميع أو تمديد الوقت).</p>
+                                
+                                <div class="grid-2" style="margin-bottom: 15px;">
+                                    <button class="epic-btn btn-orange" style="font-size:12px;" onclick="globalKeysState('paused')">⏸ PAUSE ALL KEYS</button>
+                                    <button class="epic-btn btn-green" style="font-size:12px;" onclick="globalKeysState('active')">▶ RESUME ALL KEYS</button>
+                                </div>
+                                
+                                <div style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; border: 1px solid #442200;">
+                                    <label style="color: #aaa; font-size: 12px; font-family: 'Cairo', sans-serif;">إضافة وقت (ساعات) لجميع المفاتيح كتعويض</label>
+                                    <div style="display: flex; gap: 10px; margin-top: 5px;">
+                                        <input type="number" id="massPauseHours" placeholder="مثال: 2" style="margin: 0; border: 1px solid #ff9900;">
+                                        <button class="epic-btn btn-orange" style="margin: 0; width: 120px; font-size: 12px;" onclick="massAddTime()">ADD TIME</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
@@ -267,6 +320,18 @@
                         
                         <h3 style="font-size: 16px; border-bottom: 1px dashed #330000; padding-bottom: 10px; margin-bottom: 15px;">Current Moderators</h3>
                         <div id="modsListContainer"></div>
+                    </div>
+                </div>
+
+                <div id="tab-logs" class="tab-content tab-logs-access">
+                    <div class="card">
+                        <h2>SECURITY LOGS</h2>
+                        <div class="table-responsive" style="max-height: 400px;">
+                            <table>
+                                <thead><tr><th>DATE</th><th>USER</th><th>ACTION</th><th>DETAILS</th></tr></thead>
+                                <tbody id="tbLogs"></tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
@@ -315,6 +380,11 @@
             document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
             event.currentTarget.classList.add('active');
+            if(tabId === 'tab-logs') {
+                document.getElementById('permanent-mods-section').style.display = 'none';
+            } else {
+                document.getElementById('permanent-mods-section').style.display = 'block';
+            }
         };
 
         auth.onAuthStateChanged(u => {
@@ -411,32 +481,46 @@
         function loadOwnerData() {
             db.ref('AdminData/ServerStatus').on('value', s => {
                 if(s.exists()) {
-                    srvOn = s.val().isActive;
-                    const b = document.getElementById('srvBtn');
-                    b.innerText = srvOn ? "🟢 ONLINE" : "🔴 OFFLINE";
-                    b.style.background = srvOn ? "#000" : "#ff3333";
-                    b.style.border = srvOn ? "1px solid #00ff66" : "none";
-                    b.style.color = srvOn ? "#00ff66" : "#000";
-                    if(!document.getElementById('srvMsg').value) document.getElementById('srvMsg').value = s.val().message || "";
+                    let data = s.val();
+                    srvOn = data.isActive;
+                    
+                    const dot = document.getElementById('srvDot');
+                    const txt = document.getElementById('srvStatusTxt');
+                    const btn = document.getElementById('srvBtn');
+                    
+                    if(srvOn) {
+                        dot.className = 'status-dot dot-green';
+                        txt.innerText = 'ONLINE';
+                        txt.style.color = '#00ff66';
+                        btn.innerText = 'SHUTDOWN SERVER';
+                        btn.className = 'epic-btn btn-red';
+                    } else {
+                        dot.className = 'status-dot dot-red';
+                        txt.innerText = 'OFFLINE';
+                        txt.style.color = '#ff3333';
+                        btn.innerText = 'START SERVER';
+                        btn.className = 'epic-btn btn-green';
+                    }
+
+                    if(!document.getElementById('appMsg').value && data.appMessage) document.getElementById('appMsg').value = data.appMessage;
+                    if(!document.getElementById('appUpdateUrl').value && data.updateLink) document.getElementById('appUpdateUrl').value = data.updateLink;
+                    if(!document.getElementById('appTgUrl').value && data.telegramLink) document.getElementById('appTgUrl').value = data.telegramLink;
+                    if(data.appStatus) document.getElementById('appStateSelect').value = data.appStatus;
                 }
             });
 
             db.ref('AdminCommands/Kill_Switch').on('value', s => {
                 let statusEl = document.getElementById('boomStatusText');
-                let btnOn = document.getElementById('btnBoomOn');
-                let btnOff = document.getElementById('btnBoomOff');
-                if(!btnOn) return;
+                let dot = document.getElementById('boomDot');
                 
                 if(s.exists() && s.val() === "BOOM") {
-                    statusEl.innerText = "🔴 BOOM IS ACTIVE!";
-                    statusEl.style.color = "#ff3333";
-                    btnOn.classList.add('active');
-                    btnOff.classList.remove('active');
-                } else {
-                    statusEl.innerText = "🟢 SAFE (OFF)";
+                    statusEl.innerText = "BOOM IS ACTIVE!";
                     statusEl.style.color = "#00ff66";
-                    btnOn.classList.remove('active');
-                    btnOff.classList.add('active');
+                    dot.className = 'status-dot dot-green';
+                } else {
+                    statusEl.innerText = "BOOM OFF (SAFE)";
+                    statusEl.style.color = "#ff3333";
+                    dot.className = 'status-dot dot-red';
                 }
             });
         }
@@ -460,14 +544,26 @@
         window.togSrv = function() { 
             if(!perms.isOwner && !perms.canToggleServer) return alert('Permission Denied');
             db.ref('AdminData/ServerStatus').update({ isActive: !srvOn }); 
-            wLog("Server Status", !srvOn ? "Started Server" : "Stopped Server"); 
+            wLog("Server Status", !srvOn ? "Started Server API" : "Shutdown Server API"); 
         }
         
-        window.setMsg = function() { 
+        window.pushAppConfig = function() { 
             if(!perms.isOwner && !perms.canToggleServer) return alert('Permission Denied');
-            db.ref('AdminData/ServerStatus').update({ message: document.getElementById('srvMsg').value }); 
-            wLog("Server Message", "Updated MSG"); 
-            alert("Message Saved!"); 
+            
+            let state = document.getElementById('appStateSelect').value;
+            let msg = document.getElementById('appMsg').value;
+            let apk = document.getElementById('appUpdateUrl').value;
+            let tg = document.getElementById('appTgUrl').value;
+            
+            db.ref('AdminData/ServerStatus').update({ 
+                appStatus: state,
+                appMessage: msg,
+                updateLink: apk,
+                telegramLink: tg
+            }); 
+            
+            wLog("App Config", `Pushed config: State=${state}`); 
+            alert("تم إرسال الأوامر بنجاح إلى التطبيق والموقع!"); 
         }
         
         window.fireBoom = function() {
@@ -483,6 +579,48 @@
             if(confirm("Restore system to normal?")) { 
                 db.ref('AdminCommands').update({ Kill_Switch: "OFF" }); 
                 wLog("KILL SWITCH", "DEACTIVATED (OFF)"); 
+            }
+        }
+
+        window.globalKeysState = function(newState) {
+            if(!perms.isOwner && !perms.canReset) return alert('Permission Denied');
+            let txt = newState === 'paused' ? 'إيقاف مؤقت' : 'استئناف تشغيل';
+            if(confirm(`هل أنت متأكد أنك تريد ${txt} لجميع المفاتيح النشطة؟`)) {
+                db.ref('ActiveKeys').once('value', s => {
+                    let updates = {};
+                    if(s.exists()) {
+                        s.forEach(c => {
+                            updates[c.key + '/status'] = newState;
+                        });
+                        db.ref('ActiveKeys').update(updates).then(() => {
+                            wLog("Mass Control", `Set all keys to ${newState}`);
+                            alert(`تم ${txt} لجميع المفاتيح بنجاح!`);
+                        });
+                    }
+                });
+            }
+        }
+        
+        window.massAddTime = function() {
+            if(!perms.isOwner && !perms.canReset) return alert('Permission Denied');
+            let hrs = parseFloat(document.getElementById('massPauseHours').value);
+            if(isNaN(hrs) || hrs <= 0) return alert("الرجاء إدخال عدد ساعات صحيح");
+            
+            if(confirm(`هل أنت متأكد من إضافة ${hrs} ساعة لجميع المفاتيح النشطة كتعويض؟`)) {
+                 db.ref('ActiveKeys').once('value', s => {
+                    let updates = {};
+                    if(s.exists()) {
+                        s.forEach(c => {
+                            let currentH = c.val().durationHours || 24;
+                            updates[c.key + '/durationHours'] = currentH + hrs;
+                        });
+                        db.ref('ActiveKeys').update(updates).then(() => {
+                            wLog("Mass Control", `Added ${hrs}h to all keys`);
+                            alert(`تم إضافة ${hrs} ساعات لجميع المفاتيح بنجاح!`);
+                            document.getElementById('massPauseHours').value = "";
+                        });
+                    }
+                });
             }
         }
 
