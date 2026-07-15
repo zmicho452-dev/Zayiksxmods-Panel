@@ -188,7 +188,10 @@
                         </div>
 
                         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--dark-red); padding-bottom: 10px; margin-bottom: 20px;">
-                            <h2 style="border: none; margin: 0; padding: 0;">LIVE ACTIVE KEYS</h2>
+                            <div style="display:flex; align-items:center; gap: 15px;">
+                                <h2 style="border: none; margin: 0; padding: 0;">LIVE ACTIVE KEYS</h2>
+                                <button class="action-btn btn-delete perm-reset" onclick="deleteAllKeys('ActiveKeys')" style="padding: 8px 15px;">🗑️ DELETE ALL</button>
+                            </div>
                             <span id="keyCountDisplay" style="color: #aaa; font-size: 14px; font-weight: bold;">0 KEYS</span>
                         </div>
                         <div class="table-responsive">
@@ -202,7 +205,10 @@
 
                 <div id="tab-expired" class="tab-content">
                     <div class="card">
-                        <h2>EXPIRED KEYS</h2>
+                        <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--dark-red); padding-bottom: 10px; margin-bottom: 20px;">
+                            <h2 style="border: none; margin: 0; padding: 0;">EXPIRED KEYS</h2>
+                            <button class="action-btn btn-delete perm-reset" onclick="deleteAllKeys('ExpiredKeys')" style="padding: 8px 15px;">🗑️ DELETE ALL</button>
+                        </div>
                         <div class="table-responsive">
                             <table>
                                 <thead><tr><th>KEY</th><th>DEVICE ID</th><th>STATUS</th><th>ACTIONS</th></tr></thead>
@@ -777,7 +783,9 @@
                             
                             let dev = (!d.deviceID || d.deviceID === 'none') ? 'Waiting...' : d.deviceID;
                             let isUsed = (d.deviceID && d.deviceID !== 'none');
-                            let stBadge = d.status === 'paused' ? '<span class="badge bg-gray">PAUSED</span>' : (isUsed ? '<span class="badge bg-green">ACTIVE</span>' : '<span class="badge bg-orange">UNUSED</span>');
+                            
+                            let stBadge = d.status === 'paused' ? '<span class="badge bg-gray">PAUSED</span>' : (isUsed ? '<span class="badge bg-red">مستخدم</span>' : '<span class="badge bg-green">نشيط</span>');
+                            
                             let keyColor = d.color || '#ffffff';
                             
                             htmlContent += `<tr>
@@ -981,6 +989,18 @@
             if(confirm("Are you sure you want to permanently delete this key?")) {
                 db.ref(path + '/' + key).remove().then(() => {
                     wLog("Key Management", "Deleted Key: " + key);
+                });
+            }
+        }
+        
+        window.deleteAllKeys = function(path) {
+            if(!perms.isOwner && !perms.canReset) return alert('Permission Denied');
+            if(confirm("تحذير ⚠️: هل أنت متأكد من حذف جميع المفاتيح بشكل نهائي؟ لا يمكن التراجع عن هذه الخطوة!")) {
+                db.ref(path).remove().then(() => {
+                    wLog("System Cleanup", "Deleted ALL keys in " + path);
+                    alert("تم تنظيف وحذف جميع المفاتيح بنجاح!");
+                }).catch(e => {
+                    alert("حدث خطأ أثناء الحذف: " + e.message);
                 });
             }
         }
