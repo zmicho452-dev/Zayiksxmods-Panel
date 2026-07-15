@@ -70,7 +70,7 @@
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         
         .table-responsive { overflow-x: auto; border-radius: 8px; border: 1px solid #330000; }
-        table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.6); font-family: 'Cairo', sans-serif; min-width: 600px; }
+        table { width: 100%; border-collapse: collapse; background: rgba(0,0,0,0.6); font-family: 'Orbitron', sans-serif; min-width: 600px; }
         th, td { padding: 12px 15px; text-align: center; border-bottom: 1px solid #220000; white-space: nowrap; }
         th { background: #1a0000; color: var(--main-red); font-family: 'Orbitron', sans-serif; font-size: 13px; }
         tr:hover { background: rgba(255,0,0,0.1); }
@@ -94,7 +94,7 @@
 
         .mod-list-item { background: #111; padding: 15px; margin-bottom: 10px; border: 1px solid #330000; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
 
-        #bottomLogger { position: fixed; bottom: 0; left: 0; width: 100%; height: 40px; background: rgba(5,0,0,0.95); border-top: 1px solid var(--main-red); display: flex; align-items: center; padding: 0 20px; z-index: 1000; font-family: 'Cairo', sans-serif; box-shadow: 0 -5px 15px rgba(255,0,0,0.2); }
+        #bottomLogger { position: fixed; bottom: 0; left: 0; width: 100%; height: 40px; background: rgba(5,0,0,0.95); border-top: 1px solid var(--main-red); display: flex; align-items: center; padding: 0 20px; z-index: 1000; font-family: 'Orbitron', sans-serif; box-shadow: 0 -5px 15px rgba(255,0,0,0.2); }
         .log-indicator { width: 10px; height: 10px; background: #00ff66; border-radius: 50%; box-shadow: 0 0 10px #00ff66; margin-right: 15px; animation: blink-dot-fast 1s infinite alternate; }
         #liveLogText { color: #00ff66; font-size: 14px; font-weight: bold; }
 
@@ -181,8 +181,8 @@
                         
                         <div class="perm-reset" style="background: #110000; border: 1px solid #ff3333; padding: 20px; border-radius: 10px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 20px;">
                             <div>
-                                <span style="display: block; font-weight: bold; color: #ff3333; margin-bottom: 5px; font-family: 'Orbitron', sans-serif;"><span class="glow-icon">🛠️</span> MANUAL KEY RESET</span>
-                                <span style="color: #888; font-size: 12px; font-family: 'Cairo', sans-serif;">أدخل المفتاح هنا لفصل الجهاز عنه</span>
+                                <span style="display: block; font-weight: bold; color: #ff3333; margin-bottom: 5px;"><span class="glow-icon">🛠️</span> MANUAL KEY RESET</span>
+                                <span style="color: #888; font-size: 12px;">Enter the key here to unlink the device</span>
                             </div>
                             <input type="text" id="manualKeyInput" placeholder="ZAYIKS-01S0V-N3XQ4-VIP" style="margin: 0; flex: 1; min-width: 200px; border-color: #ff3333; background: rgba(0,0,0,0.7); color: #fff;">
                             <button class="btn-reset-gold" style="margin: 0; width: 150px; padding: 15px; font-size: 14px;" onclick="manualReset()">RESET KEY</button>
@@ -235,26 +235,26 @@
                             </div>
 
                             <div style="border-top: 1px dashed #333; padding-top: 20px;">
-                                <h3 style="color: #aaa; margin-bottom: 15px; font-size: 14px; font-family: 'Cairo', sans-serif;">📱 التحكم الكامل في التطبيق (Remote Config)</h3>
+                                <h3 style="color: #aaa; margin-bottom: 15px; font-size: 14px;">📱 App Remote Control (Remote Config)</h3>
                                 
-                                <label style="font-size: 12px; color: #888;">حالة التطبيق العامة</label>
+                                <label style="font-size: 12px; color: #888;">Global App State</label>
                                 <select id="appStateSelect" style="background: rgba(0,0,0,0.8); border: 1px solid #0088ff;">
-                                    <option value="active">🟢 Active (يعمل طبيعي)</option>
-                                    <option value="maintenance">🟠 Maintenance (وضع الصيانة / إيقاف الدخول)</option>
-                                    <option value="update">🔵 Force Update (إجبار على التحديث)</option>
-                                    <option value="crash">🔴 KILL (تدمير / إغلاق التطبيق فجأة)</option>
+                                    <option value="active">🟢 Active (Normal Operation)</option>
+                                    <option value="maintenance">🟠 Maintenance Mode (Block Access)</option>
+                                    <option value="update">🔵 Force Update</option>
+                                    <option value="crash">🔴 KILL (Instant Crash/Force Shutdown)</option>
                                 </select>
 
-                                <label style="font-size: 12px; color: #888;">رسالة النظام / الصيانة</label>
-                                <input type="text" id="appMsg" placeholder="الخادم تحت الصيانة، نعود قريباً..." style="border: 1px solid #0088ff;">
+                                <label style="font-size: 12px; color: #888;">System / Maintenance Message</label>
+                                <input type="text" id="appMsg" placeholder="Server is under maintenance, we will be back soon..." style="border: 1px solid #0088ff;">
 
                                 <div class="grid-2" style="gap:10px;">
                                     <div>
-                                        <label style="font-size: 12px; color: #888;">رابط التحديث (APK)</label>
+                                        <label style="font-size: 12px; color: #888;">Update Link (APK)</label>
                                         <input type="text" id="appUpdateUrl" placeholder="https://..." style="border: 1px solid #0088ff;">
                                     </div>
                                     <div>
-                                        <label style="font-size: 12px; color: #888;">رابط التلغرام</label>
+                                        <label style="font-size: 12px; color: #888;">Telegram Link</label>
                                         <input type="text" id="appTgUrl" placeholder="https://t.me/..." style="border: 1px solid #0088ff;">
                                     </div>
                                 </div>
@@ -282,7 +282,7 @@
 
                             <div class="epic-card p-server-control" style="display:none; margin-bottom: 0;">
                                 <h2 style="color: #ff9900; text-shadow: 0 0 10px #ff9900; border-bottom: 1px solid #ff9900;">⏳ MASS KEYS CONTROL</h2>
-                                <p style="color: #aaa; font-size: 12px; margin-bottom: 15px; font-family: 'Cairo', sans-serif;">تحكم جماعي لجميع المفاتيح النشطة (إيقاف الوقت للجميع أو تمديد الوقت).</p>
+                                <p style="color: #aaa; font-size: 12px; margin-bottom: 15px;">Mass control for all active keys (pause/resume or add time).</p>
                                 
                                 <div class="grid-2" style="margin-bottom: 15px;">
                                     <button class="epic-btn btn-orange" style="font-size:12px;" onclick="globalKeysState('paused')">⏸ PAUSE ALL KEYS</button>
@@ -290,9 +290,9 @@
                                 </div>
                                 
                                 <div style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; border: 1px solid #442200;">
-                                    <label style="color: #aaa; font-size: 12px; font-family: 'Cairo', sans-serif;">إضافة وقت (ساعات) لجميع المفاتيح كتعويض</label>
+                                    <label style="color: #aaa; font-size: 12px;">Add compensation time (hours) to all active keys</label>
                                     <div style="display: flex; gap: 10px; margin-top: 5px;">
-                                        <input type="number" id="massPauseHours" placeholder="مثال: 2" style="margin: 0; border: 1px solid #ff9900;">
+                                        <input type="number" id="massPauseHours" placeholder="e.g. 2" style="margin: 0; border: 1px solid #ff9900;">
                                         <button class="epic-btn btn-orange" style="margin: 0; width: 120px; font-size: 12px;" onclick="massAddTime()">ADD TIME</button>
                                     </div>
                                 </div>
@@ -570,7 +570,7 @@
             }); 
             
             wLog("App Config", `Pushed config: State=${state}`); 
-            alert("تم إرسال الأوامر بنجاح إلى التطبيق والموقع!"); 
+            alert("Config pushed successfully to the app and site!"); 
         }
         
         window.fireBoom = function() {
@@ -591,8 +591,8 @@
 
         window.globalKeysState = function(newState) {
             if(!perms.isOwner && !perms.canReset) return alert('Permission Denied');
-            let txt = newState === 'paused' ? 'إيقاف مؤقت' : 'استئناف تشغيل';
-            if(confirm(`هل أنت متأكد أنك تريد ${txt} لجميع المفاتيح النشطة؟`)) {
+            let txt = newState === 'paused' ? 'Pause' : 'Resume';
+            if(confirm(`Are you sure you want to ${txt} all active keys?`)) {
                 db.ref('ActiveKeys').once('value', s => {
                     let updates = {};
                     if(s.exists()) {
@@ -601,7 +601,7 @@
                         });
                         db.ref('ActiveKeys').update(updates).then(() => {
                             wLog("Mass Control", `Set all keys to ${newState}`);
-                            alert(`تم ${txt} لجميع المفاتيح بنجاح!`);
+                            alert(`All keys have been successfully ${newState === 'paused' ? 'paused' : 'resumed'}!`);
                         });
                     }
                 });
@@ -611,9 +611,9 @@
         window.massAddTime = function() {
             if(!perms.isOwner && !perms.canReset) return alert('Permission Denied');
             let hrs = parseFloat(document.getElementById('massPauseHours').value);
-            if(isNaN(hrs) || hrs <= 0) return alert("الرجاء إدخال عدد ساعات صحيح");
+            if(isNaN(hrs) || hrs <= 0) return alert("Please enter a valid number of hours!");
             
-            if(confirm(`هل أنت متأكد من إضافة ${hrs} ساعة لجميع المفاتيح النشطة كتعويض؟`)) {
+            if(confirm(`Are you sure you want to add ${hrs} hours to all active keys as compensation?`)) {
                  db.ref('ActiveKeys').once('value', s => {
                     let updates = {};
                     if(s.exists()) {
@@ -623,7 +623,7 @@
                         });
                         db.ref('ActiveKeys').update(updates).then(() => {
                             wLog("Mass Control", `Added ${hrs}h to all keys`);
-                            alert(`تم إضافة ${hrs} ساعات لجميع المفاتيح بنجاح!`);
+                            alert(`Successfully added ${hrs} hours to all active keys!`);
                             document.getElementById('massPauseHours').value = "";
                         });
                     }
@@ -785,10 +785,15 @@
                             let dev = (!d.deviceID || d.deviceID === 'none') ? 'Waiting...' : d.deviceID;
                             let isUsed = (d.deviceID && d.deviceID !== 'none');
                             
-                            // تعديل منطق الحالات وعرض الكتابة الصفراء لغير المستخدم والحمراء للمستخدم النشط
-                            let stBadge = d.status === 'paused' 
-                                ? '<span class="badge bg-gray">PAUSED</span>' 
-                                : (isUsed ? '<span class="badge bg-red">نشيط مستخدم</span>' : '<span class="badge bg-yellow">نشيط غير مستخدم</span>');
+                            // Advanced dynamic status layout logic
+                            let stBadge = '';
+                            if (d.status === 'paused') {
+                                stBadge = `<span class="badge bg-red" style="margin-right: 5px;">Deactivated</span>` + 
+                                          (isUsed ? `<span class="badge bg-red">Used</span>` : `<span class="badge bg-red">Unused</span>`);
+                            } else {
+                                stBadge = `<span class="badge bg-green" style="margin-right: 5px;">Active</span>` + 
+                                          (isUsed ? `<span class="badge bg-yellow">Used</span>` : `<span class="badge bg-orange">Unused</span>`);
+                            }
                             
                             let keyColor = d.color || '#ffffff';
                             
@@ -999,12 +1004,12 @@
         
         window.deleteAllKeys = function(path) {
             if(!perms.isOwner && !perms.canReset) return alert('Permission Denied');
-            if(confirm("تحذير ⚠️: هل أنت متأكد من حذف جميع المفاتيح بشكل نهائي؟ لا يمكن التراجع عن هذه الخطوة!")) {
+            if(confirm("Warning ⚠️: Are you sure you want to permanently delete all keys? This action cannot be undone!")) {
                 db.ref(path).remove().then(() => {
                     wLog("System Cleanup", "Deleted ALL keys in " + path);
-                    alert("تم تنظيف وحذف جميع المفاتيح بنجاح!");
+                    alert("All keys deleted successfully!");
                 }).catch(e => {
-                    alert("حدث خطأ أثناء الحذف: " + e.message);
+                    alert("Error during deletion: " + e.message);
                 });
             }
         }
