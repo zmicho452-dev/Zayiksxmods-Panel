@@ -13,19 +13,21 @@
         #loginScreen { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: radial-gradient(circle, #1a0000 0%, #000000 100%); }
         .login-box { background: var(--panel-bg); border: 2px solid var(--main-red); padding: 40px; border-radius: 15px; box-shadow: 0 0 30px rgba(255,0,0,0.4); text-align: center; width: 90%; max-width: 400px; backdrop-filter: blur(10px); }
         .login-box h1 { margin-bottom: 25px; font-size: 28px; text-shadow: var(--text-glow); letter-spacing: 2px; }
-        input { width: 100%; padding: 15px; margin: 10px 0; background: rgba(0,0,0,0.7); border: 1px solid var(--dark-red); color: #fff; border-radius: 8px; outline: none; font-family: inherit; font-size: 16px; transition: 0.3s; }
-        input:focus { border-color: var(--main-red); box-shadow: 0 0 15px rgba(255,0,0,0.5); }
-        button.primary-btn { background: linear-gradient(45deg, var(--dark-red), var(--main-red)); color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: 900; font-size: 16px; width: 100%; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; box-shadow: 0 5px 15px rgba(255,0,0,0.3); }
+        input, select { width: 100%; padding: 15px; margin: 10px 0; background: rgba(0,0,0,0.7); border: 1px solid var(--dark-red); color: #fff; border-radius: 8px; outline: none; font-family: inherit; font-size: 16px; transition: 0.3s; }
+        input:focus, select:focus { border-color: var(--main-red); box-shadow: 0 0 15px rgba(255,0,0,0.5); }
+        
+        button.primary-btn { background: linear-gradient(45deg, var(--dark-red), var(--main-red)); color: white; padding: 15px; border: none; border-radius: 8px; cursor: pointer; font-weight: 900; font-size: 16px; width: 100%; margin-top: 15px; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; }
         button.primary-btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(255,0,0,0.8); }
+        button:disabled { filter: grayscale(100%); cursor: not-allowed; }
 
         #adminDashboard { display: none; height: 100vh; flex-direction: column; }
-        header { background: #0a0000; border-bottom: 2px solid var(--main-red); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 0 20px rgba(255,0,0,0.3); }
+        header { background: #0a0000; border-bottom: 2px solid var(--main-red); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
         header h1 { font-size: 22px; text-shadow: var(--text-glow); }
         .user-info { display: flex; align-items: center; gap: 15px; }
         .role-badge { background: rgba(0,255,102,0.1); border: 1px solid #00ff66; color: #00ff66; padding: 5px 10px; border-radius: 5px; font-size: 12px; }
         
         .main-layout { display: flex; flex: 1; overflow: hidden; }
-        .sidebar { width: 250px; background: #0a0000; border-right: 1px solid var(--dark-red); display: flex; flex-direction: column; padding: 20px 0; }
+        .sidebar { width: 250px; background: #0a0000; border-right: 1px solid var(--dark-red); display: flex; flex-direction: column; padding: 20px 0; overflow-y: auto; }
         .nav-btn { background: transparent; border: none; color: #aaa; padding: 15px 25px; text-align: left; font-size: 15px; font-family: inherit; cursor: pointer; transition: 0.3s; border-left: 3px solid transparent; }
         .nav-btn:hover, .nav-btn.active { background: rgba(255,0,0,0.1); color: #fff; border-left-color: var(--main-red); text-shadow: var(--text-glow); }
         
@@ -45,35 +47,38 @@
         th { background: #1a0000; color: var(--main-red); font-family: 'Orbitron', sans-serif; font-size: 13px; }
         tr:hover { background: rgba(255,0,0,0.1); }
         
-        .badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+        .badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; text-transform: uppercase; }
         .bg-green { background: rgba(0,255,102,0.1); color: #00ff66; border: 1px solid #00ff66; }
         .bg-orange { background: rgba(255,153,0,0.1); color: #ff9900; border: 1px solid #ff9900; }
         .bg-red { background: rgba(255,0,0,0.1); color: #ff3333; border: 1px solid #ff3333; }
+        .bg-gray { background: rgba(150,150,150,0.1); color: #aaa; border: 1px solid #aaa; }
         
         .action-btn { background: #333; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 12px; transition: 0.2s; margin: 2px; font-weight: bold; font-family: 'Orbitron', sans-serif; }
         .btn-renew { background: #00ff66; color: #000; }
+        .btn-manage { background: #0088ff; color: #fff; }
         .btn-delete { background: var(--main-red); }
         .action-btn:hover { filter: brightness(1.2); }
 
-        .btn-boom { background: #000; color: var(--main-red); border: 2px solid var(--main-red); font-size: 18px; font-weight: 900; padding: 15px; width: 100%; border-radius: 8px; cursor: pointer; text-shadow: var(--text-glow); box-shadow: inset 0 0 20px rgba(255,0,0,0.2); transition: 0.3s; animation: pulse 1.5s infinite; }
-        .btn-boom:hover { background: var(--main-red); color: #000; text-shadow: none; box-shadow: 0 0 30px var(--main-red); }
+        .key-settings-panel { display: none; background: #0a0000; padding: 20px; border-radius: 8px; border: 1px solid #440000; margin-top: 10px; text-align: left; }
+        .key-settings-panel.active { display: block; }
+        .control-group { margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed #330000; }
+        .control-group h4 { color: #aaa; margin-bottom: 10px; font-size: 12px; }
+
+        .btn-boom { background: #000; color: var(--main-red); border: 2px solid var(--main-red); font-size: 18px; font-weight: 900; padding: 15px; width: 100%; border-radius: 8px; cursor: pointer; text-shadow: var(--text-glow); transition: 0.3s; }
+        .btn-boom.active { background: var(--main-red); color: #000; box-shadow: 0 0 30px var(--main-red); animation: pulse 1.5s infinite; }
         
-        .btn-boo { background: #00ff66; color: #000; border: none; font-size: 18px; font-weight: 900; padding: 15px; width: 100%; border-radius: 8px; cursor: pointer; box-shadow: 0 0 15px rgba(0,255,102,0.3); transition: 0.3s; }
-        .btn-boo:hover { background: #00cc55; box-shadow: 0 0 25px rgba(0,255,102,0.6); }
+        .btn-boo { background: #000; color: #00ff66; border: 2px solid #00ff66; font-size: 18px; font-weight: 900; padding: 15px; width: 100%; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .btn-boo.active { background: #00ff66; color: #000; box-shadow: 0 0 25px rgba(0,255,102,0.6); }
 
-        .reset-box { background: #110000; border: 1px solid #ff3333; padding: 20px; border-radius: 10px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 20px; }
-        .reset-box input { margin: 0; flex: 1; min-width: 200px; border-color: #ff3333; }
-        .reset-box button { margin: 0; width: 150px; background: linear-gradient(45deg, #ff9900, #ff5500); padding: 15px; font-size: 14px; }
+        @keyframes pulse { 0% { box-shadow: 0 0 10px rgba(255,0,0,0.5); } 50% { box-shadow: 0 0 30px rgba(255,0,0,1); } 100% { box-shadow: 0 0 10px rgba(255,0,0,0.5); } }
 
-        @keyframes pulse { 0% { box-shadow: inset 0 0 10px rgba(255,0,0,0.2); } 50% { box-shadow: inset 0 0 40px rgba(255,0,0,0.6); } 100% { box-shadow: inset 0 0 10px rgba(255,0,0,0.2); } }
+        .mod-list-item { background: #111; padding: 15px; margin-bottom: 10px; border: 1px solid #330000; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
 
         @media (max-width: 768px) {
             .main-layout { flex-direction: column; }
             .sidebar { width: 100%; flex-direction: row; flex-wrap: wrap; border-right: none; border-bottom: 1px solid var(--dark-red); padding: 10px; justify-content: center; }
             .nav-btn { padding: 10px; font-size: 12px; border-left: none; border-bottom: 3px solid transparent; }
-            .nav-btn:hover, .nav-btn.active { border-left: none; border-bottom-color: var(--main-red); }
             .grid-2 { grid-template-columns: 1fr; }
-            .content-area { padding: 15px; }
         }
     </style>
 </head>
@@ -93,16 +98,16 @@
         <header>
             <h1>ZAYIKS X MODS <span style="color: #666; font-size: 14px;">// VIP PANEL</span></h1>
             <div class="user-info">
-                <span class="role-badge" id="userRank">ROLE: UNKNOWN</span>
+                <span class="role-badge" id="userRank">ROLE: LOADING...</span>
                 <button class="action-btn" style="padding: 8px 15px; margin: 0;" onclick="logout()">LOGOUT</button>
             </div>
         </header>
         
         <div class="main-layout">
             <div class="sidebar">
-                <button class="nav-btn active" onclick="openTab('tab-generate')">🔑 KEY GENERATOR</button>
-                <button class="nav-btn" onclick="openTab('tab-active')">🟢 ACTIVE KEYS</button>
-                <button class="nav-btn" onclick="openTab('tab-expired')">🔴 EXPIRED KEYS</button>
+                <button class="nav-btn active perm-create" onclick="openTab('tab-generate')">🔑 GENERATOR</button>
+                <button class="nav-btn perm-view" onclick="openTab('tab-active')">🟢 ACTIVE KEYS</button>
+                <button class="nav-btn perm-view" onclick="openTab('tab-expired')">🔴 EXPIRED KEYS</button>
                 <button class="nav-btn owner-only" onclick="openTab('tab-system')">⚙️ SYSTEM & BOOM</button>
                 <button class="nav-btn owner-only" onclick="openTab('tab-users')">👥 MODERATORS</button>
                 <button class="nav-btn owner-only" onclick="openTab('tab-logs')">📜 SYSTEM LOGS</button>
@@ -115,12 +120,29 @@
                         <h2>CREATE NEW VIP KEY</h2>
                         <div class="grid-2">
                             <div>
-                                <label style="color: #aaa; font-size: 12px;">Custom Name (Optional)</label>
-                                <input type="text" id="kName" placeholder="e.g. VVIP-TEST-KEY">
+                                <label style="color: #aaa; font-size: 12px;">Custom Name (Blank for Random)</label>
+                                <input type="text" id="kName" placeholder="e.g. VIP-TEST-1">
+                                <p id="keyErrorMsg" style="color: #ff3333; font-size: 12px; display: none; margin-top: -5px; margin-bottom: 10px;"></p>
+                                <button id="btnSuggest" class="action-btn" style="display: none; background: #0088ff; margin-bottom: 10px;" onclick="suggestKey()">SUGGEST RANDOM KEY</button>
                             </div>
                             <div>
                                 <label style="color: #aaa; font-size: 12px;">Duration (Hours)</label>
                                 <input type="number" id="kHours" value="24">
+                            </div>
+                            <div>
+                                <label style="color: #aaa; font-size: 12px;">Max Devices</label>
+                                <input type="number" id="kDevices" value="1">
+                            </div>
+                            <div>
+                                <label style="color: #aaa; font-size: 12px;">Key Color Label</label>
+                                <select id="kColor">
+                                    <option value="#ffffff">⚪ White (Default)</option>
+                                    <option value="#ff3333">🔴 Red</option>
+                                    <option value="#00ff66">🟢 Green</option>
+                                    <option value="#0088ff">🔵 Blue</option>
+                                    <option value="#ff9900">🟠 Orange</option>
+                                    <option value="#ff00ff">🟣 Purple</option>
+                                </select>
                             </div>
                         </div>
                         <button class="primary-btn" onclick="genKey()" style="max-width: 300px;">GENERATE KEY</button>
@@ -132,14 +154,12 @@
 
                 <div id="tab-active" class="tab-content">
                     <div class="card">
-                        
-                        <div class="reset-box">
+                        <div class="perm-reset" style="background: #110000; border: 1px solid #ff3333; padding: 20px; border-radius: 10px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 20px;">
                             <div>
                                 <span style="display: block; font-weight: bold; color: #ff3333; margin-bottom: 5px;">🛠️ MANUAL KEY RESET</span>
-                                <span style="font-size: 11px; color: #aaa; font-family: 'Cairo';">أدخل المفتاح هنا لفصل الجهاز عنه</span>
                             </div>
-                            <input type="text" id="manualKeyInput" placeholder="أدخل المفتاح...">
-                            <button class="primary-btn" onclick="manualReset()">RESET KEY</button>
+                            <input type="text" id="manualKeyInput" placeholder="Enter key to reset device..." style="margin: 0; flex: 1; min-width: 200px; border-color: #ff3333;">
+                            <button class="primary-btn" style="margin: 0; width: 150px; padding: 15px; font-size: 14px;" onclick="manualReset()">RESET KEY</button>
                         </div>
 
                         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--dark-red); padding-bottom: 10px; margin-bottom: 20px;">
@@ -148,7 +168,7 @@
                         </div>
                         <div class="table-responsive">
                             <table>
-                                <thead><tr><th>KEY</th><th>TIME LEFT</th><th>DEVICE ID</th><th>STATE</th><th>ACTIONS</th></tr></thead>
+                                <thead><tr><th>KEY</th><th>TIME LEFT</th><th>DEVICE</th><th>STATE</th><th>ACTIONS</th></tr></thead>
                                 <tbody id="tbActive"></tbody>
                             </table>
                         </div>
@@ -157,7 +177,7 @@
 
                 <div id="tab-expired" class="tab-content">
                     <div class="card">
-                        <h2>ARCHIVED / EXPIRED KEYS</h2>
+                        <h2>EXPIRED KEYS</h2>
                         <div class="table-responsive">
                             <table>
                                 <thead><tr><th>KEY</th><th>DEVICE ID</th><th>STATUS</th><th>ACTIONS</th></tr></thead>
@@ -170,13 +190,13 @@
                 <div id="tab-system" class="tab-content owner-only">
                     <div class="grid-2">
                         <div class="card">
-                            <h2>SERVER MAINTENANCE</h2>
+                            <h2>SERVER CONTROL</h2>
                             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: #111; padding: 15px; border-radius: 8px; border: 1px solid #333;">
                                 <span style="font-size: 16px; font-weight: bold;">Status:</span>
-                                <button id="srvBtn" class="action-btn" style="padding: 10px 20px; font-size: 14px;" onclick="togSrv()">ACTIVE</button>
+                                <button id="srvBtn" class="action-btn" style="padding: 10px 20px; font-size: 14px;" onclick="togSrv()">LOADING...</button>
                             </div>
-                            <label style="color: #aaa; font-size: 12px;">Maintenance Message (Shown to users)</label>
-                            <input type="text" id="srvMsg" placeholder="Server is down for update...">
+                            <label style="color: #aaa; font-size: 12px;">Maintenance Message</label>
+                            <input type="text" id="srvMsg" placeholder="Server is under maintenance...">
                             <button class="primary-btn" onclick="setMsg()">UPDATE MESSAGE</button>
                         </div>
                         
@@ -186,8 +206,8 @@
                                 <span id="boomStatusText" style="font-size: 16px; font-weight: bold;">STATUS: LOADING...</span>
                             </div>
                             <div style="display: flex; gap: 15px;">
-                                <button class="btn-boom" onclick="fireBoom()">💥 BOOM (ON)</button>
-                                <button class="btn-boo" onclick="stopBoom()">🛡️ RESTORE (OFF)</button>
+                                <button id="btnBoomOn" class="btn-boom" onclick="fireBoom()">💥 BOOM (ON)</button>
+                                <button id="btnBoomOff" class="btn-boo" onclick="stopBoom()">🛡️ RESTORE (OFF)</button>
                             </div>
                         </div>
                     </div>
@@ -195,19 +215,24 @@
 
                 <div id="tab-users" class="tab-content owner-only">
                     <div class="card">
-                        <h2>ADD / MANAGE SUB-ADMINS</h2>
-                        <div class="grid-2">
+                        <h2>MODERATORS MANAGEMENT</h2>
+                        <div class="grid-2" style="margin-bottom: 20px;">
                             <div>
-                                <input type="text" id="modUid" placeholder="Admin UID (From Firebase)">
+                                <input type="text" id="modUid" placeholder="Admin UID">
                                 <input type="email" id="modEmail" placeholder="Admin Email">
                             </div>
                             <div style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; border: 1px solid #330000;">
                                 <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--main-red);">Permissions:</h3>
-                                <label style="display: block; margin-bottom: 10px; cursor: pointer;"><input type="checkbox" id="pKeys"> Create & Manage Keys</label>
-                                <label style="display: block; cursor: pointer;"><input type="checkbox" id="pBoom"> Execute BOOM Command</label>
+                                <label style="display: block; margin-bottom: 8px; cursor: pointer;"><input type="checkbox" id="p_view"> View Keys</label>
+                                <label style="display: block; margin-bottom: 8px; cursor: pointer;"><input type="checkbox" id="p_create"> Create Keys</label>
+                                <label style="display: block; margin-bottom: 8px; cursor: pointer;"><input type="checkbox" id="p_reset"> Reset/Manage Keys</label>
+                                <label style="display: block; cursor: pointer;"><input type="checkbox" id="p_boom"> BOOM Access</label>
                             </div>
                         </div>
-                        <button class="primary-btn" style="max-width: 300px;" onclick="addMod()">SAVE PERMISSIONS</button>
+                        <button class="primary-btn" style="max-width: 300px; margin-bottom: 20px;" onclick="addMod()">SAVE / UPDATE MODERATOR</button>
+                        
+                        <h3 style="font-size: 16px; border-bottom: 1px dashed #330000; padding-bottom: 10px; margin-bottom: 15px;">Current Moderators</h3>
+                        <div id="modsListContainer"></div>
                     </div>
                 </div>
 
@@ -216,7 +241,7 @@
                         <h2>SECURITY LOGS</h2>
                         <div class="table-responsive" style="max-height: 400px;">
                             <table>
-                                <thead><tr><th>DATE & TIME</th><th>ADMIN EMAIL</th><th>ACTION</th><th>TARGET / DETAILS</th></tr></thead>
+                                <thead><tr><th>DATE</th><th>USER</th><th>ACTION</th><th>DETAILS</th></tr></thead>
                                 <tbody id="tbLogs"></tbody>
                             </table>
                         </div>
@@ -247,7 +272,18 @@
         const db = firebase.database();
         
         const MAIN_ADMIN = 'cCVdbNGtnGgoxQrHKG82eNwU5tY2';
-        let curUser = null; let isOwner = false; let srvOn = true; let pKeys = false; let pBoom = false;
+        let curUser = null; 
+        
+        let perms = {
+            isOwner: false,
+            canView: false,
+            canCreate: false,
+            canReset: false,
+            canBoom: false
+        };
+        
+        let srvOn = true;
+        let activeKeysData = {};
 
         window.openTab = function(tabId) {
             document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
@@ -258,7 +294,10 @@
 
         auth.onAuthStateChanged(u => {
             if (u) { curUser = u; checkRank(u.uid); } 
-            else { document.getElementById('loginScreen').style.display = 'flex'; document.getElementById('adminDashboard').style.display = 'none'; }
+            else { 
+                document.getElementById('loginScreen').style.display = 'flex'; 
+                document.getElementById('adminDashboard').style.display = 'none'; 
+            }
         });
 
         window.login = function() { 
@@ -270,11 +309,30 @@
         window.logout = function() { auth.signOut(); }
 
         function checkRank(uid) {
-            if (uid === MAIN_ADMIN) { isOwner = true; pKeys = true; pBoom = true; setupUI('OWNER (ROOT)'); } 
-            else {
+            if (uid === MAIN_ADMIN) { 
+                perms = { isOwner: true, canView: true, canCreate: true, canReset: true, canBoom: true };
+                setupUI('OWNER (ROOT)'); 
+            } else {
                 db.ref('SubAdmins/' + uid).once('value', s => {
-                    if (s.exists()) { isOwner = false; pKeys = s.val().canManageKeys; pBoom = s.val().canUseBoom; setupUI('MODERATOR'); } 
-                    else { alert('Access Denied'); logout(); }
+                    if (s.exists()) {
+                        let data = s.val();
+                        if(data.status === 'suspended') {
+                            alert('Your account has been suspended by the Owner.');
+                            logout();
+                            return;
+                        }
+                        perms = {
+                            isOwner: false,
+                            canView: data.canViewKeys || false,
+                            canCreate: data.canManageKeys || false, 
+                            canReset: data.canResetKeys || false,
+                            canBoom: data.canUseBoom || false
+                        };
+                        setupUI('MODERATOR'); 
+                    } else { 
+                        alert('Access Denied. You are not registered as an Admin.'); 
+                        logout(); 
+                    }
                 });
             }
         }
@@ -283,33 +341,49 @@
             document.getElementById('loginScreen').style.display = 'none'; 
             document.getElementById('adminDashboard').style.display = 'flex'; 
             document.getElementById('userRank').innerText = "ROLE: " + role;
-            if(isOwner) { document.querySelectorAll('.owner-only').forEach(e => e.style.display = 'block'); loadOwnerData(); }
-            if(pKeys) { loadKeys(); loadExpiredKeys(); } else { document.querySelectorAll('.mod-keys').forEach(e => e.style.display = 'none'); }
-            setInterval(updateTimers, 1000);
+            
+            document.querySelectorAll('.owner-only').forEach(e => e.style.display = perms.isOwner ? 'block' : 'none');
+            document.querySelectorAll('.perm-view').forEach(e => e.style.display = perms.canView ? 'block' : 'none');
+            document.querySelectorAll('.perm-create').forEach(e => e.style.display = perms.canCreate ? 'block' : 'none');
+            document.querySelectorAll('.perm-reset').forEach(e => e.style.display = perms.canReset ? 'flex' : 'none');
+
+            if(perms.isOwner) { loadOwnerData(); loadModsList(); }
+            if(perms.canView) { loadKeys(); loadExpiredKeys(); setInterval(updateTimers, 1000); }
+            if(perms.canCreate && !perms.canView) { openTab('tab-generate'); }
         }
 
-        function wLog(act, det) { db.ref('Logs').push({ time: firebase.database.ServerValue.TIMESTAMP, user: curUser.email, action: act, details: det }); }
+        function wLog(act, det) { 
+            db.ref('Logs').push({ time: firebase.database.ServerValue.TIMESTAMP, user: curUser.email, action: act, details: det }); 
+        }
 
         function loadOwnerData() {
             db.ref('AdminData/ServerStatus').on('value', s => {
                 if(s.exists()) {
                     srvOn = s.val().isActive;
                     const b = document.getElementById('srvBtn');
-                    b.innerText = srvOn ? "ONLINE" : "OFFLINE";
-                    b.style.background = srvOn ? "#00ff66" : "#ff3333";
-                    b.style.color = "#000";
-                    document.getElementById('srvMsg').value = s.val().message || "";
+                    b.innerText = srvOn ? "🟢 ONLINE" : "🔴 OFFLINE";
+                    b.style.background = srvOn ? "#000" : "#ff3333";
+                    b.style.border = srvOn ? "1px solid #00ff66" : "none";
+                    b.style.color = srvOn ? "#00ff66" : "#000";
+                    if(!document.getElementById('srvMsg').value) document.getElementById('srvMsg').value = s.val().message || "";
                 }
             });
 
             db.ref('AdminCommands/Kill_Switch').on('value', s => {
                 let statusEl = document.getElementById('boomStatusText');
+                let btnOn = document.getElementById('btnBoomOn');
+                let btnOff = document.getElementById('btnBoomOff');
+                
                 if(s.exists() && s.val() === "BOOM") {
                     statusEl.innerText = "🔴 BOOM IS ACTIVE!";
                     statusEl.style.color = "#ff3333";
+                    btnOn.classList.add('active');
+                    btnOff.classList.remove('active');
                 } else {
                     statusEl.innerText = "🟢 SAFE (OFF)";
                     statusEl.style.color = "#00ff66";
+                    btnOn.classList.remove('active');
+                    btnOff.classList.add('active');
                 }
             });
 
@@ -320,25 +394,33 @@
                 logs.forEach(l => { 
                     let d = new Date(l.time);
                     let fDate = d.toLocaleDateString() + ' ' + d.toLocaleTimeString();
-                    logsHtml += `<tr><td>${fDate}</td><td style="color:#00ff66;">${l.user}</td><td>${l.action}</td><td style="font-family: Cairo;">${l.details}</td></tr>`; 
+                    logsHtml += `<tr><td>${fDate}</td><td style="color:#00ff66;">${l.user}</td><td>${l.action}</td><td>${l.details}</td></tr>`; 
                 });
                 tb.innerHTML = logsHtml;
             });
         }
 
-        window.togSrv = function() { db.ref('AdminData/ServerStatus').update({ isActive: !srvOn }); wLog("Server Status", !srvOn ? "Started" : "Stopped"); }
-        window.setMsg = function() { db.ref('AdminData/ServerStatus').update({ message: document.getElementById('srvMsg').value }); wLog("Server Message", "Updated MSG"); alert("Message Saved!"); }
+        window.togSrv = function() { 
+            db.ref('AdminData/ServerStatus').update({ isActive: !srvOn }); 
+            wLog("Server Status", !srvOn ? "Started Server" : "Stopped Server"); 
+        }
+        
+        window.setMsg = function() { 
+            db.ref('AdminData/ServerStatus').update({ message: document.getElementById('srvMsg').value }); 
+            wLog("Server Message", "Updated MSG"); 
+            alert("Message Saved!"); 
+        }
         
         window.fireBoom = function() {
-            if(!isOwner && !pBoom) return alert('Permission Denied');
-            if(confirm("CRITICAL WARNING: Send BOOM command?")) { 
+            if(!perms.isOwner && !perms.canBoom) return alert('Permission Denied');
+            if(confirm("CRITICAL WARNING: Send BOOM command? This will destroy all connected clients.")) { 
                 db.ref('AdminCommands').update({ Kill_Switch: "BOOM" }); 
                 wLog("KILL SWITCH", "BOOM INITIATED"); 
             }
         }
         
         window.stopBoom = function() {
-            if(!isOwner && !pBoom) return alert('Permission Denied');
+            if(!perms.isOwner && !perms.canBoom) return alert('Permission Denied');
             if(confirm("Restore system to normal?")) { 
                 db.ref('AdminCommands').update({ Kill_Switch: "OFF" }); 
                 wLog("KILL SWITCH", "DEACTIVATED (OFF)"); 
@@ -346,18 +428,76 @@
         }
 
         window.addMod = function() {
-            let u = document.getElementById('modUid').value; let e = document.getElementById('modEmail').value;
-            if(!u || !e) return alert("Fill fields");
-            db.ref('SubAdmins/' + u).set({ email: e, canManageKeys: document.getElementById('pKeys').checked, canUseBoom: document.getElementById('pBoom').checked });
-            wLog("Auth Management", "Added/Updated Mod: " + e); alert("Saved!");
+            let u = document.getElementById('modUid').value.trim(); 
+            let e = document.getElementById('modEmail').value.trim();
+            if(!u || !e) return alert("Fill UID and Email fields");
+            
+            let modData = { 
+                email: e, 
+                status: 'active',
+                canViewKeys: document.getElementById('p_view').checked,
+                canManageKeys: document.getElementById('p_create').checked,
+                canResetKeys: document.getElementById('p_reset').checked,
+                canUseBoom: document.getElementById('p_boom').checked 
+            };
+            
+            db.ref('SubAdmins/' + u).set(modData).then(() => {
+                wLog("Mod Management", "Added/Updated Mod: " + e); 
+                alert("Moderator Saved!");
+                document.getElementById('modUid').value = '';
+                document.getElementById('modEmail').value = '';
+            });
         }
 
-        let activeKeysData = {};
+        function loadModsList() {
+            db.ref('SubAdmins').on('value', s => {
+                let container = document.getElementById('modsListContainer');
+                container.innerHTML = '';
+                if(s.exists()){
+                    s.forEach(c => {
+                        let uid = c.key; let data = c.val();
+                        let badge = data.status === 'suspended' ? '<span class="badge bg-red">SUSPENDED</span>' : '<span class="badge bg-green">ACTIVE</span>';
+                        let actionBtn = data.status === 'suspended' 
+                            ? `<button class="action-btn btn-renew" onclick="toggleMod('${uid}', 'active')">ACTIVATE</button>`
+                            : `<button class="action-btn bg-orange" onclick="toggleMod('${uid}', 'suspended')">SUSPEND</button>`;
+                            
+                        container.innerHTML += `
+                            <div class="mod-list-item">
+                                <div>
+                                    <strong style="color:var(--main-red);">${data.email}</strong><br>
+                                    <span style="font-size:11px; color:#aaa;">UID: ${uid}</span>
+                                </div>
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    ${badge}
+                                    ${actionBtn}
+                                    <button class="action-btn btn-delete" onclick="deleteMod('${uid}')">DELETE</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    container.innerHTML = '<p style="color:#aaa; font-size:14px;">No moderators found.</p>';
+                }
+            });
+        }
+
+        window.toggleMod = function(uid, state) {
+            db.ref('SubAdmins/' + uid).update({ status: state });
+            wLog("Mod Management", `Changed mod ${uid} status to ${state}`);
+        }
+        
+        window.deleteMod = function(uid) {
+            if(confirm("Permanently delete this moderator?")) {
+                db.ref('SubAdmins/' + uid).remove();
+                wLog("Mod Management", `Deleted mod ${uid}`);
+            }
+        }
+
         function loadKeys() {
             let tb = document.getElementById('tbActive'); 
             if(!tb) return;
             
-            tb.innerHTML = '<tr><td colspan="5" style="color: #ff9900;">⏳ جاري جلب البيانات من السيرفر...</td></tr>';
+            tb.innerHTML = '<tr><td colspan="5" style="color: #ff9900;">⏳ Fetching data...</td></tr>';
 
             db.ref('ActiveKeys').on('value', s => {
                 activeKeysData = {};
@@ -368,41 +508,68 @@
                     s.forEach(c => {
                         try {
                             let k = c.key; let d = c.val();
-                            if (typeof d !== 'object' || d === null) {
-                                d = { deviceID: 'none', usageState: 'غير مستخدم', durationHours: 24 };
-                            }
+                            if (typeof d !== 'object' || d === null) d = { deviceID: 'none', durationHours: 24, status: 'active' };
                             
                             activeKeysData[k] = d;
                             count++;
                             
                             let dev = (!d.deviceID || d.deviceID === 'none') ? 'Waiting...' : d.deviceID;
                             let isUsed = (d.deviceID && d.deviceID !== 'none');
-                            let stBadge = isUsed ? '<span class="badge bg-green">ACTIVE</span>' : '<span class="badge bg-orange">UNUSED</span>';
+                            let stBadge = d.status === 'paused' ? '<span class="badge bg-gray">PAUSED</span>' : (isUsed ? '<span class="badge bg-green">ACTIVE</span>' : '<span class="badge bg-orange">UNUSED</span>');
+                            let keyColor = d.color || '#ffffff';
                             
-                            htmlContent += `<tr id="row-${k}">
-                                <td style="font-weight:bold; letter-spacing: 1px;">${k}</td>
+                            htmlContent += `<tr>
+                                <td style="font-weight:bold; letter-spacing: 1px; color: ${keyColor};">${k}</td>
                                 <td id="time-${k}" style="font-family: monospace; font-size: 14px; font-weight:bold;">-</td>
                                 <td style="font-size:11px; max-width: 150px; overflow: hidden; text-overflow: ellipsis;" title="${dev}">${dev}</td>
                                 <td>${stBadge}</td>
                                 <td style="min-width: 150px;">
-                                    <button class="action-btn btn-renew" onclick="rnwKey('${k}')">+24H</button>
-                                    <button class="action-btn btn-delete" onclick="delKey('${k}', 'ActiveKeys')">DEL</button>
+                                    ${perms.canReset ? `<button class="action-btn btn-manage" onclick="toggleManage('${k}')">MANAGE ▼</button>` : ''}
+                                </td>
+                            </tr>
+                            <tr id="manage-${k}" style="display:none; background: #080000;">
+                                <td colspan="5" style="padding: 15px; border-bottom: 2px solid var(--dark-red);">
+                                    <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
+                                        <div>
+                                            <span style="font-size:11px; color:#aaa; display:block;">Time Control:</span>
+                                            <button class="action-btn btn-renew" onclick="modifyTime('${k}', 24)">+24H</button>
+                                            <button class="action-btn bg-orange" onclick="modifyTime('${k}', -24)">-24H</button>
+                                        </div>
+                                        <div>
+                                            <span style="font-size:11px; color:#aaa; display:block;">Key State:</span>
+                                            <button class="action-btn ${d.status === 'paused' ? 'btn-renew' : 'bg-orange'}" onclick="toggleKeyState('${k}', '${d.status}')">
+                                                ${d.status === 'paused' ? '▶ RESUME' : '⏸ PAUSE'}
+                                            </button>
+                                            <button class="action-btn bg-gray" onclick="resetSingleKey('${k}')">🔄 UNLINK DEVICE</button>
+                                        </div>
+                                        <div>
+                                            <span style="font-size:11px; color:#aaa; display:block;">Danger:</span>
+                                            <button class="action-btn btn-delete" onclick="delKey('${k}', 'ActiveKeys')">🗑️ DELETE KEY</button>
+                                        </div>
+                                    </div>
+                                    <div style="margin-top:10px; font-size:11px; color:#888; text-align:left;">
+                                        Max Devices: ${d.maxDevices || 1} | Created: ${d.createdAt ? new Date(d.createdAt).toLocaleString() : 'N/A'}
+                                    </div>
                                 </td>
                             </tr>`;
                         } catch(err) { console.error(err); }
                     });
                     tb.innerHTML = htmlContent;
                 } else {
-                    tb.innerHTML = '<tr><td colspan="5" style="color: #aaa;">لا توجد مفاتيح نشطة حالياً.</td></tr>';
+                    tb.innerHTML = '<tr><td colspan="5" style="color: #aaa;">No active keys found.</td></tr>';
                 }
                 
                 document.getElementById('keyCountDisplay').innerText = count + " KEYS";
                 updateTimers();
                 
             }, (error) => {
-                alert("مشكلة في التصاريح: " + error.message);
-                tb.innerHTML = `<tr><td colspan="5" style="color: red;">خطأ الصلاحيات: تأكد من تحديث قوانين فايربيس (Rules).</td></tr>`;
+                tb.innerHTML = `<tr><td colspan="5" style="color: red;">Permission Error: You do not have access to view keys.</td></tr>`;
             });
+        }
+
+        window.toggleManage = function(k) {
+            let el = document.getElementById('manage-' + k);
+            el.style.display = el.style.display === 'none' ? 'table-row' : 'none';
         }
 
         function loadExpiredKeys() {
@@ -416,20 +583,20 @@
                         let k = c.key; let d = c.val();
                         if (typeof d !== 'object' || d === null) d = {};
                         let dev = d.deviceID || 'Unknown';
-                        let expTime = d.status === 'expired' ? '<span class="badge bg-red">EXPIRED</span>' : '<span class="badge bg-orange">ARCHIVED</span>';
+                        let expTime = '<span class="badge bg-red">EXPIRED</span>';
                         htmlContent += `<tr>
                             <td style="color:#aaa;">${k}</td>
                             <td style="font-size:11px;">${dev}</td>
                             <td>${expTime}</td>
-                            <td><button class="action-btn btn-delete" onclick="delKey('${k}', 'ExpiredKeys')">PERMA-DEL</button></td>
+                            <td>
+                                ${perms.canReset ? `<button class="action-btn btn-delete" onclick="delKey('${k}', 'ExpiredKeys')">PERMA-DEL</button>` : 'No Access'}
+                            </td>
                         </tr>`;
                     });
                     tb.innerHTML = htmlContent;
                 } else {
-                    tb.innerHTML = '<tr><td colspan="4" style="color: #aaa;">لا توجد مفاتيح منتهية.</td></tr>';
+                    tb.innerHTML = '<tr><td colspan="4" style="color: #aaa;">No expired keys.</td></tr>';
                 }
-            }, (error) => {
-                tb.innerHTML = `<tr><td colspan="4" style="color: red;">خطأ في الصلاحيات.</td></tr>`;
             });
         }
 
@@ -440,8 +607,13 @@
                 let el = document.getElementById('time-' + k);
                 if(!el) continue;
                 
+                if(d.status === 'paused') {
+                    el.innerHTML = `<span style="color:#aaa;">PAUSED</span>`;
+                    continue;
+                }
+
                 if (!d.deviceID || d.deviceID === 'none' || !d.StartTime) {
-                    el.innerHTML = `<span style="color:#aaa;">${d.durationHours || 24}H (Not Started)</span>`;
+                    el.innerHTML = `<span style="color:#aaa;">${d.durationHours || 24}H (Waiting)</span>`;
                     continue;
                 }
                 
@@ -461,57 +633,92 @@
             }
         }
 
+        window.suggestKey = function() {
+            document.getElementById('kName').value = 'ZAYIKS-' + Math.random().toString(36).substr(2, 6).toUpperCase() + '-VIP';
+            document.getElementById('keyErrorMsg').style.display = 'none';
+            document.getElementById('btnSuggest').style.display = 'none';
+        }
+
         window.genKey = function() {
             let n = document.getElementById('kName').value.trim(); 
             let h = parseInt(document.getElementById('kHours').value) || 24;
-            let k = n !== "" ? n : 'ZAYIKS-' + Math.random().toString(36).substr(2, 5).toUpperCase() + '-VIP';
+            let md = parseInt(document.getElementById('kDevices').value) || 1;
+            let col = document.getElementById('kColor').value;
             
-            db.ref('ActiveKeys/' + k).set({ 
-                createdAt: firebase.database.ServerValue.TIMESTAMP, 
-                status: 'active', 
-                usageState: 'غير مستخدم', 
-                deviceID: 'none', 
-                secretKey: 'ZAYIKS_X_MODS_0658946573', 
-                durationHours: h 
-            }).then(() => {
-                let rBox = document.getElementById('kResultBox');
-                rBox.style.display = 'block'; 
-                document.getElementById('kResultTxt').innerText = k;
-                wLog("Key Generator", "Created: " + k + " (" + h + "h)");
+            let k = n !== "" ? n : 'ZAYIKS-' + Math.random().toString(36).substr(2, 6).toUpperCase() + '-VIP';
+            let errEl = document.getElementById('keyErrorMsg');
+            let btnSug = document.getElementById('btnSuggest');
+            
+            db.ref('ActiveKeys/' + k).once('value', s => {
+                if(s.exists()) {
+                    errEl.innerText = "Error: Key name already exists!";
+                    errEl.style.display = 'block';
+                    btnSug.style.display = 'block';
+                } else {
+                    errEl.style.display = 'none';
+                    btnSug.style.display = 'none';
+                    
+                    db.ref('ActiveKeys/' + k).set({ 
+                        createdAt: firebase.database.ServerValue.TIMESTAMP, 
+                        status: 'active', 
+                        deviceID: 'none', 
+                        secretKey: 'ZAYIKS_X_MODS_0658946573', 
+                        durationHours: h,
+                        maxDevices: md,
+                        color: col
+                    }).then(() => {
+                        let rBox = document.getElementById('kResultBox');
+                        rBox.style.display = 'block'; 
+                        document.getElementById('kResultTxt').innerText = k;
+                        document.getElementById('kResultTxt').style.color = col;
+                        wLog("Key Generator", "Created: " + k + " (" + h + "h)");
+                        document.getElementById('kName').value = ""; // clear
+                    }).catch(e => alert("Permission Denied: Cannot create key."));
+                }
             });
         }
 
         window.manualReset = function() {
             let k = document.getElementById('manualKeyInput').value.trim();
-            if(k === "") { alert("Please enter the key first!"); return; }
-            
+            if(k === "") { alert("Enter key first!"); return; }
+            resetSingleKey(k, true);
+        }
+
+        window.resetSingleKey = function(k, fromInput = false) {
             db.ref('ActiveKeys/' + k).once('value', s => {
                 if(s.exists()) {
-                    db.ref('ActiveKeys/' + k).update({ deviceID: 'none', usageState: 'غير مستخدم', StartTime: null });
+                    db.ref('ActiveKeys/' + k).update({ deviceID: 'none', StartTime: null });
                     wLog("Manual Reset", k);
-                    alert("Key Reset Successful! (" + k + ")");
-                    document.getElementById('manualKeyInput').value = "";
+                    alert("Key unlinked from device successfully!");
+                    if(fromInput) document.getElementById('manualKeyInput').value = "";
                 } else {
                     alert("Key not found in Active Keys!");
                 }
             });
         }
 
-        window.rnwKey = function(key) {
+        window.modifyTime = function(key, hoursToAdd) {
             db.ref('ActiveKeys/' + key).once('value', s => {
                 if(s.exists()) {
                     let currentHours = s.val().durationHours || 24;
-                    db.ref('ActiveKeys/' + key).update({ durationHours: currentHours + 24 });
-                    wLog("Key Management", "Added 24H to: " + key);
-                    alert("Time extended by 24 Hours!");
+                    let newHours = currentHours + hoursToAdd;
+                    if(newHours < 1) newHours = 1;
+                    db.ref('ActiveKeys/' + key).update({ durationHours: newHours });
+                    wLog("Key Management", `Modified time for ${key} by ${hoursToAdd}H`);
                 }
             });
         }
+        
+        window.toggleKeyState = function(key, currentState) {
+            let newState = currentState === 'paused' ? 'active' : 'paused';
+            db.ref('ActiveKeys/' + key).update({ status: newState });
+            wLog("Key Management", `Changed state of ${key} to ${newState}`);
+        }
 
         window.delKey = function(key, path) {
-            if(confirm("Are you sure you want to delete this key?")) {
+            if(confirm("Are you sure you want to permanently delete this key?")) {
                 db.ref(path + '/' + key).remove().then(() => {
-                    wLog("Key Management", "Deleted Key: " + key + " from " + path);
+                    wLog("Key Management", "Deleted Key: " + key);
                 });
             }
         }
