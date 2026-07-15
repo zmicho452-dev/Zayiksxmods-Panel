@@ -244,6 +244,20 @@
                                     <option value="update">🔵 Force Update</option>
                                     <option value="crash">🔴 KILL (Instant Crash/Force Shutdown)</option>
                                 </select>
+                                
+                                <div class="grid-2" style="margin-bottom: 5px;">
+                                    <div>
+                                        <label style="font-size: 12px; color: #888;">Crash Type (Only used if KILL selected)</label>
+                                        <select id="crashType" style="background: rgba(0,0,0,0.8); border: 1px solid #ff3333;">
+                                            <option value="button">🔴 Manual Crash Button</option>
+                                            <option value="timer">⏳ Auto Crash Timer</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label style="font-size: 12px; color: #888;">Crash Timer (Seconds)</label>
+                                        <input type="number" id="crashTimer" value="10" style="border: 1px solid #ff3333;">
+                                    </div>
+                                </div>
 
                                 <label style="font-size: 12px; color: #888;">System / Maintenance Message</label>
                                 <input type="text" id="appMsg" placeholder="Server is under maintenance, we will be back soon..." style="border: 1px solid #0088ff;">
@@ -513,6 +527,8 @@
                     if(!document.getElementById('appUpdateUrl').value && data.updateLink) document.getElementById('appUpdateUrl').value = data.updateLink;
                     if(!document.getElementById('appTgUrl').value && data.telegramLink) document.getElementById('appTgUrl').value = data.telegramLink;
                     if(data.appStatus) document.getElementById('appStateSelect').value = data.appStatus;
+                    if(data.crashMode) document.getElementById('crashType').value = data.crashMode;
+                    if(data.crashTime) document.getElementById('crashTimer').value = data.crashTime;
                 }
             });
 
@@ -561,12 +577,16 @@
             let msg = document.getElementById('appMsg').value;
             let apk = document.getElementById('appUpdateUrl').value;
             let tg = document.getElementById('appTgUrl').value;
+            let cType = document.getElementById('crashType').value;
+            let cTimer = parseInt(document.getElementById('crashTimer').value) || 10;
             
             db.ref('AdminData/ServerStatus').update({ 
                 appStatus: state,
                 appMessage: msg,
                 updateLink: apk,
-                telegramLink: tg
+                telegramLink: tg,
+                crashMode: cType,
+                crashTime: cTimer
             }); 
             
             wLog("App Config", `Pushed config: State=${state}`); 
@@ -785,7 +805,6 @@
                             let dev = (!d.deviceID || d.deviceID === 'none') ? 'Waiting...' : d.deviceID;
                             let isUsed = (d.deviceID && d.deviceID !== 'none');
                             
-                            // Advanced dynamic status layout logic
                             let stBadge = '';
                             if (d.status === 'paused') {
                                 stBadge = `<span class="badge bg-red" style="margin-right: 5px;">Deactivated</span>` + 
