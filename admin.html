@@ -20,11 +20,8 @@
         button.primary-btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(255,0,0,0.8); }
         button:disabled { filter: grayscale(100%); cursor: not-allowed; }
 
-        .btn-reset-custom { background: linear-gradient(45deg, #ff7b00, #ffaa00); color: #fff; border: none; font-size: 15px; font-weight: 900; padding: 15px; border-radius: 8px; cursor: pointer; text-shadow: 0 0 5px rgba(0,0,0,0.3); box-shadow: 0 0 15px rgba(255,153,0,0.5); transition: 0.3s; width: 100%; }
-        .btn-reset-custom:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(255,153,0,0.8); }
-
         #adminDashboard { display: none; height: 100vh; flex-direction: column; }
-        header { background: #0a0000; border-bottom: 2px solid var(--main-red); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        header { background: #0a0000; border-bottom: 2px solid var(--main-red); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; z-index: 200; position: relative; }
         header h1 { font-size: 22px; text-shadow: var(--text-glow); }
         .user-info { display: flex; align-items: center; gap: 15px; }
         .role-badge { background: rgba(0,255,102,0.1); border: 1px solid #00ff66; color: #00ff66; padding: 5px 10px; border-radius: 5px; font-size: 12px; }
@@ -46,7 +43,7 @@
         .nav-btn:hover, .nav-btn.active { background: rgba(255,0,0,0.1); color: #fff; border-left-color: var(--main-red); text-shadow: var(--text-glow); }
         
         .content-area { flex: 1; padding: 30px; overflow-y: auto; background: radial-gradient(circle at top right, #110000, #000000); }
-        .tab-content { display: none; animation: fadeIn 0.4s ease; padding-bottom: 40px; }
+        .tab-content { display: none; animation: fadeIn 0.4s ease; padding-bottom: 20px; }
         .tab-content.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -74,6 +71,9 @@
         .btn-delete { background: var(--main-red); }
         .action-btn:hover { filter: brightness(1.2); }
 
+        .btn-reset-gold { background: linear-gradient(45deg, #FFB300, #FFD54F); color: #000; border: 2px solid #FFA000; border-radius: 8px; cursor: pointer; font-weight: 900; font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 1px; transition: all 0.3s ease; box-shadow: 0 0 15px rgba(255,179,0,0.6); }
+        .btn-reset-gold:hover { transform: translateY(-2px); box-shadow: 0 0 25px rgba(255,213,79,0.9); background: linear-gradient(45deg, #FFC107, #FFE082); }
+
         .btn-boom { background: #000; color: var(--main-red); border: 2px solid var(--main-red); font-size: 18px; font-weight: 900; padding: 15px; width: 100%; border-radius: 8px; cursor: pointer; text-shadow: var(--text-glow); transition: 0.3s; }
         .btn-boom.active { background: var(--main-red); color: #000; box-shadow: 0 0 30px var(--main-red); animation: pulse 1.5s infinite; }
         
@@ -90,11 +90,10 @@
         #liveLogText { color: #00ff66; font-size: 14px; font-weight: bold; }
 
         @media (max-width: 768px) {
-            .main-layout { flex-direction: column; }
-            .sidebar { width: 100%; flex-direction: row; flex-wrap: wrap; border-right: none; border-bottom: 1px solid var(--dark-red); padding: 10px; justify-content: center; }
+            .main-layout { flex-direction: column; overflow: visible; }
+            .sidebar { position: sticky; top: 0; z-index: 100; width: 100%; flex-direction: row; flex-wrap: wrap; border-right: none; border-bottom: 1px solid var(--dark-red); padding: 10px; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.8); }
             .nav-btn { padding: 10px; font-size: 12px; border-left: none; border-bottom: 3px solid transparent; }
             .grid-2 { grid-template-columns: 1fr; }
-            .perm-reset { flex-direction: column; }
         }
     </style>
 </head>
@@ -125,8 +124,8 @@
                 <button class="nav-btn perm-view" onclick="openTab('tab-active')"><span class="glow-icon glow-green">🟢</span> ACTIVE KEYS</button>
                 <button class="nav-btn perm-view" onclick="openTab('tab-expired')"><span class="glow-icon">🔴</span> EXPIRED KEYS</button>
                 <button class="nav-btn tab-system-access" onclick="openTab('tab-system')"><span class="glow-icon">⚙️</span> SYSTEM & BOOM</button>
-                <button class="nav-btn tab-mods-access" onclick="openTab('tab-users')"><span class="glow-icon glow-blue">👥</span> MODERATORS</button>
                 <button class="nav-btn tab-logs-access" onclick="openTab('tab-logs')"><span class="glow-icon glow-green">📜</span> SECURITY LOGS</button>
+                <button class="nav-btn" onclick="document.getElementById('permanent-mods-section').scrollIntoView({behavior: 'smooth'})"><span class="glow-icon glow-blue">👥</span> MODERATORS</button>
             </div>
             
             <div class="content-area">
@@ -171,17 +170,13 @@
                 <div id="tab-active" class="tab-content">
                     <div class="card">
                         
-                        <div class="perm-reset" style="display: flex; gap: 20px; background: #050000; border: 1px solid #330000; padding: 25px; border-radius: 12px; align-items: stretch; margin-bottom: 25px;">
-                            <div style="display: flex; flex-direction: column; justify-content: space-between; gap: 15px; min-width: 220px;">
-                                <div>
-                                    <span style="display: block; font-weight: 900; color: #ff3333; font-size: 15px; letter-spacing: 1px; font-family: 'Orbitron', sans-serif;"><span class="glow-icon">🛠️</span> MANUAL KEY RESET</span>
-                                    <span style="color: #888; font-size: 13px; font-family: 'Cairo', sans-serif; margin-top: 5px; display: block;">أدخل المفتاح هنا لفصل الجهاز عنه</span>
-                                </div>
-                                <button class="btn-reset-custom" onclick="manualReset()">RESET KEY</button>
+                        <div class="perm-reset" style="background: #110000; border: 1px solid #ff3333; padding: 20px; border-radius: 10px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 20px;">
+                            <div>
+                                <span style="display: block; font-weight: bold; color: #ff3333; margin-bottom: 5px; font-family: 'Orbitron', sans-serif;"><span class="glow-icon">🛠️</span> MANUAL KEY RESET</span>
+                                <span style="color: #888; font-size: 12px; font-family: 'Cairo', sans-serif;">أدخل المفتاح هنا لفصل الجهاز عنه</span>
                             </div>
-                            <div style="flex: 1; display: flex;">
-                                <input type="text" id="manualKeyInput" placeholder="ZAYIKS-01S0V-N3XQ4-VIP" style="margin: 0; width: 100%; border: 1px solid #ff0000; box-shadow: 0 0 15px rgba(255,0,0,0.3); background: #0a0000; color: #fff; text-align: center; font-size: 16px; font-weight: bold; letter-spacing: 2px; border-radius: 8px;">
-                            </div>
+                            <input type="text" id="manualKeyInput" placeholder="ZAYIKS-01S0V-N3XQ4-VIP" style="margin: 0; flex: 1; min-width: 200px; border-color: #ff3333; background: rgba(0,0,0,0.7); color: #fff;">
+                            <button class="btn-reset-gold" style="margin: 0; width: 150px; padding: 15px; font-size: 14px;" onclick="manualReset()">RESET KEY</button>
                         </div>
 
                         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--dark-red); padding-bottom: 10px; margin-bottom: 20px;">
@@ -235,7 +230,19 @@
                     </div>
                 </div>
 
-                <div id="tab-users" class="tab-content tab-mods-access">
+                <div id="tab-logs" class="tab-content tab-logs-access">
+                    <div class="card">
+                        <h2>SECURITY LOGS</h2>
+                        <div class="table-responsive" style="max-height: 400px;">
+                            <table>
+                                <thead><tr><th>DATE</th><th>USER</th><th>ACTION</th><th>DETAILS</th></tr></thead>
+                                <tbody id="tbLogs"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="permanent-mods-section" style="margin-top: 40px; border-top: 2px dashed var(--main-red); padding-top: 30px;">
                     <div class="card">
                         <h2>MODERATORS MANAGEMENT</h2>
                         <div id="modFormArea" style="display:none;">
@@ -258,20 +265,8 @@
                             <button class="primary-btn" style="max-width: 300px; margin-bottom: 20px;" onclick="addMod()">SAVE / UPDATE MODERATOR</button>
                         </div>
                         
-                        <h3 style="font-size: 16px; border-bottom: 1px dashed #330000; padding-bottom: 10px; margin-bottom: 15px;">Moderators</h3>
+                        <h3 style="font-size: 16px; border-bottom: 1px dashed #330000; padding-bottom: 10px; margin-bottom: 15px;">Current Moderators</h3>
                         <div id="modsListContainer"></div>
-                    </div>
-                </div>
-
-                <div id="tab-logs" class="tab-content tab-logs-access">
-                    <div class="card">
-                        <h2>SECURITY LOGS</h2>
-                        <div class="table-responsive" style="max-height: 400px;">
-                            <table>
-                                <thead><tr><th>DATE</th><th>USER</th><th>ACTION</th><th>DETAILS</th></tr></thead>
-                                <tbody id="tbLogs"></tbody>
-                            </table>
-                        </div>
                     </div>
                 </div>
 
@@ -533,7 +528,7 @@
                 alert("Moderator Saved!");
                 document.getElementById('modUid').value = '';
                 document.getElementById('modEmail').value = '';
-                document.querySelectorAll('#tab-users input[type="checkbox"]').forEach(cb => cb.checked = false);
+                document.querySelectorAll('#modFormArea input[type="checkbox"]').forEach(cb => cb.checked = false);
             });
         }
 
@@ -547,7 +542,7 @@
             document.getElementById('p_server').checked = (server === 'true');
             document.getElementById('p_manage').checked = (manage === 'true');
             document.getElementById('p_logs').checked = (logs === 'true');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            document.getElementById('permanent-mods-section').scrollIntoView({behavior: 'smooth'});
         }
 
         function loadModsList() {
