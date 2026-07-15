@@ -20,6 +20,9 @@
         button.primary-btn:hover { transform: translateY(-2px); box-shadow: 0 0 20px rgba(255,0,0,0.8); }
         button:disabled { filter: grayscale(100%); cursor: not-allowed; }
 
+        .btn-reset-custom { background: linear-gradient(45deg, #110000, #4a004a); border: 2px solid #ff00ff; color: #ff00ff; box-shadow: 0 0 15px rgba(255,0,255,0.4); padding: 15px; border-radius: 8px; cursor: pointer; font-weight: 900; font-size: 14px; text-transform: uppercase; transition: 0.3s; }
+        .btn-reset-custom:hover { background: #ff00ff; color: #000; box-shadow: 0 0 30px rgba(255,0,255,0.8); }
+
         #adminDashboard { display: none; height: 100vh; flex-direction: column; }
         header { background: #0a0000; border-bottom: 2px solid var(--main-red); padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
         header h1 { font-size: 22px; text-shadow: var(--text-glow); }
@@ -29,10 +32,19 @@
         .main-layout { display: flex; flex: 1; overflow: hidden; }
         .sidebar { width: 250px; background: #0a0000; border-right: 1px solid var(--dark-red); display: flex; flex-direction: column; padding: 20px 0; overflow-y: auto; }
         
-        /* التعديل على الإيموجي لجعلها مشعة */
         .glow-icon { filter: drop-shadow(0 0 5px var(--main-red)) drop-shadow(0 0 10px var(--main-red)); display: inline-block; margin-right: 8px; font-size: 18px; }
         .glow-green { filter: drop-shadow(0 0 5px #00ff66) drop-shadow(0 0 10px #00ff66); }
         .glow-blue { filter: drop-shadow(0 0 5px #0088ff) drop-shadow(0 0 10px #0088ff); }
+
+        @keyframes live-throb {
+            0% { transform: scale(1); filter: drop-shadow(0 0 8px currentColor); }
+            50% { transform: scale(1.3); filter: drop-shadow(0 0 20px currentColor); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 8px currentColor); }
+        }
+        .throb-green { color: #00ff66; animation: live-throb 1.5s infinite ease-in-out; display: inline-block; }
+        .throb-orange { color: #ff9900; animation: live-throb 1.5s infinite ease-in-out; display: inline-block; }
+        .throb-gray { color: #aaa; animation: live-throb 2s infinite ease-in-out; display: inline-block; }
+        .throb-red { color: #ff3333; animation: live-throb 1.2s infinite ease-in-out; display: inline-block; }
         
         .nav-btn { background: transparent; border: none; color: #aaa; padding: 15px 25px; text-align: left; font-size: 15px; font-family: inherit; cursor: pointer; transition: 0.3s; border-left: 3px solid transparent; display: flex; align-items: center; }
         .nav-btn:hover, .nav-btn.active { background: rgba(255,0,0,0.1); color: #fff; border-left-color: var(--main-red); text-shadow: var(--text-glow); }
@@ -75,7 +87,6 @@
 
         .mod-list-item { background: #111; padding: 15px; margin-bottom: 10px; border: 1px solid #330000; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
 
-        /* شريط الملاحظات الحي بالأسفل */
         #bottomLogger { position: fixed; bottom: 0; left: 0; width: 100%; height: 40px; background: rgba(5,0,0,0.95); border-top: 1px solid var(--main-red); display: flex; align-items: center; padding: 0 20px; z-index: 1000; font-family: 'Cairo', sans-serif; box-shadow: 0 -5px 15px rgba(255,0,0,0.2); }
         .log-indicator { width: 10px; height: 10px; background: #00ff66; border-radius: 50%; box-shadow: 0 0 10px #00ff66; margin-right: 15px; animation: blink 1s infinite; }
         @keyframes blink { 50% { opacity: 0.3; } }
@@ -117,7 +128,7 @@
                 <button class="nav-btn perm-view" onclick="openTab('tab-expired')"><span class="glow-icon">🔴</span> EXPIRED KEYS</button>
                 <button class="nav-btn tab-system-access" onclick="openTab('tab-system')"><span class="glow-icon">⚙️</span> SYSTEM & BOOM</button>
                 <button class="nav-btn tab-mods-access" onclick="openTab('tab-users')"><span class="glow-icon glow-blue">👥</span> MODERATORS</button>
-                <button class="nav-btn owner-only" onclick="openTab('tab-logs')"><span class="glow-icon glow-green">📜</span> SYSTEM LOGS</button>
+                <button class="nav-btn tab-logs-access" onclick="openTab('tab-logs')"><span class="glow-icon glow-green">📜</span> SECURITY LOGS</button>
             </div>
             
             <div class="content-area">
@@ -143,7 +154,7 @@
                             <div>
                                 <label style="color: #aaa; font-size: 12px;">Key Color Label</label>
                                 <select id="kColor">
-                                    <option value="#ffffff">⚪ White (Default)</option>
+                                    <option value="#ffffff">⚪ White</option>
                                     <option value="#ff3333">🔴 Red</option>
                                     <option value="#00ff66">🟢 Green</option>
                                     <option value="#0088ff">🔵 Blue</option>
@@ -161,12 +172,12 @@
 
                 <div id="tab-active" class="tab-content">
                     <div class="card">
-                        <div class="perm-reset" style="background: #110000; border: 1px solid #ff3333; padding: 20px; border-radius: 10px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 20px;">
+                        <div class="perm-reset" style="background: #080000; border: 1px solid #ff00ff; padding: 20px; border-radius: 10px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 20px;">
                             <div>
-                                <span style="display: block; font-weight: bold; color: #ff3333; margin-bottom: 5px;"><span class="glow-icon">🛠️</span> MANUAL KEY RESET</span>
+                                <span style="display: block; font-weight: bold; color: #ff00ff; margin-bottom: 5px;"><span class="glow-icon">⚡</span> MANUAL KEY RESET</span>
                             </div>
-                            <input type="text" id="manualKeyInput" placeholder="Enter key to reset device..." style="margin: 0; flex: 1; min-width: 200px; border-color: #ff3333;">
-                            <button class="primary-btn" style="margin: 0; width: 150px; padding: 15px; font-size: 14px;" onclick="manualReset()">RESET KEY</button>
+                            <input type="text" id="manualKeyInput" placeholder="Enter key to reset device..." style="margin: 0; flex: 1; min-width: 200px; border-color: #ff00ff;">
+                            <button class="btn-reset-custom" style="margin: 0; width: 150px;" onclick="manualReset()">RESET KEY</button>
                         </div>
 
                         <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed var(--dark-red); padding-bottom: 10px; margin-bottom: 20px;">
@@ -223,29 +234,32 @@
                 <div id="tab-users" class="tab-content tab-mods-access">
                     <div class="card">
                         <h2>MODERATORS MANAGEMENT</h2>
-                        <div class="grid-2" style="margin-bottom: 20px;">
-                            <div>
-                                <input type="text" id="modUid" placeholder="Admin UID">
-                                <input type="email" id="modEmail" placeholder="Admin Email">
+                        <div id="modFormArea" style="display:none;">
+                            <div class="grid-2" style="margin-bottom: 20px;">
+                                <div>
+                                    <input type="text" id="modUid" placeholder="Admin UID">
+                                    <input type="email" id="modEmail" placeholder="Admin Email">
+                                </div>
+                                <div style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; border: 1px solid #330000;">
+                                    <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--main-red);">Permissions:</h3>
+                                    <label id="wrap_p_view" style="display: block; margin-bottom: 8px; cursor: pointer;"><input type="checkbox" id="p_view"> View Keys</label>
+                                    <label id="wrap_p_create" style="display: block; margin-bottom: 8px; cursor: pointer;"><input type="checkbox" id="p_create"> Create Keys</label>
+                                    <label id="wrap_p_reset" style="display: block; margin-bottom: 8px; cursor: pointer;"><input type="checkbox" id="p_reset"> Reset/Manage Keys</label>
+                                    <label id="wrap_p_boom" style="display: block; margin-bottom: 8px; cursor: pointer;"><input type="checkbox" id="p_boom"> BOOM Access</label>
+                                    <label id="wrap_p_server" style="display: block; margin-bottom: 8px; cursor: pointer;"><input type="checkbox" id="p_server"> Server ON/OFF</label>
+                                    <label id="wrap_p_manage" style="display: block; margin-bottom: 8px; cursor: pointer;"><input type="checkbox" id="p_manage"> Manage Other Mods</label>
+                                    <label id="wrap_p_logs" style="display: block; cursor: pointer;"><input type="checkbox" id="p_logs"> View Security Logs</label>
+                                </div>
                             </div>
-                            <div style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; border: 1px solid #330000;">
-                                <h3 style="font-size: 14px; margin-bottom: 10px; color: var(--main-red);">Permissions:</h3>
-                                <label id="wrap_p_view" style="display: block; margin-bottom: 8px; cursor: pointer;"><input type="checkbox" id="p_view"> View Keys</label>
-                                <label id="wrap_p_create" style="display: block; margin-bottom: 8px; cursor: pointer;"><input type="checkbox" id="p_create"> Create Keys</label>
-                                <label id="wrap_p_reset" style="display: block; margin-bottom: 8px; cursor: pointer;"><input type="checkbox" id="p_reset"> Reset/Manage Keys</label>
-                                <label id="wrap_p_boom" style="display: block; margin-bottom: 8px; cursor: pointer;"><input type="checkbox" id="p_boom"> BOOM Access</label>
-                                <label id="wrap_p_server" style="display: block; margin-bottom: 8px; cursor: pointer;"><input type="checkbox" id="p_server"> Server ON/OFF</label>
-                                <label id="wrap_p_manage" style="display: block; cursor: pointer;"><input type="checkbox" id="p_manage"> Manage Other Mods</label>
-                            </div>
+                            <button class="primary-btn" style="max-width: 300px; margin-bottom: 20px;" onclick="addMod()">SAVE / UPDATE MODERATOR</button>
                         </div>
-                        <button class="primary-btn" style="max-width: 300px; margin-bottom: 20px;" onclick="addMod()">SAVE / UPDATE MODERATOR</button>
                         
-                        <h3 style="font-size: 16px; border-bottom: 1px dashed #330000; padding-bottom: 10px; margin-bottom: 15px;">Current Moderators</h3>
+                        <h3 style="font-size: 16px; border-bottom: 1px dashed #330000; padding-bottom: 10px; margin-bottom: 15px;">Moderators</h3>
                         <div id="modsListContainer"></div>
                     </div>
                 </div>
 
-                <div id="tab-logs" class="tab-content owner-only">
+                <div id="tab-logs" class="tab-content tab-logs-access">
                     <div class="card">
                         <h2>SECURITY LOGS</h2>
                         <div class="table-responsive" style="max-height: 400px;">
@@ -260,7 +274,6 @@
             </div>
         </div>
         
-        <!-- Live Logger -->
         <div id="bottomLogger">
             <div class="log-indicator"></div>
             <span id="liveLogText">System Initialized. Awaiting commands...</span>
@@ -291,7 +304,8 @@
         
         let perms = {
             isOwner: false, canView: false, canCreate: false, 
-            canReset: false, canBoom: false, canToggleServer: false, canManageMods: false
+            canReset: false, canBoom: false, canToggleServer: false, 
+            canManageMods: false, canLogs: false
         };
         
         let srvOn = true;
@@ -322,14 +336,14 @@
 
         function checkRank(uid) {
             if (uid === MAIN_ADMIN) { 
-                perms = { isOwner: true, canView: true, canCreate: true, canReset: true, canBoom: true, canToggleServer: true, canManageMods: true };
+                perms = { isOwner: true, canView: true, canCreate: true, canReset: true, canBoom: true, canToggleServer: true, canManageMods: true, canLogs: true };
                 setupUI('OWNER (ROOT)'); 
             } else {
                 db.ref('SubAdmins/' + uid).once('value', s => {
                     if (s.exists()) {
                         let data = s.val();
                         if(data.status === 'suspended') {
-                            alert('Your account has been suspended by the Owner.');
+                            alert('Your account has been suspended.');
                             logout();
                             return;
                         }
@@ -340,11 +354,12 @@
                             canReset: data.canResetKeys || false,
                             canBoom: data.canUseBoom || false,
                             canToggleServer: data.canToggleServer || false,
-                            canManageMods: data.canManageMods || false
+                            canManageMods: data.canManageMods || false,
+                            canLogs: data.canLogs || false
                         };
                         setupUI('MODERATOR'); 
                     } else { 
-                        alert('Access Denied. You are not registered as an Admin.'); 
+                        alert('Access Denied.'); 
                         logout(); 
                     }
                 });
@@ -356,21 +371,22 @@
             document.getElementById('adminDashboard').style.display = 'flex'; 
             document.getElementById('userRank').innerText = "ROLE: " + role;
             
-            // UI Visibility logic based on permissions
-            document.querySelectorAll('.owner-only').forEach(e => e.style.display = perms.isOwner ? 'block' : 'none');
+            document.querySelectorAll('.tab-logs-access').forEach(e => e.style.display = (perms.isOwner || perms.canLogs) ? 'block' : 'none');
             document.querySelectorAll('.perm-view').forEach(e => e.style.display = perms.canView ? 'block' : 'none');
             document.querySelectorAll('.perm-create').forEach(e => e.style.display = perms.canCreate ? 'block' : 'none');
             document.querySelectorAll('.perm-reset').forEach(e => e.style.display = perms.canReset ? 'flex' : 'none');
             
-            // Tab access fixes
             document.querySelectorAll('.tab-system-access').forEach(e => e.style.display = (perms.isOwner || perms.canBoom || perms.canToggleServer) ? 'block' : 'none');
-            document.querySelectorAll('.tab-mods-access').forEach(e => e.style.display = (perms.isOwner || perms.canManageMods) ? 'block' : 'none');
             
-            // Inner System panels
             document.querySelectorAll('.p-server-control').forEach(e => e.style.display = (perms.isOwner || perms.canToggleServer) ? 'block' : 'none');
             document.querySelectorAll('.p-boom-control').forEach(e => e.style.display = (perms.isOwner || perms.canBoom) ? 'block' : 'none');
 
-            // Hide checkboxes for permissions the mod doesn't have
+            if(perms.isOwner || perms.canManageMods) {
+                document.getElementById('modFormArea').style.display = 'block';
+            } else {
+                document.getElementById('modFormArea').style.display = 'none';
+            }
+
             if(!perms.isOwner) {
                 if(!perms.canView) document.getElementById('wrap_p_view').style.display = 'none';
                 if(!perms.canCreate) document.getElementById('wrap_p_create').style.display = 'none';
@@ -378,15 +394,16 @@
                 if(!perms.canBoom) document.getElementById('wrap_p_boom').style.display = 'none';
                 if(!perms.canToggleServer) document.getElementById('wrap_p_server').style.display = 'none';
                 if(!perms.canManageMods) document.getElementById('wrap_p_manage').style.display = 'none';
+                if(!perms.canLogs) document.getElementById('wrap_p_logs').style.display = 'none';
             }
 
             if(perms.isOwner || perms.canToggleServer || perms.canBoom) loadOwnerData(); 
-            if(perms.isOwner || perms.canManageMods) loadModsList(); 
+            loadModsList(); 
             if(perms.canView) { loadKeys(); loadExpiredKeys(); setInterval(updateTimers, 1000); }
             if(perms.canCreate && !perms.canView) { openTab('tab-generate'); }
+            if(perms.canLogs) { loadLogs(); }
         }
 
-        // Live Log Updater
         function wLog(act, det) { 
             db.ref('Logs').push({ time: firebase.database.ServerValue.TIMESTAMP, user: curUser.email, action: act, details: det }); 
             document.getElementById('liveLogText').innerText = `[${new Date().toLocaleTimeString()}] ${curUser.email}: ${act} - ${det}`;
@@ -423,7 +440,9 @@
                     btnOff.classList.add('active');
                 }
             });
+        }
 
+        function loadLogs() {
             db.ref('Logs').limitToLast(100).on('value', s => {
                 let tb = document.getElementById('tbLogs'); 
                 if(!tb) return;
@@ -454,7 +473,7 @@
         
         window.fireBoom = function() {
             if(!perms.isOwner && !perms.canBoom) return alert('Permission Denied');
-            if(confirm("CRITICAL WARNING: Send BOOM command? This will destroy all connected clients.")) { 
+            if(confirm("CRITICAL WARNING: Send BOOM command?")) { 
                 db.ref('AdminCommands').update({ Kill_Switch: "BOOM" }); 
                 wLog("KILL SWITCH", "BOOM INITIATED"); 
             }
@@ -475,13 +494,13 @@
             let e = document.getElementById('modEmail').value.trim();
             if(!u || !e) return alert("Fill UID and Email fields");
             
-            // Prevention: Sub-Admin can only give permissions they already have
             let reqView = document.getElementById('p_view').checked;
             let reqCreate = document.getElementById('p_create').checked;
             let reqReset = document.getElementById('p_reset').checked;
             let reqBoom = document.getElementById('p_boom').checked;
             let reqServer = document.getElementById('p_server').checked;
             let reqManage = document.getElementById('p_manage').checked;
+            let reqLogs = document.getElementById('p_logs').checked;
 
             if(!perms.isOwner) {
                 if(reqView && !perms.canView) reqView = false;
@@ -490,6 +509,7 @@
                 if(reqBoom && !perms.canBoom) reqBoom = false;
                 if(reqServer && !perms.canToggleServer) reqServer = false;
                 if(reqManage && !perms.canManageMods) reqManage = false;
+                if(reqLogs && !perms.canLogs) reqLogs = false;
             }
 
             let modData = { 
@@ -500,7 +520,8 @@
                 canResetKeys: reqReset,
                 canUseBoom: reqBoom,
                 canToggleServer: reqServer,
-                canManageMods: reqManage
+                canManageMods: reqManage,
+                canLogs: reqLogs
             };
             
             db.ref('SubAdmins/' + u).set(modData).then(() => {
@@ -512,8 +533,7 @@
             });
         }
 
-        // New Function: Load Mod Data to Form for Editing
-        window.editMod = function(uid, email, view, create, reset, boom, server, manage) {
+        window.editMod = function(uid, email, view, create, reset, boom, server, manage, logs) {
             document.getElementById('modUid').value = uid;
             document.getElementById('modEmail').value = email;
             document.getElementById('p_view').checked = (view === 'true');
@@ -522,6 +542,7 @@
             document.getElementById('p_boom').checked = (boom === 'true');
             document.getElementById('p_server').checked = (server === 'true');
             document.getElementById('p_manage').checked = (manage === 'true');
+            document.getElementById('p_logs').checked = (logs === 'true');
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
@@ -533,22 +554,48 @@
                 if(s.exists()){
                     s.forEach(c => {
                         let uid = c.key; let data = c.val();
+                        
+                        if(!perms.isOwner && !perms.canManageMods && uid !== curUser.uid) return;
+
                         let badge = data.status === 'suspended' ? '<span class="badge bg-red">SUSPENDED</span>' : '<span class="badge bg-green">ACTIVE</span>';
-                        let actionBtn = data.status === 'suspended' 
-                            ? `<button class="action-btn btn-renew" onclick="toggleMod('${uid}', 'active')">ACTIVATE</button>`
-                            : `<button class="action-btn bg-orange" onclick="toggleMod('${uid}', 'suspended')">SUSPEND</button>`;
+                        let actionButtons = "";
+                        
+                        let permsTags = "";
+                        if(data.canViewKeys) permsTags += '<span class="badge bg-gray" style="font-size:9px; margin:2px;">VIEW</span>';
+                        if(data.canManageKeys) permsTags += '<span class="badge bg-gray" style="font-size:9px; margin:2px;">CREATE</span>';
+                        if(data.canResetKeys) permsTags += '<span class="badge bg-gray" style="font-size:9px; margin:2px;">RESET</span>';
+                        if(data.canUseBoom) permsTags += '<span class="badge bg-red" style="font-size:9px; margin:2px;">BOOM</span>';
+                        if(data.canToggleServer) permsTags += '<span class="badge bg-orange" style="font-size:9px; margin:2px;">SERVER</span>';
+                        if(data.canLogs) permsTags += '<span class="badge bg-blue" style="font-size:9px; margin:2px; color:#0088ff;">LOGS</span>';
+
+                        if(perms.isOwner || perms.canManageMods) {
+                            let actBtn = data.status === 'suspended' 
+                                ? `<button class="action-btn btn-renew" onclick="toggleMod('${uid}', 'active')">ACTIVATE</button>`
+                                : `<button class="action-btn bg-orange" onclick="toggleMod('${uid}', 'suspended')">SUSPEND</button>`;
+                            
+                            actionButtons = `
+                                <button class="action-btn btn-manage" onclick="editMod('${uid}', '${data.email}', '${!!data.canViewKeys}', '${!!data.canManageKeys}', '${!!data.canResetKeys}', '${!!data.canUseBoom}', '${!!data.canToggleServer}', '${!!data.canManageMods}', '${!!data.canLogs}')">EDIT</button>
+                                ${actBtn}
+                                <button class="action-btn btn-delete" onclick="deleteMod('${uid}')">DELETE</button>
+                            `;
+                        } else {
+                            actionButtons = `<span style="color:#aaa; font-size:11px;">(Read Only)</span>`;
+                        }
                             
                         container.innerHTML += `
-                            <div class="mod-list-item">
-                                <div>
-                                    <strong style="color:var(--main-red);">${data.email}</strong><br>
-                                    <span style="font-size:11px; color:#aaa;">UID: ${uid}</span>
+                            <div class="mod-list-item" style="flex-direction: column; align-items: flex-start; gap: 10px;">
+                                <div style="display:flex; justify-content:space-between; width:100%;">
+                                    <div>
+                                        <strong style="color:var(--main-red);">${data.email}</strong><br>
+                                        <span style="font-size:11px; color:#aaa;">UID: ${uid}</span>
+                                    </div>
+                                    <div style="display:flex; gap:10px; align-items:center;">
+                                        ${badge}
+                                        ${actionButtons}
+                                    </div>
                                 </div>
-                                <div style="display:flex; gap:10px; align-items:center;">
-                                    ${badge}
-                                    <button class="action-btn btn-manage" onclick="editMod('${uid}', '${data.email}', '${!!data.canViewKeys}', '${!!data.canManageKeys}', '${!!data.canResetKeys}', '${!!data.canUseBoom}', '${!!data.canToggleServer}', '${!!data.canManageMods}')">EDIT</button>
-                                    ${actionBtn}
-                                    <button class="action-btn btn-delete" onclick="deleteMod('${uid}')">DELETE</button>
+                                <div style="display:flex; flex-wrap:wrap;">
+                                    ${permsTags || '<span style="color:#555; font-size:10px;">No specific permissions</span>'}
                                 </div>
                             </div>
                         `;
@@ -610,19 +657,19 @@
                                     <div style="display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;">
                                         <div>
                                             <span style="font-size:11px; color:#aaa; display:block;">Time Control:</span>
-                                            <button class="action-btn btn-renew" onclick="modifyTime('${k}', 24)">+24H</button>
-                                            <button class="action-btn bg-orange" onclick="modifyTime('${k}', -24)">-24H</button>
+                                            <button class="action-btn btn-renew" onclick="modifyTime('${k}', 24)"><span class="throb-green">➕</span> +24H</button>
+                                            <button class="action-btn bg-orange" onclick="modifyTime('${k}', -24)"><span class="throb-orange">➖</span> -24H</button>
                                         </div>
                                         <div>
                                             <span style="font-size:11px; color:#aaa; display:block;">Key State:</span>
                                             <button class="action-btn ${d.status === 'paused' ? 'btn-renew' : 'bg-orange'}" onclick="toggleKeyState('${k}', '${d.status}')">
-                                                ${d.status === 'paused' ? '▶ RESUME' : '⏸ PAUSE'}
+                                                ${d.status === 'paused' ? '<span class="throb-green">▶</span> RESUME' : '<span class="throb-orange">⏸</span> PAUSE'}
                                             </button>
-                                            <button class="action-btn bg-gray" onclick="resetSingleKey('${k}')">🔄 UNLINK DEVICE</button>
+                                            <button class="action-btn bg-gray" onclick="resetSingleKey('${k}')"><span class="throb-gray">🔄</span> UNLINK DEVICE</button>
                                         </div>
                                         <div>
                                             <span style="font-size:11px; color:#aaa; display:block;">Danger:</span>
-                                            <button class="action-btn btn-delete" onclick="delKey('${k}', 'ActiveKeys')">🗑️ DELETE KEY</button>
+                                            <button class="action-btn btn-delete" onclick="delKey('${k}', 'ActiveKeys')"><span class="throb-red">🗑️</span> DELETE KEY</button>
                                         </div>
                                     </div>
                                     <div style="margin-top:10px; font-size:11px; color:#888; text-align:left;">
@@ -667,7 +714,7 @@
                             <td style="font-size:11px;">${dev}</td>
                             <td>${expTime}</td>
                             <td>
-                                ${perms.canReset ? `<button class="action-btn btn-delete" onclick="delKey('${k}', 'ExpiredKeys')">PERMA-DEL</button>` : 'No Access'}
+                                ${perms.canReset ? `<button class="action-btn btn-delete" onclick="delKey('${k}', 'ExpiredKeys')"><span class="throb-red">🗑️</span> PERMA-DEL</button>` : 'No Access'}
                             </td>
                         </tr>`;
                     });
