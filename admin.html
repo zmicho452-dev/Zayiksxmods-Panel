@@ -78,6 +78,7 @@
         .badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; text-transform: uppercase; }
         .bg-green { background: rgba(0,255,102,0.1); color: #00ff66; border: 1px solid #00ff66; }
         .bg-orange { background: rgba(255,153,0,0.1); color: #ff9900; border: 1px solid #ff9900; }
+        .bg-yellow { background: rgba(255,204,0,0.1); color: #ffcc00; border: 1px solid #ffcc00; }
         .bg-red { background: rgba(255,0,0,0.1); color: #ff3333; border: 1px solid #ff3333; }
         .bg-gray { background: rgba(150,150,150,0.1); color: #aaa; border: 1px solid #aaa; }
         .bg-blue { background: rgba(0,136,255,0.1); color: #0088ff; border: 1px solid #0088ff; }
@@ -784,7 +785,10 @@
                             let dev = (!d.deviceID || d.deviceID === 'none') ? 'Waiting...' : d.deviceID;
                             let isUsed = (d.deviceID && d.deviceID !== 'none');
                             
-                            let stBadge = d.status === 'paused' ? '<span class="badge bg-gray">PAUSED</span>' : (isUsed ? '<span class="badge bg-red">مستخدم</span>' : '<span class="badge bg-green">نشيط</span>');
+                            // تعديل منطق الحالات وعرض الكتابة الصفراء لغير المستخدم والحمراء للمستخدم النشط
+                            let stBadge = d.status === 'paused' 
+                                ? '<span class="badge bg-gray">PAUSED</span>' 
+                                : (isUsed ? '<span class="badge bg-red">نشيط مستخدم</span>' : '<span class="badge bg-yellow">نشيط غير مستخدم</span>');
                             
                             let keyColor = d.color || '#ffffff';
                             
