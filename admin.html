@@ -29,7 +29,6 @@
         .main-layout { display: flex; flex: 1; overflow: hidden; }
         .sidebar { width: 250px; background: #0a0000; border-right: 1px solid var(--dark-red); display: flex; flex-direction: column; padding: 20px 0; overflow-y: auto; }
         
-        /* Optimized Animations for Mobile GPU */
         .glow-icon { text-shadow: 0 0 10px currentColor; display: inline-block; margin-right: 8px; font-size: 18px; }
         .glow-green { color: #00ff66; }
         .glow-blue { color: #0088ff; }
@@ -309,7 +308,7 @@
                                 </div>
                             </div>
 
-                            <div class="epic-card p-server-control" style="display:none; margin-bottom: 0;">
+                            <div class="epic-card p-mass-control" style="display:none; margin-bottom: 0;">
                                 <h2 style="color: #ff9900; text-shadow: 0 0 10px #ff9900; border-bottom: 1px solid #ff9900;">⏳ MASS KEYS CONTROL</h2>
                                 <p style="color: #aaa; font-size: 12px; margin-bottom: 15px;">Mass control for all active keys (pause/resume or add time).</p>
                                 
@@ -327,7 +326,7 @@
                                 </div>
                             </div>
 
-                            <div class="epic-card p-server-control" style="display:none; margin-bottom: 0;">
+                            <div class="epic-card p-stats-control" style="display:none; margin-bottom: 0;">
                                 <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #0088ff; padding-bottom: 10px; margin-bottom: 15px;">
                                     <h2 style="color: #0088ff; text-shadow: 0 0 10px #0088ff; border: none; margin: 0; padding: 0;">📅 DAILY KEYS CREATED</h2>
                                     <button class="action-btn btn-delete" onclick="clearKeyStats()" style="padding: 6px 12px; font-size:11px;">🧹 CLEAN</button>
@@ -493,10 +492,13 @@
             document.querySelectorAll('.perm-create').forEach(e => e.style.display = perms.canCreate ? 'block' : 'none');
             document.querySelectorAll('.perm-reset').forEach(e => e.style.display = perms.canReset ? 'flex' : 'none');
             
-            document.querySelectorAll('.tab-system-access').forEach(e => e.style.display = (perms.isOwner || perms.canBoom || perms.canToggleServer) ? 'block' : 'none');
+            let canSeeSystem = perms.isOwner || perms.canBoom || perms.canToggleServer || perms.canReset || perms.canView || perms.canCreate;
+            document.querySelectorAll('.tab-system-access').forEach(e => e.style.display = canSeeSystem ? 'block' : 'none');
             
             document.querySelectorAll('.p-server-control').forEach(e => e.style.display = (perms.isOwner || perms.canToggleServer) ? 'block' : 'none');
             document.querySelectorAll('.p-boom-control').forEach(e => e.style.display = (perms.isOwner || perms.canBoom) ? 'block' : 'none');
+            document.querySelectorAll('.p-mass-control').forEach(e => e.style.display = (perms.isOwner || perms.canReset) ? 'block' : 'none');
+            document.querySelectorAll('.p-stats-control').forEach(e => e.style.display = (perms.isOwner || perms.canView || perms.canCreate) ? 'block' : 'none');
 
             if(perms.isOwner || perms.canManageMods) {
                 document.getElementById('modFormArea').style.display = 'block';
@@ -514,7 +516,8 @@
                 if(!perms.canLogs) document.getElementById('wrap_p_logs').style.display = 'none';
             }
 
-            if(perms.isOwner || perms.canToggleServer || perms.canBoom) { loadOwnerData(); loadKeyStats(); }
+            loadOwnerData();
+            if(perms.isOwner || perms.canView || perms.canCreate) { loadKeyStats(); }
             loadModsList(); 
             
             if(perms.canView) { 
@@ -533,54 +536,58 @@
         }
 
         function loadOwnerData() {
-            db.ref('AdminData/ServerStatus').on('value', s => {
-                if(s.exists()) {
-                    let data = s.val();
-                    srvOn = data.isActive;
-                    
-                    const dot = document.getElementById('srvDot');
-                    const txt = document.getElementById('srvStatusTxt');
-                    const btn = document.getElementById('srvBtn');
-                    
-                    if(srvOn) {
-                        dot.className = 'status-dot dot-green';
-                        txt.innerText = 'ONLINE';
-                        txt.style.color = '#00ff66';
-                        btn.innerText = 'SHUTDOWN SERVER';
-                        btn.className = 'epic-btn btn-red';
-                    } else {
-                        dot.className = 'status-dot dot-red';
-                        txt.innerText = 'OFFLINE';
-                        txt.style.color = '#ff3333';
-                        btn.innerText = 'START SERVER';
-                        btn.className = 'epic-btn btn-green';
+            if (perms.isOwner || perms.canToggleServer) {
+                db.ref('AdminData/ServerStatus').on('value', s => {
+                    if(s.exists()) {
+                        let data = s.val();
+                        srvOn = data.isActive;
+                        
+                        const dot = document.getElementById('srvDot');
+                        const txt = document.getElementById('srvStatusTxt');
+                        const btn = document.getElementById('srvBtn');
+                        
+                        if(srvOn) {
+                            dot.className = 'status-dot dot-green';
+                            txt.innerText = 'ONLINE';
+                            txt.style.color = '#00ff66';
+                            btn.innerText = 'SHUTDOWN SERVER';
+                            btn.className = 'epic-btn btn-red';
+                        } else {
+                            dot.className = 'status-dot dot-red';
+                            txt.innerText = 'OFFLINE';
+                            txt.style.color = '#ff3333';
+                            btn.innerText = 'START SERVER';
+                            btn.className = 'epic-btn btn-green';
+                        }
+
+                        if(!document.getElementById('appMsg').value && data.appMessage) document.getElementById('appMsg').value = data.appMessage;
+                        if(!document.getElementById('appUpdateUrl').value && data.updateLink) document.getElementById('appUpdateUrl').value = data.updateLink;
+                        if(!document.getElementById('appTgUrl').value && data.telegramLink) document.getElementById('appTgUrl').value = data.telegramLink;
+                        if(!document.getElementById('appBtn1Txt').value && data.btn1Text) document.getElementById('appBtn1Txt').value = data.btn1Text;
+                        if(!document.getElementById('appBtn2Txt').value && data.btn2Text) document.getElementById('appBtn2Txt').value = data.btn2Text;
+                        if(data.appStatus) document.getElementById('appStateSelect').value = data.appStatus;
+                        if(data.crashMode) document.getElementById('crashType').value = data.crashMode;
+                        if(data.crashTime) document.getElementById('crashTimer').value = data.crashTime;
                     }
+                });
+            }
 
-                    if(!document.getElementById('appMsg').value && data.appMessage) document.getElementById('appMsg').value = data.appMessage;
-                    if(!document.getElementById('appUpdateUrl').value && data.updateLink) document.getElementById('appUpdateUrl').value = data.updateLink;
-                    if(!document.getElementById('appTgUrl').value && data.telegramLink) document.getElementById('appTgUrl').value = data.telegramLink;
-                    if(!document.getElementById('appBtn1Txt').value && data.btn1Text) document.getElementById('appBtn1Txt').value = data.btn1Text;
-                    if(!document.getElementById('appBtn2Txt').value && data.btn2Text) document.getElementById('appBtn2Txt').value = data.btn2Text;
-                    if(data.appStatus) document.getElementById('appStateSelect').value = data.appStatus;
-                    if(data.crashMode) document.getElementById('crashType').value = data.crashMode;
-                    if(data.crashTime) document.getElementById('crashTimer').value = data.crashTime;
-                }
-            });
-
-            db.ref('AdminCommands/Kill_Switch').on('value', s => {
-                let statusEl = document.getElementById('boomStatusText');
-                let dot = document.getElementById('boomDot');
-                
-                if(s.exists() && s.val() === "BOOM") {
-                    statusEl.innerText = "BOOM IS ACTIVE!";
-                    statusEl.style.color = "#00ff66";
-                    dot.className = 'status-dot dot-green';
-                } else {
-                    statusEl.innerText = "BOOM OFF (SAFE)";
-                    statusEl.style.color = "#ff3333";
-                    dot.className = 'status-dot dot-red';
-                }
-            });
+            if (perms.isOwner || perms.canBoom) {
+                db.ref('AdminCommands/Kill_Switch').on('value', s => {
+                    let statusEl = document.getElementById('boomStatusText');
+                    let dot = document.getElementById('boomDot');
+                    
+                    if(s.exists() && s.val() === "BOOM") {
+                        statusEl.innerText = "BOOM IS ACTIVE!";
+                        statusEl.style.color = "#00ff66";
+                        dot.className = 'status-dot dot-green';
+                    } else {
+                        statusEl.innerText = "BOOM OFF (SAFE)";
+                        statusEl.style.color = "#ff3333";
+                        dot.className = 'status-dot dot-red';
+                    }
+                });
+            }
         }
 
         function loadKeyStats() {
@@ -601,6 +608,9 @@
                     </div>`;
                 });
                 cont.innerHTML = html;
+            }, err => {
+                let cont = document.getElementById('dailyStatsContainer');
+                if(cont) cont.innerHTML = '<p style="color:#ff3333; text-align:center; font-size:12px; margin-top:10px;">Please update Firebase Rules for KeyStats.</p>';
             });
         }
 
@@ -691,9 +701,9 @@
                         db.ref('ActiveKeys').update(updates).then(() => {
                             wLog("Mass Control", `Set all keys to ${newState}`);
                             alert(`All keys have been successfully ${newState === 'paused' ? 'paused' : 'resumed'}!`);
-                        });
+                        }).catch(e => alert("Error: " + e.message));
                     }
-                });
+                }).catch(e => alert("Error reading keys (Require View Perms): " + e.message));
             }
         }
         
@@ -716,7 +726,7 @@
                             document.getElementById('massPauseHours').value = "";
                         });
                     }
-                });
+                }).catch(e => alert("Error reading keys (Require View Perms): " + e.message));
             }
         }
 
@@ -1003,14 +1013,19 @@
                     
                     if(!d.isMoving) {
                         d.isMoving = true; 
-                        let expData = { deviceID: d.deviceID, expiredAt: firebase.database.ServerValue.TIMESTAMP };
-                        db.ref('ExpiredKeys/' + k).set(expData).then(() => {
-                            db.ref('ActiveKeys/' + k).remove();
-                            wLog("Auto-System", `Key ${k} expired and moved automatically.`);
-                        }).catch(e => {
-                            console.error("Move Failed:", e);
-                            d.isMoving = false;
-                        });
+                        
+                        if(perms.isOwner || perms.canReset || perms.canCreate) {
+                            let expData = { deviceID: d.deviceID, expiredAt: firebase.database.ServerValue.TIMESTAMP };
+                            db.ref('ExpiredKeys/' + k).set(expData).then(() => {
+                                db.ref('ActiveKeys/' + k).remove().then(() => {
+                                    wLog("Auto-System", `Key ${k} expired and moved automatically.`);
+                                });
+                            }).catch(e => {
+                                console.error("Move Failed:", e);
+                            });
+                        } else {
+                            el.innerHTML = '<span class="badge bg-red">EXPIRED</span>';
+                        }
                     }
                 }
             }
@@ -1032,7 +1047,7 @@
             let errEl = document.getElementById('keyErrorMsg');
             let btnSug = document.getElementById('btnSuggest');
             
-            db.ref('ActiveKeys/' + k).once('value', s => {
+            db.ref('ActiveKeys/' + k).once('value').then(s => {
                 if(s.exists()) {
                     errEl.innerText = "Error: Key name already exists!";
                     errEl.style.display = 'block';
@@ -1061,18 +1076,18 @@
                         let displayDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
                         let todayKey = dateObj.getFullYear() + "-" + String(dateObj.getMonth() + 1).padStart(2, '0') + "-" + String(dateObj.getDate()).padStart(2, '0');
                         
-                        db.ref('KeyStats/' + todayKey).once('value', statSnap => {
+                        db.ref('KeyStats/' + todayKey).once('value').then(statSnap => {
                             let currentCount = statSnap.exists() ? statSnap.val().count : 0;
                             db.ref('KeyStats/' + todayKey).set({
                                 display: displayDate,
                                 count: currentCount + 1,
                                 timestamp: firebase.database.ServerValue.TIMESTAMP
-                            });
-                        });
+                            }).catch(e => console.warn("KeyStats Write Denied:", e));
+                        }).catch(e => console.warn("KeyStats Read Denied:", e));
 
                     }).catch(e => alert("Permission Denied: Cannot create key."));
                 }
-            });
+            }).catch(e => alert("Error verifying key existence."));
         }
 
         window.manualReset = function() {
