@@ -39,6 +39,9 @@
         .throb-gray { color: #aaa; animation: live-throb 2s infinite ease-in-out; display: inline-block; }
         .throb-red { color: #ff3333; animation: live-throb 1.2s infinite ease-in-out; display: inline-block; }
         
+        @keyframes pulse-new { 0% { background-color: rgba(0, 255, 102, 0.02); } 50% { background-color: rgba(0, 255, 102, 0.2); box-shadow: inset 0 0 20px rgba(0,255,102,0.4); } 100% { background-color: rgba(0, 255, 102, 0.02); } }
+        .new-key-glow { animation: pulse-new 2s ease-in-out infinite; }
+
         .nav-btn { background: transparent; border: none; color: #aaa; padding: 15px 25px; text-align: left; font-size: 15px; font-family: inherit; cursor: pointer; transition: 0.3s; border-left: 3px solid transparent; display: flex; align-items: center; }
         .nav-btn:hover, .nav-btn.active { background: rgba(255,0,0,0.1); color: #fff; border-left-color: var(--main-red); text-shadow: var(--text-glow); }
         
@@ -264,22 +267,22 @@
 
                                 <div class="grid-2" style="gap:10px; margin-bottom: 15px;">
                                     <div>
-                                        <label style="font-size: 12px; color: #00ff66;">زر 1: النص (مثال: تحميل التحديث)</label>
-                                        <input type="text" id="appBtn1Txt" placeholder="نص الزر الأول" style="border: 1px solid #00ff66;">
+                                        <label style="font-size: 12px; color: #00ff66;">Button 1: Text</label>
+                                        <input type="text" id="appBtn1Txt" placeholder="e.g. Download Update" style="border: 1px solid #00ff66;">
                                     </div>
                                     <div>
-                                        <label style="font-size: 12px; color: #00ff66;">زر 1: الرابط (URL)</label>
+                                        <label style="font-size: 12px; color: #00ff66;">Button 1: URL</label>
                                         <input type="text" id="appUpdateUrl" placeholder="https://..." style="border: 1px solid #00ff66;">
                                     </div>
                                 </div>
                                 
                                 <div class="grid-2" style="gap:10px;">
                                     <div>
-                                        <label style="font-size: 12px; color: #0088ff;">زر 2: النص (مثال: قناة التلجرام)</label>
-                                        <input type="text" id="appBtn2Txt" placeholder="نص الزر الثاني" style="border: 1px solid #0088ff;">
+                                        <label style="font-size: 12px; color: #0088ff;">Button 2: Text</label>
+                                        <input type="text" id="appBtn2Txt" placeholder="e.g. Join Telegram" style="border: 1px solid #0088ff;">
                                     </div>
                                     <div>
-                                        <label style="font-size: 12px; color: #0088ff;">زر 2: الرابط (URL)</label>
+                                        <label style="font-size: 12px; color: #0088ff;">Button 2: URL</label>
                                         <input type="text" id="appTgUrl" placeholder="https://t.me/..." style="border: 1px solid #0088ff;">
                                     </div>
                                 </div>
@@ -322,6 +325,16 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="epic-card p-server-control" style="display:none; margin-bottom: 0;">
+                                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px dashed #0088ff; padding-bottom: 10px; margin-bottom: 15px;">
+                                    <h2 style="color: #0088ff; text-shadow: 0 0 10px #0088ff; border: none; margin: 0; padding: 0;">📅 DAILY KEYS CREATED</h2>
+                                    <button class="action-btn btn-delete" onclick="clearKeyStats()" style="padding: 6px 12px; font-size:11px;">🧹 CLEAN</button>
+                                </div>
+                                <div id="dailyStatsContainer" style="max-height: 180px; overflow-y: auto; background: rgba(0,0,0,0.6); border-radius: 8px; padding: 10px; border: 1px solid #004488;">
+                                </div>
+                            </div>
+
                         </div>
 
                     </div>
@@ -498,7 +511,7 @@
                 if(!perms.canLogs) document.getElementById('wrap_p_logs').style.display = 'none';
             }
 
-            if(perms.isOwner || perms.canToggleServer || perms.canBoom) loadOwnerData(); 
+            if(perms.isOwner || perms.canToggleServer || perms.canBoom) { loadOwnerData(); loadKeyStats(); }
             loadModsList(); 
             if(perms.canView) { loadKeys(); loadExpiredKeys(); setInterval(updateTimers, 1000); }
             if(perms.canCreate && !perms.canView) { openTab('tab-generate'); }
@@ -559,6 +572,36 @@
                     dot.className = 'status-dot dot-red';
                 }
             });
+        }
+
+        function loadKeyStats() {
+            db.ref('KeyStats').orderByChild('timestamp').on('value', s => {
+                let cont = document.getElementById('dailyStatsContainer');
+                if(!cont) return;
+                if(!s.exists()) {
+                    cont.innerHTML = '<p style="color:#aaa; text-align:center; font-size:12px; margin-top:10px;">No stats recorded yet.</p>';
+                    return;
+                }
+                let html = '';
+                let statsArr = [];
+                s.forEach(c => { statsArr.unshift(c.val()); }); 
+                statsArr.forEach(st => {
+                    html += `<div style="display:flex; justify-content:space-between; align-items:center; padding: 10px; border-bottom: 1px solid #112244;">
+                        <span style="color:#00ff66; font-size:13px; font-weight:bold;">${st.display}</span>
+                        <span style="color:#fff; font-weight:bold; background: #0088ff; padding: 4px 10px; border-radius: 12px; font-size:12px; text-shadow:0 0 5px #000;">${st.count} KEYS CREATED</span>
+                    </div>`;
+                });
+                cont.innerHTML = html;
+            });
+        }
+
+        window.clearKeyStats = function() {
+            if(!perms.isOwner) return alert("Permission Denied: Only Owner can clear stats!");
+            if(confirm("Are you sure you want to clean all generation history?")) {
+                db.ref('KeyStats').remove().then(() => {
+                    wLog("System", "Cleared daily key generation stats");
+                });
+            }
         }
 
         function loadLogs() {
@@ -809,6 +852,7 @@
                 activeKeysData = {};
                 let count = 0;
                 let htmlContent = '';
+                let nowTime = Date.now();
                 
                 if (s.exists()) {
                     s.forEach(c => {
@@ -819,6 +863,9 @@
                             activeKeysData[k] = d;
                             count++;
                             
+                            let isNew = (d.createdAt && (nowTime - d.createdAt < 300000));
+                            let rowClass = isNew ? `class="new-key-glow"` : '';
+
                             let dev = (!d.deviceID || d.deviceID === 'none') ? 'Waiting...' : d.deviceID;
                             let isUsed = (d.deviceID && d.deviceID !== 'none');
                             
@@ -833,7 +880,7 @@
                             
                             let keyColor = d.color || '#ffffff';
                             
-                            htmlContent += `<tr>
+                            htmlContent += `<tr ${rowClass}>
                                 <td style="font-weight:bold; letter-spacing: 1px; color: ${keyColor};">${k}</td>
                                 <td id="time-${k}" style="font-family: monospace; font-size: 14px; font-weight:bold;">-</td>
                                 <td style="font-size:11px; max-width: 150px; overflow: hidden; text-overflow: ellipsis;" title="${dev}">${dev}</td>
@@ -943,7 +990,19 @@
                     let color = rem < 3600000 ? '#ff3333' : '#00ff66';
                     el.innerHTML = `<span style="color:${color};">${h}h ${m}m ${s}s</span>`;
                 } else {
-                    el.innerHTML = '<span class="badge bg-red">TIME UP</span>';
+                    el.innerHTML = '<span class="badge bg-red">MOVING...</span>';
+                    
+                    if(!d.isMoving) {
+                        d.isMoving = true; 
+                        let expData = { deviceID: d.deviceID, expiredAt: firebase.database.ServerValue.TIMESTAMP };
+                        db.ref('ExpiredKeys/' + k).set(expData).then(() => {
+                            db.ref('ActiveKeys/' + k).remove();
+                            wLog("Auto-System", `Key ${k} expired and moved automatically.`);
+                        }).catch(e => {
+                            console.error("Move Failed:", e);
+                            d.isMoving = false;
+                        });
+                    }
                 }
             }
         }
@@ -988,6 +1047,20 @@
                         document.getElementById('kResultTxt').style.color = col;
                         wLog("Key Generator", "Created: " + k + " (" + h + "h)");
                         document.getElementById('kName').value = ""; 
+
+                        let dateObj = new Date();
+                        let displayDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+                        let todayKey = dateObj.getFullYear() + "-" + String(dateObj.getMonth() + 1).padStart(2, '0') + "-" + String(dateObj.getDate()).padStart(2, '0');
+                        
+                        db.ref('KeyStats/' + todayKey).once('value', statSnap => {
+                            let currentCount = statSnap.exists() ? statSnap.val().count : 0;
+                            db.ref('KeyStats/' + todayKey).set({
+                                display: displayDate,
+                                count: currentCount + 1,
+                                timestamp: firebase.database.ServerValue.TIMESTAMP
+                            });
+                        });
+
                     }).catch(e => alert("Permission Denied: Cannot create key."));
                 }
             });
