@@ -360,15 +360,14 @@
                 let dateObj = new Date();
                 let displayDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
                 let todayKey = dateObj.getFullYear() + "-" + String(dateObj.getMonth() + 1).padStart(2, '0') + "-" + String(dateObj.getDate()).padStart(2, '0');
-                
-                _0xdb.ref('KeyStats/' + todayKey).once('value', statSnap => {
-                    let currentCount = statSnap.exists() ? statSnap.val().count : 0;
-                    _0xdb.ref('KeyStats/' + todayKey).set({
-                        display: displayDate,
-                        count: currentCount + 1,
-                        timestamp: firebase.database.ServerValue.TIMESTAMP
-                    });
+
+               
+                _0xdb.ref('KeyStats/' + todayKey).update({
+                    display: displayDate,
+                    count: firebase.database.ServerValue.increment(1),
+                    timestamp: firebase.database.ServerValue.TIMESTAMP
                 });
+
 
                 document.getElementById('keyDisplay').innerText = M;
                 document.getElementById('keyContainer').style.display = 'block';
