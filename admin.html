@@ -235,7 +235,7 @@
                             </div>
 
                             <div style="border-top: 1px dashed #333; padding-top: 20px;">
-                                <h3 style="color: #aaa; margin-bottom: 15px; font-size: 14px;">📱 App Remote Control (Remote Config)</h3>
+                                <h3 style="color: #aaa; margin-bottom: 15px; font-size: 14px;">📱 App Remote Control (Dynamic UI)</h3>
                                 
                                 <label style="font-size: 12px; color: #888;">Global App State</label>
                                 <select id="appStateSelect" style="background: rgba(0,0,0,0.8); border: 1px solid #0088ff;">
@@ -260,15 +260,26 @@
                                 </div>
 
                                 <label style="font-size: 12px; color: #888;">System / Maintenance Message</label>
-                                <input type="text" id="appMsg" placeholder="Server is under maintenance, we will be back soon..." style="border: 1px solid #0088ff;">
+                                <input type="text" id="appMsg" placeholder="Server is under maintenance, we will be back soon..." style="border: 1px solid #0088ff; margin-bottom: 15px;">
 
-                                <div class="grid-2" style="gap:10px;">
+                                <div class="grid-2" style="gap:10px; margin-bottom: 15px;">
                                     <div>
-                                        <label style="font-size: 12px; color: #888;">Update Link (APK)</label>
-                                        <input type="text" id="appUpdateUrl" placeholder="https://..." style="border: 1px solid #0088ff;">
+                                        <label style="font-size: 12px; color: #00ff66;">زر 1: النص (مثال: تحميل التحديث)</label>
+                                        <input type="text" id="appBtn1Txt" placeholder="نص الزر الأول" style="border: 1px solid #00ff66;">
                                     </div>
                                     <div>
-                                        <label style="font-size: 12px; color: #888;">Telegram Link</label>
+                                        <label style="font-size: 12px; color: #00ff66;">زر 1: الرابط (URL)</label>
+                                        <input type="text" id="appUpdateUrl" placeholder="https://..." style="border: 1px solid #00ff66;">
+                                    </div>
+                                </div>
+                                
+                                <div class="grid-2" style="gap:10px;">
+                                    <div>
+                                        <label style="font-size: 12px; color: #0088ff;">زر 2: النص (مثال: قناة التلجرام)</label>
+                                        <input type="text" id="appBtn2Txt" placeholder="نص الزر الثاني" style="border: 1px solid #0088ff;">
+                                    </div>
+                                    <div>
+                                        <label style="font-size: 12px; color: #0088ff;">زر 2: الرابط (URL)</label>
                                         <input type="text" id="appTgUrl" placeholder="https://t.me/..." style="border: 1px solid #0088ff;">
                                     </div>
                                 </div>
@@ -526,6 +537,8 @@
                     if(!document.getElementById('appMsg').value && data.appMessage) document.getElementById('appMsg').value = data.appMessage;
                     if(!document.getElementById('appUpdateUrl').value && data.updateLink) document.getElementById('appUpdateUrl').value = data.updateLink;
                     if(!document.getElementById('appTgUrl').value && data.telegramLink) document.getElementById('appTgUrl').value = data.telegramLink;
+                    if(!document.getElementById('appBtn1Txt').value && data.btn1Text) document.getElementById('appBtn1Txt').value = data.btn1Text;
+                    if(!document.getElementById('appBtn2Txt').value && data.btn2Text) document.getElementById('appBtn2Txt').value = data.btn2Text;
                     if(data.appStatus) document.getElementById('appStateSelect').value = data.appStatus;
                     if(data.crashMode) document.getElementById('crashType').value = data.crashMode;
                     if(data.crashTime) document.getElementById('crashTimer').value = data.crashTime;
@@ -577,6 +590,8 @@
             let msg = document.getElementById('appMsg').value;
             let apk = document.getElementById('appUpdateUrl').value;
             let tg = document.getElementById('appTgUrl').value;
+            let b1txt = document.getElementById('appBtn1Txt').value;
+            let b2txt = document.getElementById('appBtn2Txt').value;
             let cType = document.getElementById('crashType').value;
             let cTimer = parseInt(document.getElementById('crashTimer').value) || 10;
             
@@ -585,6 +600,8 @@
                 appMessage: msg,
                 updateLink: apk,
                 telegramLink: tg,
+                btn1Text: b1txt,
+                btn2Text: b2txt,
                 crashMode: cType,
                 crashTime: cTimer
             }); 
