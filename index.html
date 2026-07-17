@@ -179,7 +179,7 @@
                     "عذراً، لا يمكنك الوصول إلى هذه الصفحة مباشرة أو بتحديث الصفحة. يجب عليك تخطي الرابط أولاً ليتم التحقق من هويتك ومنحك المفتاح.",
                     "⚠️",
                     "اختصر الآن للحصول على المفتاح",
-                    "gateway.html"
+                    "./gate.html"
                 );
                 return;
             }
@@ -246,7 +246,7 @@
                     "حدث خطأ أثناء فحص السجلات. يرجى إعادة تخطي الرابط لضمان أمان الاتصال.",
                     "⚠️",
                     "اختصر الآن للحصول على المفتاح",
-                    "gateway.html"
+                    "./gate.html"
                 );
             }
         };
@@ -295,7 +295,7 @@
                         "نظام الحماية رصد استخدامك لشبكة وهمية. أغلق الـ VPN ثم ارجع اختصر الرابط.",
                         "🌐",
                         "إعادة التخطي",
-                        "gateway.html"
+                        "./gate.html"
                     );
                     return;
                 }
@@ -367,7 +367,6 @@
                     count: firebase.database.ServerValue.increment(1),
                     timestamp: firebase.database.ServerValue.TIMESTAMP
                 });
-
 
                 document.getElementById('keyDisplay').innerText = M;
                 document.getElementById('keyContainer').style.display = 'block';
