@@ -101,7 +101,7 @@
                     const now = Date.now().toString();
                     const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
                     sessionStorage.setItem("zayiks_secure_session", secureToken);
-                    window.location.replace("index.html?verify_token=" + secureToken);
+                    window.location.replace("./index.html?verify_token=" + secureToken);
                 }, 2500);
 
             } else if (timeDiff < 5000) {
