@@ -85,6 +85,8 @@
         if (startTime) {
             const timeDiff = Date.now() - parseInt(startTime);
             
+            localStorage.removeItem("zayiks_shortening_started");
+            
             if (timeDiff >= 15000 && timeDiff <= 3600000) {
                 document.getElementById('iconBox').style.display = "none";
                 document.getElementById('titleText').innerText = "ACCESS GRANTED";
@@ -94,8 +96,6 @@
                 document.getElementById('actionBtn').style.display = "none";
                 document.getElementById('loader').style.display = "block";
                 document.getElementById('authBox').classList.add('success-mode');
-
-                localStorage.removeItem("zayiks_shortening_started");
 
                 setTimeout(() => {
                     const now = Date.now().toString();
@@ -109,13 +109,11 @@
                 document.getElementById('titleText').innerText = "SYSTEM BREACH";
                 document.getElementById('descText').innerText = "تم رصد محاولة تخطي غير نظامية. يجب إكمال الرابط بشكل صحيح وتجنب السرعة المفرطة.";
                 document.getElementById('actionBtn').innerText = "إعادة التخطي";
-                localStorage.removeItem("zayiks_shortening_started");
             } else {
                 document.getElementById('iconBox').innerText = "⏳";
                 document.getElementById('titleText').innerText = "SESSION TIMEOUT";
                 document.getElementById('descText').innerText = "انتهت صلاحية الجلسة بسبب التأخر. يرجى تنشيط بروتوكول التخطي من جديد.";
                 document.getElementById('actionBtn').innerText = "تحديث الجلسة";
-                localStorage.removeItem("zayiks_shortening_started");
             }
         }
 
