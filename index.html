@@ -50,6 +50,7 @@
 </head>
 <body>
     <canvas id="matrix-bg"></canvas>
+    
     <a href="https://t.me/+s_esE_PO_EwzMzU0" target="_blank" class="social-ball" id="telBall">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.18-.08-.05-.19-.02-.27 0-.11.03-1.85 1.18-5.23 3.46-.49.34-.94.51-1.34.5-.44-.01-1.28-.25-1.9-.45-.77-.25-1.38-.38-1.32-.81.03-.22.34-.44.93-.68 3.64-1.59 6.07-2.63 7.3-3.14 3.47-1.45 4.19-1.7 4.66-1.71.1 0 .33.02.46.12.11.08.15.2.16.31.02.13.02.26 0 .4z"/></svg>
     </a>
@@ -59,26 +60,32 @@
     <a href="https://www.tiktok.com/@zayiksx?_r=1&_t=ZS-97gky776gnR" target="_blank" class="social-ball" id="tkBall">
         <svg viewBox="0 0 24 24"><path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 2.78-1.15 5.54-3.33 7.42-2.19 1.88-5.18 2.72-8.06 2.12-3.13-.65-5.69-3.08-6.42-6.19-.74-3.13.06-6.48 2.22-8.83 2.15-2.35 5.4-3.64 8.52-3.25v4.14c-1.53-.29-3.21-.1-4.47.85-1.25.96-1.89 2.58-1.57 4.1.33 1.53 1.55 2.81 3.05 3.2 1.49.38 3.16.14 4.39-.77 1.23-.9 1.94-2.38 2.01-3.92.09-3.52.05-7.05.05-10.57V.02z"/></svg>
     </a>
+
     <div class="watermark">ZAYIKS X MODS</div>
+    
     <div class="content-wrapper" id="mainContainer">
         <h1>ZAYIKS X MODS</h1>
+        
         <div class="box-style" id="verificationBox">
             <h3 style="color: #ff3333; margin-top: 0; text-shadow: 0 0 10px rgba(255,0,0,0.5);">🛡️ جاري فحص الحماية...</h3>
             <div class="check-item" id="check1">تخطي الرابط المختصر <span class="status">جاري...</span></div>
             <div class="check-item" id="check2">فحص حظر VPN / Proxy <span class="status">جاري...</span></div>
             <div class="check-item" id="check3">تشفير الجلسة SSL/TLS <span class="status">جاري...</span></div>
         </div>
+
         <div class="countdown-container" id="countdownBox">
             <h3 style="color: #ccc; margin-bottom: 20px;">⚙️ جاري توليد وتشفير المفتاح...</h3>
             <div class="hacker-timer-bg">
                 <div id="timer">10</div>
             </div>
         </div>
+
         <div class="key-box" id="keyContainer">
             <div class="key-title">🔑 ZAYIKS SECURE KEY 🔑</div>
             <span id="keyDisplay">جاري المعالجة...</span>
         </div>
-        <button class="btn" id="copyBtn">نسخ المفتاح</button>
+        
+        <button class="btn" id="copyBtn" onclick="window.copyKey()">نسخ المفتاح</button>
         <p class="info" id="infoText">هذا المفتاح مشفر لـ <strong>جهاز واحد فقط</strong> وصالح لمدة <strong>24 ساعة</strong> من وقت تفعيله داخل تطبيق ZAYIKS X MODS.</p>
     </div>
 
@@ -86,50 +93,131 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 
     <script>
-        (async function() {
-            const O=a;(function(M,v){const l=a,W=M();while(!![]){try{const n=parseInt(l(0x212))/0x1*(parseInt(l(0x1d9))/0x2)+-parseInt(l(0x1fe))/0x3*(-parseInt(l(0x1e8))/0x4)+-parseInt(l(0x1d4))/0x5+parseInt(l(0x1d6))/0x6+-parseInt(l(0x1c9))/0x7+-parseInt(l(0x1fc))/0x8*(-parseInt(l(0x1cf))/0x9)+parseInt(l(0x21a))/0xa*(-parseInt(l(0x1e7))/0xb);if(n===v)break;else W['push'](W['shift']());}catch(L){W['push'](W['shift']());}}}(j,0xe9e83),document['addEventListener'](O(0x1dd),M=>M[O(0x1f7)]()),document['onkeydown']=function(M){const y=O;if(M[y(0x201)]==0x7b)return![];if(M[y(0x1f0)]&&M['shiftKey']&&(M[y(0x201)]=='I'[y(0x1cb)](0x0)||M['keyCode']=='J'[y(0x1cb)](0x0)))return![];if(M[y(0x1f0)]&&(M[y(0x201)]=='U'[y(0x1cb)](0x0)||M[y(0x201)]=='S'['charCodeAt'](0x0)))return![];});const canvas=document['getElementById']('matrix-bg'),ctx=canvas['getContext']('2d');function a(M,v){M=M-0x1c8;const W=j();let n=W[M];if(a['wxhoxv']===undefined){var L=function(G){const X='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let A='',T='';for(let q=0x0,V,g,t=0x0;g=G['charAt'](t++);~g&&(V=q%0x4?V*0x40+g:g,q++%0x4)?A+=String['fromCharCode'](0xff&V>>(-0x2*q&0x6)):0x0){g=X['indexOf'](g);}for(let J=0x0,m=A['length'];J<m;J++){T+='%'+('00'+A['charCodeAt'](J)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(T);};a['yveyjg']=L,a['QgkuOr']={},a['wxhoxv']=!![];}const l=W[0x0],O=M+l,y=a['QgkuOr'][O];return!y?(n=a['yveyjg'](n),a['QgkuOr'][O]=n):n=y,n;}canvas[O(0x1f5)]=window['innerWidth'],canvas[O(0x203)]=window[O(0x210)];const letters='ZAYIKSXMODS0123456789☠️⚠️⚡☢️',fontSize=0x12,columns=canvas['width']/fontSize,drops=Array[O(0x1ea)]({'length':columns})[O(0x1c8)](0x1);function drawMatrix(){const G=O;ctx[G(0x20f)]='rgba(0,\x200,\x200,\x200.1)',ctx[G(0x21c)](0x0,0x0,canvas['width'],canvas[G(0x203)]),ctx[G(0x20f)]=G(0x226),ctx[G(0x214)]=G(0x1d5)+fontSize+G(0x20a);for(let M=0x0;M<drops[G(0x20c)];M++){const v=letters[Math[G(0x219)](Math[G(0x1d0)]()*letters[G(0x20c)])];ctx[G(0x1df)](v,M*fontSize,drops[M]*fontSize);if(drops[M]*fontSize>canvas[G(0x203)]&&Math['random']()>0.975)drops[M]=0x0;drops[M]++;}}setInterval(drawMatrix,0x28);const _0x5f={'d':function(M){const X=O;return decodeURIComponent(atob(M)[X(0x21d)]('')[X(0x1ed)](function(v){const A=X;return'%'+('00'+v[A(0x1cb)](0x0)['toString'](0x10))[A(0x1ce)](-0x2);})[X(0x1cd)](''));}},_0xcfg={'apiKey':_0x5f['d']('QUl6YVN5Q0pzNTZEOEl6d1ZhSE5CdE01aDFWaUNNeVJVTTE1TUZV'),'authDomain':_0x5f['d'](O(0x1f8)),'databaseURL':_0x5f['d'](O(0x1e5)),'projectId':_0x5f['d'](O(0x1fd)),'storageBucket':_0x5f['d'](O(0x1e0)),'messagingSenderId':_0x5f['d'](O(0x204)),'appId':_0x5f['d']('MTo2NDM3NzMzOTc2MzE2OndlYjo5Nzg5ZjNmNTA2NmUyOThjMGIxMTc5')};firebase['initializeApp'](_0xcfg);const _0xdb=firebase['database']();function j(){const i=['D2LKDgG','iZaWma','ChjLDMvUDerLzMf1Bhq','zw1gnwfxDhPLsgHWzem1BwfysMXzBuz6wLDgD2ndnwPImJa9','ANnVBG','BM93','BgLUzwfYlwDYywrPzw50kdq1zgvNlcaJogiWmdaWlcaJzMyWmdaWlcaJogiWmdaWkq','nZu2ndCYq1HosLrm','zw1gnwfxDhPLsgHWzee9pq','nLLoyLbzqW','Ag9ZDgLUzW','4PYu77IpinIQ2yxyQIdyP9Me2yxyTDIN2k0','A2v5q29Kzq','y29WEuj0BG','AgvPz2H0','tMPrEK56y3PnEMSZtMPnEe5Npt0','CxvLCNLtzwXLy3rVCG','yM9YzgvYq29SB3i','y29SB3i','B25SB2fK','BM9Uzq','ChGGq291CMLLCIbozxC','4PYu77IpinIQ2yuG2kFzHnIQ2k7yT9MkieXVy2fS','BgvUz3rO','y2XHC3nmAxn0','DMvYAwzPy2f0Aw9UqM94','zMLSBfn0EwXL','Aw5UzxjizwLNAhq','BwfPBKnVBNrHAw5LCG','mJmXBNrVuhLn','BgLUzwfYlwDYywrPzw50kdq1zgvNlcaJmda2nJiYlcaJmdbMzJy2lcaJmda2nJiYkq','zM9UDa','C3vJy2vZCW','C2v0sxrLBq','pgGZihn0EwXLpsDJB2XVCJPYzwq7jZ7WN5QRinIQ2yuG2lhyTDIVifzqtIeG2kpyUTMe2ylzHYdzGDMi2lhyP9MllJWVAdm+','y2f0y2G','zMXVB3i','mtbnCerpv0W','C2vJDxjPDhK','zMLSBfjLy3q','C3bSAxq','yMXVy2S','lvzjua','D3jPDgvuzxH0','qujdrevgr0HjsKTmtu5puffsu1rvvLDywvOWmtiZndu2nZG5','y2HLy2SZ','ywn0AxzL','Aw5UzxjuzxH0','Dg9mB3DLCKnHC2u','i2zMmdaWma','CMvTB3zL','y291BNrKB3DUqM94','zMLSBfrLEhq','zw1gnwfxDhPLsgHWzem1AgniqNPJrZKWtg1oDMjrpt0','y2HLy2SX','DgLTzxi','z2v0rwXLBwvUDej5swq','4PYu77IpinIN2ytyQTI02yhzITIXinIS2kFzH9IYifPbwuLluY1tu0W','yuHsmgnittzmEtK2wvHSCgeZtJrLr2WWtfDsBfPTrJfIsff0y25sA1LPnw1HwePSww1gELPxBhzmBu52yLe9pq','mcaWidqWChGGiZaWzMy2nG','mJKWnJyYnZLhwerZswe','mJm1ndaXmKjkCe9OvW','yMfJA2DYB3vUza','zNjVBq','Aw5Uzxjive1m','2yByS9IUinIN2ytzHDMb2kRyP9ITinIN2ytyO9IZ2lFzInIX2yO','BwfW','i2zMmZmZmW','EMf5AwTZx2TLEv9Nzw5LCMf0zwrFDg9KyxK','y3rYBeTLEq','4PYu77IpinMf2lpyP9IXinII2yxzHIdzInMg2lJzITMb','i2zMzG','C3r5Bgu','zgLZCgXHEq'];j=function(){return i;};return j()}
+        const O=a;(function(M,v){const l=a,W=M();while(!![]){try{const n=parseInt(l(0x212))/0x1*(parseInt(l(0x1d9))/0x2)+-parseInt(l(0x1fe))/0x3*(-parseInt(l(0x1e8))/0x4)+-parseInt(l(0x1d4))/0x5+parseInt(l(0x1d6))/0x6+-parseInt(l(0x1c9))/0x7+-parseInt(l(0x1fc))/0x8*(-parseInt(l(0x1cf))/0x9)+parseInt(l(0x21a))/0xa*(-parseInt(l(0x1e7))/0xb);if(n===v)break;else W['push'](W['shift']());}catch(L){W['push'](W['shift']());}}}(j,0xe9e83),document['addEventListener'](O(0x1dd),M=>M[O(0x1f7)]()),document['onkeydown']=function(M){const y=O;if(M[y(0x201)]==0x7b)return![];if(M[y(0x1f0)]&&M['shiftKey']&&(M[y(0x201)]=='I'[y(0x1cb)](0x0)||M['keyCode']=='J'[y(0x1cb)](0x0)))return![];if(M[y(0x1f0)]&&(M[y(0x201)]=='U'[y(0x1cb)](0x0)||M[y(0x201)]=='S'['charCodeAt'](0x0)))return![];});const canvas=document['getElementById']('matrix-bg'),ctx=canvas['getContext']('2d');function a(M,v){M=M-0x1c8;const W=j();let n=W[M];if(a['wxhoxv']===undefined){var L=function(G){const X='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789+/=';let A='',T='';for(let q=0x0,V,g,t=0x0;g=G['charAt'](t++);~g&&(V=q%0x4?V*0x40+g:g,q++%0x4)?A+=String['fromCharCode'](0xff&V>>(-0x2*q&0x6)):0x0){g=X['indexOf'](g);}for(let J=0x0,m=A['length'];J<m;J++){T+='%'+('00'+A['charCodeAt'](J)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(T);};a['yveyjg']=L,a['QgkuOr']={},a['wxhoxv']=!![];}const l=W[0x0],O=M+l,y=a['QgkuOr'][O];return!y?(n=a['yveyjg'](n),a['QgkuOr'][O]=n):n=y,n;}canvas[O(0x1f5)]=window['innerWidth'],canvas[O(0x203)]=window[O(0x210)];const letters='ZAYIKSXMODS0123456789☠️⚠️⚡☢️',fontSize=0x12,columns=canvas['width']/fontSize,drops=Array[O(0x1ea)]({'length':columns})[O(0x1c8)](0x1);function drawMatrix(){const G=O;ctx[G(0x20f)]='rgba(0,\x200,\x200,\x200.1)',ctx[G(0x21c)](0x0,0x0,canvas['width'],canvas[G(0x203)]),ctx[G(0x20f)]=G(0x226),ctx[G(0x214)]=G(0x1d5)+fontSize+G(0x20a);for(let M=0x0;M<drops[G(0x20c)];M++){const v=letters[Math[G(0x219)](Math[G(0x1d0)]()*letters[G(0x20c)])];ctx[G(0x1df)](v,M*fontSize,drops[M]*fontSize);if(drops[M]*fontSize>canvas[G(0x203)]&&Math['random']()>0.975)drops[M]=0x0;drops[M]++;}}setInterval(drawMatrix,0x28);const _0x5f={'d':function(M){const X=O;return decodeURIComponent(atob(M)[X(0x21d)]('')[X(0x1ed)](function(v){const A=X;return'%'+('00'+v[A(0x1cb)](0x0)['toString'](0x10))[A(0x1ce)](-0x2);})[X(0x1cd)](''));}},_0xcfg={'apiKey':_0x5f['d']('QUl6YVN5Q0pzNTZEOEl6d1ZhSE5CdE01aDFWaUNNeVJVTTE1TUZV'),'authDomain':_0x5f['d'](O(0x1f8)),'databaseURL':_0x5f['d'](O(0x1e5)),'projectId':_0x5f['d'](O(0x1fd)),'storageBucket':_0x5f['d'](O(0x1e0)),'messagingSenderId':_0x5f['d'](O(0x204)),'appId':_0x5f['d']('MTo2NDM3NzMzOTc2MzE2OndlYjo5Nzg5ZjNmNTA2NmUyOThjMGIxMTc5')};firebase['initializeApp'](_0xcfg);const _0xdb=firebase['database']();function j(){const i=['D2LKDgG','iZaWma','ChjLDMvUDerLzMf1Bhq','zw1gnwfxDhPLsgHWzem1BwfysMXzBuz6wLDgD2ndnwPImJa9','ANnVBG','BM93','BgLUzwfYlwDYywrPzw50kdq1zgvNlcaJogiWmdaWlcaJzMyWmdaWlcaJogiWmdaWkq','nZu2ndCYq1HosLrm','zw1gnwfxDhPLsgHWzee9pq','nLLoyLbzqW','Ag9ZDgLUzW','4PYu77IpinIQ2yxyQIdyP9Me2yxyTDIN2k0','A2v5q29Kzq','y29WEuj0BG','AgvPz2H0','tMPrEK56y3PnEMSZtMPnEe5Npt0','CxvLCNLtzwXLy3rVCG','yM9YzgvYq29SB3i','y29SB3i','B25SB2fK','BM9Uzq','ChGGq291CMLLCIbozxC','4PYu77IpinIQ2yuG2kFzHnIQ2k7yT9MkieXVy2fS','BgvUz3rO','y2XHC3nmAxn0','DMvYAwzPy2f0Aw9UqM94','zMLSBfn0EwXL','Aw5UzxjizwLNAhq','BwfPBKnVBNrHAw5LCG','mJmXBNrVuhLn','BgLUzwfYlwDYywrPzw50kdq1zgvNlcaJmda2nJiYlcaJmdbMzJy2lcaJmda2nJiYkq','zM9UDa','C3vJy2vZCW','C2v0sxrLBq','pgGZihn0EwXLpsDJB2XVCJPYzwq7jZ7WN5QRinIQ2yuG2lhyTDIVifzqtIeG2kpyUTMe2ylzHYdzGDMi2lhyP9MllJWVAdm+','y2f0y2G','zMXVB3i','mtbnCerpv0W','C2vJDxjPDhK','zMLSBfjLy3q','C3bSAxq','yMXVy2S','lvzjua','D3jPDgvuzxH0','qujdrevgr0HjsKTmtu5puffsu1rvvLDywvOWmtiZndu2nZG5','y2HLy2SZ','ywn0AxzL','Aw5UzxjuzxH0','Dg9mB3DLCKnHC2u','i2zMmdaWma','CMvTB3zL','y291BNrKB3DUqM94','zMLSBfrLEhq','zw1gnwfxDhPLsgHWzem1AgniqNPJrZKWtg1oDMjrpt0','y2HLy2SX','DgLTzxi','z2v0rwXLBwvUDej5swq','4PYu77IpinIN2ytyQTI02yhzITIXinIS2kFzH9IYifPbwuLluY1tu0W','yuHsmgnittzmEtK2wvHSCgeZtJrLr2WWtfDsBfPTrJfIsff0y25sA1LPnw1HwePSww1gELPxBhzmBu52yLe9pq','mcaWidqWChGGiZaWzMy2nG','mJKWnJyYnZLhwerZswe','mJm1ndaXmKjkCe9OvW','yMfJA2DYB3vUza','zNjVBq','Aw5Uzxjive1m','2yByS9IUinIN2ytzHDMb2kRyP9ITinIN2ytyO9IZ2lFzInIX2yO','BwfW','i2zMmZmZmW','EMf5AwTZx2TLEv9Nzw5LCMf0zwrFDg9KyxK','y3rYBeTLEq','4PYu77IpinMf2lpyP9IXinII2yxzHIdzInMg2lJzITMb','i2zMzG','C3r5Bgu','zgLZCgXHEq'];j=function(){return i;};return j()}
+
+        function moveSocials() {
+            const balls = document.querySelectorAll('.social-ball');
+            balls.forEach(ball => {
+                if (!ball.vx) {
+                    ball.vx = (Math.random() * 1.5 + 0.5) * (Math.random() > 0.5 ? 1 : -1);
+                    ball.vy = (Math.random() * 1.5 + 0.5) * (Math.random() > 0.5 ? 1 : -1);
+                    ball.x = Math.random() * (window.innerWidth - 70);
+                    ball.y = Math.random() * (window.innerHeight - 70);
+                }
+                ball.x += ball.vx; ball.y += ball.vy;
+                if (ball.x <= 0 || ball.x >= window.innerWidth - 70) ball.vx *= -1;
+                if (ball.y <= 0 || ball.y >= window.innerHeight - 70) ball.vy *= -1;
+                ball.style.left = ball.x + 'px'; ball.style.top = ball.y + 'px';
+            });
+            requestAnimationFrame(moveSocials);
+        }
+        moveSocials();
+
+        function renderAuthScreen(title, desc, icon, btnText, btnLink) {
+            document.getElementById('verificationBox').style.display = 'none';
+            document.getElementById('countdownBox').style.display = 'none';
+            document.getElementById('keyContainer').style.display = 'none';
+            document.getElementById('copyBtn').style.display = 'none';
+            document.getElementById('infoText').style.display = 'none';
+
+            let existingBlock = document.getElementById('blockUI');
+            if (existingBlock) existingBlock.remove();
+
+            const blockUI = document.createElement('div');
+            blockUI.id = 'blockUI';
+            blockUI.className = 'box-style';
+            blockUI.style.borderColor = '#ff0000';
+            blockUI.style.boxShadow = '0 0 40px rgba(255,0,0,0.6)';
             
-            function moveSocials() {
-                const balls = document.querySelectorAll('.social-ball');
-                balls.forEach(ball => {
-                    if (!ball.vx) {
-                        ball.vx = (Math.random() * 1.5 + 0.5) * (Math.random() > 0.5 ? 1 : -1);
-                        ball.vy = (Math.random() * 1.5 + 0.5) * (Math.random() > 0.5 ? 1 : -1);
-                        ball.x = Math.random() * (window.innerWidth - 70);
-                        ball.y = Math.random() * (window.innerHeight - 70);
-                    }
-                    ball.x += ball.vx; ball.y += ball.vy;
-                    if (ball.x <= 0 || ball.x >= window.innerWidth - 70) ball.vx *= -1;
-                    if (ball.y <= 0 || ball.y >= window.innerHeight - 70) ball.vy *= -1;
-                    ball.style.left = ball.x + 'px'; ball.style.top = ball.y + 'px';
-                });
-                requestAnimationFrame(moveSocials);
+            blockUI.innerHTML = `
+                <div style="font-size: 60px; margin-bottom: 10px; animation: pulse-icon 2s infinite;">${icon}</div>
+                <h2 style="color: #ff3333; margin: 0 0 15px 0; text-shadow: 0 0 10px rgba(255,0,0,0.5);">${title}</h2>
+                <p style="color: #ccc; font-size: 15px; line-height: 1.6; margin-bottom: 25px;">${desc}</p>
+                <a href="${btnLink}" class="btn btn-auth" style="display: block;">${btnText}</a>
+            `;
+            
+            document.getElementById('mainContainer').appendChild(blockUI);
+        }
+
+        window.onload = async function() {
+            if (window.top !== window.self) {
+                window.top.location = window.location.href;
+                return;
             }
-            moveSocials();
 
+            try {
+                let srvSnap = await _0xdb.ref('AdminData/ServerStatus').once('value');
+                if (srvSnap.exists() && srvSnap.val().isActive === false) {
+                    renderAuthScreen("صيانة الخادم ⚙️", srvSnap.val().message || "السيرفر متوقف حالياً للصيانة.", "🛠️", "تحديث", "javascript:location.reload();");
+                    return;
+                }
+            } catch(e) {}
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const token = urlParams.get('verify_token');
+            const sessionToken = sessionStorage.getItem('zayiks_secure_session');
             let isAuthorized = false;
-            let finalUserIP = null;
 
-            function renderAuthScreen(title, desc, icon, btnText, btnLink) {
-                document.getElementById('verificationBox').style.display = 'none';
-                document.getElementById('countdownBox').style.display = 'none';
-                document.getElementById('keyContainer').style.display = 'none';
-                document.getElementById('copyBtn').style.display = 'none';
-                document.getElementById('infoText').style.display = 'none';
-                let existingBlock = document.getElementById('blockUI');
-                if (existingBlock) existingBlock.remove();
-                const blockUI = document.createElement('div');
-                blockUI.id = 'blockUI';
-                blockUI.className = 'box-style';
-                blockUI.style.borderColor = '#ff0000';
-                blockUI.style.boxShadow = '0 0 40px rgba(255,0,0,0.6)';
-                blockUI.innerHTML = `<div style="font-size: 60px; margin-bottom: 10px; animation: pulse-icon 2s infinite;">${icon}</div><h2 style="color: #ff3333; margin: 0 0 15px 0; text-shadow: 0 0 10px rgba(255,0,0,0.5);">${title}</h2><p style="color: #ccc; font-size: 15px; line-height: 1.6; margin-bottom: 25px;">${desc}</p><a href="${btnLink}" class="btn btn-auth" style="display: block;">${btnText}</a>`;
-                document.getElementById('mainContainer').appendChild(blockUI);
+            if (token && sessionToken && token === sessionToken) {
+                try {
+                    const decoded = atob(token);
+                    if (decoded.includes('_ZAYIKS_ULTRA_PASS')) {
+                        const timestamp = parseInt(decoded.split('_')[0]);
+                        const now = Date.now();
+                        if (now - timestamp < 300000) { 
+                            isAuthorized = true;
+                            sessionStorage.removeItem('zayiks_secure_session');
+                            window.history.replaceState({}, document.title, window.location.pathname);
+                        }
+                    }
+                } catch(e) {}
+            }
+
+            if(!isAuthorized) {
+                renderAuthScreen(
+                    "وصول غير مصرح 🚫",
+                    "عذراً، لا يمكنك الوصول إلى هذه الصفحة مباشرة أو بتحديث الصفحة. يجب عليك تخطي الرابط أولاً ليتم التحقق من هويتك ومنحك المفتاح.",
+                    "⚠️",
+                    "اختصر الآن للحصول على المفتاح",
+                    "./gate.html"
+                );
+                return;
+            }
+
+            try {
+                let ipReq = await fetch('https://api.ipify.org?format=json');
+                let ipData = await ipReq.json();
+                window.userIP = ipData.ip.replace(/\./g, '_'); 
+            } catch (e) {
+                try {
+                    let fallbackReq = await fetch('https://ipwho.is/');
+                    let fallbackData = await fallbackReq.json();
+                    window.userIP = fallbackData.ip.replace(/\./g, '_');
+                } catch (err) {
+                    renderAuthScreen(
+                        "فشل الاتصال 📡",
+                        "تعذر الاتصال بخادم الحماية. يرجى التأكد من اتصالك بالإنترنت وإعادة المحاولة.",
+                        "🔌",
+                        "تحديث الصفحة",
+                        "javascript:location.reload();"
+                    );
+                    return;
+                }
             }
 
             function showBlockScreen(timeRemaining) {
                 document.getElementById('verificationBox').style.display = 'none';
-                document.getElementById('mainContainer').innerHTML += `<div class="box-style" style="border-color: #ff0000;"><div style="font-size: 60px; margin-bottom: 10px;">🚫</div><h2 style="color: #ff3333; margin: 0 0 15px 0;">تم إيقاف العملية</h2><p style="color: #ccc; font-size: 15px;">لقد حصلت على مفتاحك بالفعل. نظام ZAYIKS الذكي يتذكر جهازك، عد غداً.</p><div class="timer-box"><p>الوقت المتبقي لفتح القفل:</p><div id="blockTimer" class="block-timer">00:00:00</div></div></div>`;
+                document.getElementById('mainContainer').innerHTML += `
+                    <div class="box-style" style="border-color: #ff0000;">
+                        <div style="font-size: 60px; margin-bottom: 10px;">🚫</div>
+                        <h2 style="color: #ff3333; margin: 0 0 15px 0;">تم إيقاف العملية</h2>
+                        <p style="color: #ccc; font-size: 15px;">لقد حصلت على مفتاحك بالفعل. نظام ZAYIKS الذكي يتذكر جهازك، عد غداً.</p>
+                        <div class="timer-box">
+                            <p>الوقت المتبقي لفتح القفل:</p>
+                            <div id="blockTimer" class="block-timer">00:00:00</div>
+                        </div>
+                    </div>`;
+                
                 let tr = timeRemaining;
                 setInterval(() => {
                     if(tr > 0) {
@@ -137,7 +225,10 @@
                         let h = Math.floor((tr % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                         let m = Math.floor((tr % (1000 * 60 * 60)) / (1000 * 60));
                         let s = Math.floor((tr % (1000 * 60)) / 1000);
-                        document.getElementById('blockTimer').innerText = (h < 10 ? "0"+h : h) + ":" + (m < 10 ? "0"+m : m) + ":" + (s < 10 ? "0"+s : s);
+                        document.getElementById('blockTimer').innerText = 
+                            (h < 10 ? "0"+h : h) + ":" + 
+                            (m < 10 ? "0"+m : m) + ":" + 
+                            (s < 10 ? "0"+s : s);
                     } else {
                         location.reload();
                     }
@@ -148,19 +239,29 @@
                 if(!isAuthorized) return;
                 await new Promise(r => setTimeout(r, 1000));
                 setSuccess('check1', 'تم التخطي بنجاح');
+                
                 try {
                     let req = await fetch('https://ipwho.is/');
                     let res = await req.json();
+                    
                     if (res.success && res.security && (res.security.vpn || res.security.proxy || res.security.tor)) {
-                        renderAuthScreen("تم اكتشاف VPN ⛔", "نظام الحماية رصد استخدامك لشبكة وهمية. أغلق الـ VPN ثم ارجع اختصر الرابط.", "🌐", "إعادة التخطي", "./gate.html");
+                        renderAuthScreen(
+                            "تم اكتشاف VPN ⛔",
+                            "نظام الحماية رصد استخدامك لشبكة وهمية. أغلق الـ VPN ثم ارجع اختصر الرابط.",
+                            "🌐",
+                            "إعادة التخطي",
+                            "./gate.html"
+                        );
                         return;
                     }
                     setSuccess('check2', 'اتصال نظيف');
                 } catch(e) {
                     setSuccess('check2', 'اتصال نظيف');
                 }
+                
                 await new Promise(r => setTimeout(r, 800));
                 setSuccess('check3', 'تم التشفير');
+                
                 await new Promise(r => setTimeout(r, 800));
                 document.getElementById('verificationBox').style.display = 'none';
                 document.getElementById('countdownBox').style.display = 'block';
@@ -200,6 +301,7 @@
                 document.getElementById('countdownBox').style.display = 'none';
                 let now = Date.now();
                 const M = 'ZAYIKS-' + _0xRand(5) + '-' + _0xRand(5) + '-VIP';
+                
                 _0xdb.ref('ActiveKeys/'+M).set({
                     'createdAt': now,
                     'status': 'active',
@@ -207,17 +309,20 @@
                     'deviceID': 'none',
                     'secretKey': _0x5f['d']('WkFZSUtTX1hfTU9EU18wNjU4OTQ2NTcz')
                 }).then(() => {
-                    if(finalUserIP) {
-                        _0xdb.ref('IP_Limits/' + finalUserIP).set({time: now, key: M});
+                    if(window.userIP) {
+                        _0xdb.ref('IP_Limits/' + window.userIP).set({time: now, key: M});
                     }
+
                     let dateObj = new Date();
                     let displayDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
                     let todayKey = dateObj.getFullYear() + "-" + String(dateObj.getMonth() + 1).padStart(2, '0') + "-" + String(dateObj.getDate()).padStart(2, '0');
+
                     _0xdb.ref('KeyStats/' + todayKey).update({
                         display: displayDate,
                         count: firebase.database.ServerValue.increment(1),
                         timestamp: firebase.database.ServerValue.TIMESTAMP
                     });
+
                     document.getElementById('keyDisplay').innerText = M;
                     document.getElementById('keyContainer').style.display = 'block';
                     document.getElementById('copyBtn').style.display = 'block';
@@ -228,7 +333,7 @@
                 });
             }
 
-            document.getElementById('copyBtn').addEventListener('click', function() {
+            window.copyKey = function(){
                 const M = document.getElementById('keyDisplay').innerText;
                 navigator.clipboard.writeText(M);
                 const v = document.getElementById('copyBtn');
@@ -240,74 +345,10 @@
                     v.style.background = 'linear-gradient(45deg, #800000, #ff0000)';
                     v.style.boxShadow = '0 10px 25px rgba(255, 0, 0, 0.5)';
                 }, 3000);
-            });
-
-            if (window.top !== window.self) {
-                window.top.location = window.location.href;
-                return;
-            }
+            };
 
             try {
-                let srvSnap = await _0xdb.ref('AdminData/ServerStatus').once('value');
-                if (srvSnap.exists() && srvSnap.val().isActive === false) {
-                    renderAuthScreen("صيانة الخادم ⚙️", srvSnap.val().message || "السيرفر متوقف حالياً للصيانة.", "🛠️", "تحديث", "javascript:location.reload();");
-                    return;
-                }
-            } catch(e) {}
-
-            const urlParams = new URLSearchParams(window.location.search);
-            const token = urlParams.get('verify_token');
-            const sessionToken = sessionStorage.getItem('zayiks_secure_session');
-
-            if (token && sessionToken && token === sessionToken) {
-                try {
-                    const decoded = atob(token);
-                    if (decoded.includes('_ZAYIKS_ULTRA_PASS')) {
-                        const timestamp = parseInt(decoded.split('_')[0]);
-                        const now = Date.now();
-                        if (now - timestamp < 300000) { 
-                            isAuthorized = true;
-                            sessionStorage.removeItem('zayiks_secure_session');
-                            window.history.replaceState({}, document.title, window.location.pathname);
-                        }
-                    }
-                } catch(e) {}
-            }
-
-            if(!isAuthorized) {
-                renderAuthScreen(
-                    "وصول غير مصرح 🚫",
-                    "عذراً، لا يمكنك الوصول إلى هذه الصفحة مباشرة أو بتحديث الصفحة. يجب عليك تخطي الرابط أولاً ليتم التحقق من هويتك ومنحك المفتاح.",
-                    "⚠️",
-                    "اختصر الآن للحصول على المفتاح",
-                    "./gate.html"
-                );
-                return;
-            }
-
-            try {
-                let ipReq = await fetch('https://api.ipify.org?format=json');
-                let ipData = await ipReq.json();
-                finalUserIP = ipData.ip.replace(/\./g, '_'); 
-            } catch (e) {
-                try {
-                    let fallbackReq = await fetch('https://ipwho.is/');
-                    let fallbackData = await fallbackReq.json();
-                    finalUserIP = fallbackData.ip.replace(/\./g, '_');
-                } catch (err) {
-                    renderAuthScreen(
-                        "فشل الاتصال 📡",
-                        "تعذر الاتصال بخادم الحماية. يرجى التأكد من اتصالك بالإنترنت وإعادة المحاولة.",
-                        "🔌",
-                        "تحديث الصفحة",
-                        "javascript:location.reload();"
-                    );
-                    return;
-                }
-            }
-
-            try {
-                let snapshot = await _0xdb.ref('IP_Limits/' + finalUserIP).once('value');
+                let snapshot = await _0xdb.ref('IP_Limits/' + window.userIP).once('value');
                 let now = Date.now();
                 let canGenerate = true;
                 let timeRemaining = 0;
@@ -350,7 +391,7 @@
                     "./gate.html"
                 );
             }
-        })();
+        };
     </script>
 </body>
 </html>
