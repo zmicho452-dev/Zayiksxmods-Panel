@@ -85,7 +85,7 @@
             <span id="keyDisplay">جاري المعالجة...</span>
         </div>
         
-        <button class="btn" id="copyBtn" onclick="window.copyKey()">نسخ المفتاح</button>
+        <button class="btn" id="copyBtn" onclick="copyKey()">نسخ المفتاح</button>
         <p class="info" id="infoText">هذا المفتاح مشفر لـ <strong>جهاز واحد فقط</strong> وصالح لمدة <strong>24 ساعة</strong> من وقت تفعيله داخل تطبيق ZAYIKS X MODS.</p>
     </div>
 
@@ -205,148 +205,6 @@
                 }
             }
 
-            function showBlockScreen(timeRemaining) {
-                document.getElementById('verificationBox').style.display = 'none';
-                document.getElementById('mainContainer').innerHTML += `
-                    <div class="box-style" style="border-color: #ff0000;">
-                        <div style="font-size: 60px; margin-bottom: 10px;">🚫</div>
-                        <h2 style="color: #ff3333; margin: 0 0 15px 0;">تم إيقاف العملية</h2>
-                        <p style="color: #ccc; font-size: 15px;">لقد حصلت على مفتاحك بالفعل. نظام ZAYIKS الذكي يتذكر جهازك، عد غداً.</p>
-                        <div class="timer-box">
-                            <p>الوقت المتبقي لفتح القفل:</p>
-                            <div id="blockTimer" class="block-timer">00:00:00</div>
-                        </div>
-                    </div>`;
-                
-                let tr = timeRemaining;
-                setInterval(() => {
-                    if(tr > 0) {
-                        tr -= 1000;
-                        let h = Math.floor((tr % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        let m = Math.floor((tr % (1000 * 60 * 60)) / (1000 * 60));
-                        let s = Math.floor((tr % (1000 * 60)) / 1000);
-                        document.getElementById('blockTimer').innerText = 
-                            (h < 10 ? "0"+h : h) + ":" + 
-                            (m < 10 ? "0"+m : m) + ":" + 
-                            (s < 10 ? "0"+s : s);
-                    } else {
-                        location.reload();
-                    }
-                }, 1000);
-            }
-
-            async function runRealChecks(){
-                if(!isAuthorized) return;
-                await new Promise(r => setTimeout(r, 1000));
-                setSuccess('check1', 'تم التخطي بنجاح');
-                
-                try {
-                    let req = await fetch('https://ipwho.is/');
-                    let res = await req.json();
-                    
-                    if (res.success && res.security && (res.security.vpn || res.security.proxy || res.security.tor)) {
-                        renderAuthScreen(
-                            "تم اكتشاف VPN ⛔",
-                            "نظام الحماية رصد استخدامك لشبكة وهمية. أغلق الـ VPN ثم ارجع اختصر الرابط.",
-                            "🌐",
-                            "إعادة التخطي",
-                            "./gate.html"
-                        );
-                        return;
-                    }
-                    setSuccess('check2', 'اتصال نظيف');
-                } catch(e) {
-                    setSuccess('check2', 'اتصال نظيف');
-                }
-                
-                await new Promise(r => setTimeout(r, 800));
-                setSuccess('check3', 'تم التشفير');
-                
-                await new Promise(r => setTimeout(r, 800));
-                document.getElementById('verificationBox').style.display = 'none';
-                document.getElementById('countdownBox').style.display = 'block';
-                startCountdown();
-            }
-
-            function setSuccess(id, text) {
-                let el = document.getElementById(id);
-                if(el) {
-                    el.classList.add('success');
-                    el.querySelector('.status').innerText = text;
-                }
-            }
-
-            function startCountdown(){
-                let M = 10;
-                const v = document.getElementById('timer');
-                const W = setInterval(()=>{
-                    M--;
-                    v.innerText = M;
-                    if(M <= 0) {
-                        clearInterval(W);
-                        _0xGenAndSave();
-                    }
-                }, 1000);
-            }
-
-            function _0xRand(M){
-                const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-                let W = '';
-                for(let n=0; n<M; n++) W += chars.charAt(Math.floor(Math.random() * chars.length));
-                return W;
-            }
-
-            async function _0xGenAndSave(){
-                if(!isAuthorized) return;
-                document.getElementById('countdownBox').style.display = 'none';
-                let now = Date.now();
-                const M = 'ZAYIKS-' + _0xRand(5) + '-' + _0xRand(5) + '-VIP';
-                
-                _0xdb.ref('ActiveKeys/'+M).set({
-                    'createdAt': now,
-                    'status': 'active',
-                    'usageState': 'غير مستخدم',
-                    'deviceID': 'none',
-                    'secretKey': _0x5f['d']('WkFZSUtTX1hfTU9EU18wNjU4OTQ2NTcz')
-                }).then(() => {
-                    if(window.userIP) {
-                        _0xdb.ref('IP_Limits/' + window.userIP).set({time: now, key: M});
-                    }
-
-                    let dateObj = new Date();
-                    let displayDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-                    let todayKey = dateObj.getFullYear() + "-" + String(dateObj.getMonth() + 1).padStart(2, '0') + "-" + String(dateObj.getDate()).padStart(2, '0');
-
-                    _0xdb.ref('KeyStats/' + todayKey).update({
-                        display: displayDate,
-                        count: firebase.database.ServerValue.increment(1),
-                        timestamp: firebase.database.ServerValue.TIMESTAMP
-                    });
-
-                    document.getElementById('keyDisplay').innerText = M;
-                    document.getElementById('keyContainer').style.display = 'block';
-                    document.getElementById('copyBtn').style.display = 'block';
-                    document.getElementById('infoText').style.display = 'block';
-                }).catch(W => {
-                    document.getElementById('keyDisplay').innerText = 'خطأ في الاتصال بالخادم!';
-                    document.getElementById('keyContainer').style.display = 'block';
-                });
-            }
-
-            window.copyKey = function(){
-                const M = document.getElementById('keyDisplay').innerText;
-                navigator.clipboard.writeText(M);
-                const v = document.getElementById('copyBtn');
-                v.innerText = 'تم النسخ!';
-                v.style.background = 'linear-gradient(45deg, #008000, #00ff00)';
-                v.style.boxShadow = '0 10px 25px rgba(0, 255, 0, 0.5)';
-                setTimeout(()=>{
-                    v.innerText = 'نسخ المفتاح';
-                    v.style.background = 'linear-gradient(45deg, #800000, #ff0000)';
-                    v.style.boxShadow = '0 10px 25px rgba(255, 0, 0, 0.5)';
-                }, 3000);
-            };
-
             try {
                 let snapshot = await _0xdb.ref('IP_Limits/' + window.userIP).once('value');
                 let now = Date.now();
@@ -392,6 +250,147 @@
                 );
             }
         };
+
+        function showBlockScreen(timeRemaining) {
+            document.getElementById('verificationBox').style.display = 'none';
+            document.getElementById('mainContainer').innerHTML += `
+                <div class="box-style" style="border-color: #ff0000;">
+                    <div style="font-size: 60px; margin-bottom: 10px;">🚫</div>
+                    <h2 style="color: #ff3333; margin: 0 0 15px 0;">تم إيقاف العملية</h2>
+                    <p style="color: #ccc; font-size: 15px;">لقد حصلت على مفتاحك بالفعل. نظام ZAYIKS الذكي يتذكر جهازك، عد غداً.</p>
+                    <div class="timer-box">
+                        <p>الوقت المتبقي لفتح القفل:</p>
+                        <div id="blockTimer" class="block-timer">00:00:00</div>
+                    </div>
+                </div>`;
+            
+            let tr = timeRemaining;
+            setInterval(() => {
+                if(tr > 0) {
+                    tr -= 1000;
+                    let h = Math.floor((tr % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    let m = Math.floor((tr % (1000 * 60 * 60)) / (1000 * 60));
+                    let s = Math.floor((tr % (1000 * 60)) / 1000);
+                    document.getElementById('blockTimer').innerText = 
+                        (h < 10 ? "0"+h : h) + ":" + 
+                        (m < 10 ? "0"+m : m) + ":" + 
+                        (s < 10 ? "0"+s : s);
+                } else {
+                    location.reload();
+                }
+            }, 1000);
+        }
+
+        async function runRealChecks(){
+            await new Promise(r => setTimeout(r, 1000));
+            setSuccess('check1', 'تم التخطي بنجاح');
+            
+            try {
+                let req = await fetch('https://ipwho.is/');
+                let res = await req.json();
+                
+                if (res.success && res.security && (res.security.vpn || res.security.proxy || res.security.tor)) {
+                    renderAuthScreen(
+                        "تم اكتشاف VPN ⛔",
+                        "نظام الحماية رصد استخدامك لشبكة وهمية. أغلق الـ VPN ثم ارجع اختصر الرابط.",
+                        "🌐",
+                        "إعادة التخطي",
+                        "./gate.html"
+                    );
+                    return;
+                }
+                setSuccess('check2', 'اتصال نظيف');
+            } catch(e) {
+                setSuccess('check2', 'اتصال نظيف');
+            }
+            
+            await new Promise(r => setTimeout(r, 800));
+            setSuccess('check3', 'تم التشفير');
+            
+            await new Promise(r => setTimeout(r, 800));
+            document.getElementById('verificationBox').style.display = 'none';
+            document.getElementById('countdownBox').style.display = 'block';
+            startCountdown();
+        }
+
+        function setSuccess(id, text) {
+            let el = document.getElementById(id);
+            if(el) {
+                el.classList.add('success');
+                el.querySelector('.status').innerText = text;
+            }
+        }
+
+        function startCountdown(){
+            let M = 10;
+            const v = document.getElementById('timer');
+            const W = setInterval(()=>{
+                M--;
+                v.innerText = M;
+                if(M <= 0) {
+                    clearInterval(W);
+                    _0xGenAndSave();
+                }
+            }, 1000);
+        }
+
+        function _0xRand(M){
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let W = '';
+            for(let n=0; n<M; n++) W += chars.charAt(Math.floor(Math.random() * chars.length));
+            return W;
+        }
+
+        async function _0xGenAndSave(){
+            document.getElementById('countdownBox').style.display = 'none';
+            let now = Date.now();
+            const M = 'ZAYIKS-' + _0xRand(5) + '-' + _0xRand(5) + '-VIP';
+            
+            _0xdb.ref('ActiveKeys/'+M).set({
+                'createdAt': now,
+                'status': 'active',
+                'usageState': 'غير مستخدم',
+                'deviceID': 'none',
+                'secretKey': _0x5f['d']('WkFZSUtTX1hfTU9EU18wNjU4OTQ2NTcz')
+            }).then(() => {
+                if(window.userIP) {
+                    _0xdb.ref('IP_Limits/' + window.userIP).set({time: now, key: M});
+                }
+
+                let dateObj = new Date();
+                let displayDate = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+                let todayKey = dateObj.getFullYear() + "-" + String(dateObj.getMonth() + 1).padStart(2, '0') + "-" + String(dateObj.getDate()).padStart(2, '0');
+
+               
+                _0xdb.ref('KeyStats/' + todayKey).update({
+                    display: displayDate,
+                    count: firebase.database.ServerValue.increment(1),
+                    timestamp: firebase.database.ServerValue.TIMESTAMP
+                });
+
+                document.getElementById('keyDisplay').innerText = M;
+                document.getElementById('keyContainer').style.display = 'block';
+                document.getElementById('copyBtn').style.display = 'block';
+                document.getElementById('infoText').style.display = 'block';
+            }).catch(W => {
+                document.getElementById('keyDisplay').innerText = 'خطأ في الاتصال بالخادم!';
+                document.getElementById('keyContainer').style.display = 'block';
+            });
+        }
+
+        function copyKey(){
+            const M = document.getElementById('keyDisplay').innerText;
+            navigator.clipboard.writeText(M);
+            const v = document.getElementById('copyBtn');
+            v.innerText = 'تم النسخ!';
+            v.style.background = 'linear-gradient(45deg, #008000, #00ff00)';
+            v.style.boxShadow = '0 10px 25px rgba(0, 255, 0, 0.5)';
+            setTimeout(()=>{
+                v.innerText = 'نسخ المفتاح';
+                v.style.background = 'linear-gradient(45deg, #800000, #ff0000)';
+                v.style.boxShadow = '0 10px 25px rgba(255, 0, 0, 0.5)';
+            }, 3000);
+        }
     </script>
 </body>
 </html>
