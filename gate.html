@@ -27,6 +27,7 @@
 </head>
 <body>
     <canvas id="particles"></canvas>
+
     <div class="cyber-box" id="authBox">
         <div id="iconBox" class="icon-container">🛡️</div>
         <div id="loader" class="loader"></div>
@@ -34,12 +35,14 @@
         <p id="descText">نظام الحماية يتطلب التحقق من هويتك. قم باجتياز البوابة لإنشاء الجلسة المشفرة وتفعيل المفتاح الخاص بك.</p>
         <button class="btn" id="actionBtn" onclick="startShortening()">بدء بروتوكول التخطي</button>
     </div>
+
     <script>
         const canvas = document.getElementById('particles');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         let particlesArray = [];
+        
         class Particle {
             constructor() {
                 this.x = Math.random() * canvas.width;
@@ -62,6 +65,7 @@
                 ctx.fill();
             }
         }
+        
         function init() { for(let i = 0; i < 100; i++) particlesArray.push(new Particle()); }
         function animate() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -76,11 +80,11 @@
         if (window.top !== window.self) { window.top.location = window.self.location; }
 
         const shortenerUrl = "https://vplink.in/ZAYIKS_X_MODS_GET_KEY_24H";
-        const startTime = sessionStorage.getItem("zx_start");
-        const passed = sessionStorage.getItem("zx_pass");
+        const startTime = localStorage.getItem("zayiks_shortening_started");
 
-        if (startTime && !passed) {
+        if (startTime) {
             const timeDiff = Date.now() - parseInt(startTime);
+            
             if (timeDiff >= 15000 && timeDiff <= 3600000) {
                 document.getElementById('iconBox').style.display = "none";
                 document.getElementById('titleText').innerText = "ACCESS GRANTED";
@@ -90,31 +94,33 @@
                 document.getElementById('actionBtn').style.display = "none";
                 document.getElementById('loader').style.display = "block";
                 document.getElementById('authBox').classList.add('success-mode');
-                sessionStorage.setItem("zx_pass", "true");
+
+                localStorage.removeItem("zayiks_shortening_started");
+
                 setTimeout(() => {
                     const now = Date.now().toString();
                     const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
                     sessionStorage.setItem("zayiks_secure_session", secureToken);
                     window.location.replace("./index.html?verify_token=" + secureToken);
                 }, 2500);
+
             } else if (timeDiff < 15000) {
                 document.getElementById('iconBox').innerText = "⚠️";
                 document.getElementById('titleText').innerText = "SYSTEM BREACH";
                 document.getElementById('descText').innerText = "تم رصد محاولة تخطي غير نظامية. يجب إكمال الرابط بشكل صحيح وتجنب السرعة المفرطة.";
                 document.getElementById('actionBtn').innerText = "إعادة التخطي";
-                sessionStorage.removeItem("zx_start");
+                localStorage.removeItem("zayiks_shortening_started");
             } else {
                 document.getElementById('iconBox').innerText = "⏳";
                 document.getElementById('titleText').innerText = "SESSION TIMEOUT";
                 document.getElementById('descText').innerText = "انتهت صلاحية الجلسة بسبب التأخر. يرجى تنشيط بروتوكول التخطي من جديد.";
                 document.getElementById('actionBtn').innerText = "تحديث الجلسة";
-                sessionStorage.removeItem("zx_start");
+                localStorage.removeItem("zayiks_shortening_started");
             }
         }
 
         function startShortening() {
-            sessionStorage.setItem("zx_start", Date.now());
-            sessionStorage.removeItem("zx_pass");
+            localStorage.setItem("zayiks_shortening_started", Date.now());
             window.location.href = shortenerUrl;
         }
     </script>
