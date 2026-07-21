@@ -8,26 +8,32 @@
         @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Orbitron:wght@700;900&display=swap');
         body { margin: 0; padding: 0; background-color: #050505; color: white; font-family: 'Cairo', sans-serif; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; overflow: hidden; }
         #particles { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; }
-        .cyber-box { background: rgba(10, 0, 0, 0.7); border: 2px solid #ff0000; border-radius: 25px; padding: 50px 40px; box-shadow: 0 0 40px rgba(255, 0, 0, 0.3), inset 0 0 20px rgba(255, 0, 0, 0.2); max-width: 450px; width: 90%; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); backdrop-filter: blur(10px); position: relative; z-index: 1; }
+        .cyber-box { background: rgba(10, 0, 0, 0.7); border: 2px solid #ff0000; border-radius: 25px; padding: 50px 40px; box-shadow: 0 0 40px rgba(255, 0, 0, 0.3), inset 0 0 20px rgba(255, 0, 0, 0.2); max-width: 450px; width: 90%; transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); backdrop-filter: blur(10px); position: relative; z-index: 1; overflow: hidden; }
         .cyber-box::before { content: ''; position: absolute; top: -2px; left: -2px; right: -2px; bottom: -2px; background: linear-gradient(45deg, #ff0000, transparent, transparent, #ff0000); z-index: -1; border-radius: 25px; animation: animateBorder 4s linear infinite; opacity: 0.5; }
         @keyframes animateBorder { 0% { filter: hue-rotate(0deg); } 100% { filter: hue-rotate(360deg); } }
         .icon-container { font-size: 65px; margin-bottom: 20px; text-shadow: 0 0 20px rgba(255,0,0,0.8); animation: float 3s ease-in-out infinite; }
         @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
-        h1 { font-family: 'Orbitron', sans-serif; color: #fff; text-shadow: 0 0 15px #ff3333; font-size: 2.5em; margin: 0 0 15px 0; letter-spacing: 2px; }
-        p { color: #aaa; font-size: 1.1em; margin-bottom: 35px; line-height: 1.7; font-weight: bold; }
+        h1 { font-family: 'Orbitron', sans-serif; color: #fff; text-shadow: 0 0 15px #ff3333; font-size: 2.5em; margin: 0 0 15px 0; letter-spacing: 2px; transition: all 0.3s ease; }
+        p { color: #aaa; font-size: 1.1em; margin-bottom: 35px; line-height: 1.7; font-weight: bold; transition: all 0.3s ease; }
         .btn { background: linear-gradient(45deg, #800000, #ff0000); color: white; padding: 18px 30px; border: none; border-radius: 40px; cursor: pointer; font-size: 19px; font-weight: 900; font-family: 'Cairo', sans-serif; text-decoration: none; display: inline-block; transition: 0.4s; box-shadow: 0 10px 25px rgba(255, 0, 0, 0.4); width: 100%; box-sizing: border-box; position: relative; overflow: hidden; letter-spacing: 1px; }
         .btn::after { content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); transition: 0.5s; }
         .btn:hover::after { left: 100%; }
         .btn:hover { background: linear-gradient(45deg, #ff0000, #ff4d4d); box-shadow: 0 15px 35px rgba(255, 0, 0, 0.7); transform: translateY(-3px) scale(1.02); }
-        .loader { border: 4px solid rgba(255,255,255,0.05); border-left-color: #00ff66; border-right-color: #00ff66; border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin: 0 auto 25px auto; display: none; box-shadow: 0 0 20px rgba(0,255,102,0.3); }
+        .loader { border: 4px solid rgba(255,255,255,0.05); border-radius: 50%; width: 60px; height: 60px; animation: spin 1s linear infinite; margin: 0 auto 25px auto; display: none; transition: all 0.3s ease; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .success-mode { border-color: #00ff66; box-shadow: 0 0 50px rgba(0, 255, 102, 0.3), inset 0 0 20px rgba(0, 255, 102, 0.1); }
-        .success-mode::before { background: linear-gradient(45deg, #00ff66, transparent, transparent, #00ff66); }
+        .success-mode { border-color: #00ff66 !important; box-shadow: 0 0 50px rgba(0, 255, 102, 0.3), inset 0 0 20px rgba(0, 255, 102, 0.1) !important; }
+        .success-mode::before { background: linear-gradient(45deg, #00ff66, transparent, transparent, #00ff66) !important; }
+        .verifying-mode { border-color: #00e5ff !important; box-shadow: 0 0 50px rgba(0, 229, 255, 0.3), inset 0 0 20px rgba(0, 229, 255, 0.1) !important; }
+        .verifying-mode::before { background: linear-gradient(45deg, #00e5ff, transparent, transparent, #00e5ff) !important; }
+        .scan-line { position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: rgba(0, 229, 255, 0.8); box-shadow: 0 0 15px #00e5ff, 0 0 30px #00e5ff; opacity: 0; z-index: 2; pointer-events: none; transition: opacity 0.3s; }
+        .verifying-mode .scan-line { opacity: 1; animation: scanDown 2s ease-in-out infinite; }
+        @keyframes scanDown { 0% { top: -10px; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; } }
     </style>
 </head>
 <body>
     <canvas id="particles"></canvas>
     <div class="cyber-box" id="authBox">
+        <div id="scanLine" class="scan-line"></div>
         <div id="iconBox" class="icon-container">🛡️</div>
         <div id="loader" class="loader"></div>
         <h1 id="titleText">SECURITY CORE</h1>
@@ -86,21 +92,45 @@
                 localStorage.removeItem("zx_gate_time"); 
                 
                 if (timeDiff >= 15000 && timeDiff <= 600000) {
-                    document.getElementById('iconBox').style.display = "none";
-                    document.getElementById('titleText').innerText = "ACCESS GRANTED";
-                    document.getElementById('titleText').style.color = "#00ff66";
-                    document.getElementById('titleText').style.textShadow = "0 0 20px #00ff66";
-                    document.getElementById('descText').innerText = "تم التحقق من الشبكة بنجاح. جاري فتح البوابة الآمنة لاستلام المفتاح...";
+                    
+                    document.getElementById('iconBox').innerText = "⚙️";
+                    document.getElementById('titleText').innerText = "VERIFYING PROTOCOL";
+                    document.getElementById('titleText').style.color = "#00e5ff";
+                    document.getElementById('titleText').style.textShadow = "0 0 20px #00e5ff";
+                    document.getElementById('descText').innerText = "جاري التحقق من مسار التخطي وفحص البصمة الأمنية للرابط...";
                     document.getElementById('actionBtn').style.display = "none";
-                    document.getElementById('loader').style.display = "block";
-                    document.getElementById('authBox').classList.add('success-mode');
+                    
+                    const loader = document.getElementById('loader');
+                    loader.style.display = "block";
+                    loader.style.borderLeftColor = "#00e5ff";
+                    loader.style.borderRightColor = "#00e5ff";
+                    loader.style.boxShadow = "0 0 20px rgba(0, 229, 255, 0.4)";
+                    
+                    document.getElementById('authBox').classList.add('verifying-mode');
 
                     setTimeout(() => {
-                        const now = Date.now().toString();
-                        const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
-                        sessionStorage.setItem("zayiks_secure_session", secureToken);
-                        window.location.replace("./index.html?verify_token=" + secureToken);
-                    }, 2000);
+                        document.getElementById('authBox').classList.remove('verifying-mode');
+                        document.getElementById('authBox').classList.add('success-mode');
+                        
+                        document.getElementById('iconBox').style.display = "none";
+                        document.getElementById('titleText').innerText = "ACCESS GRANTED";
+                        document.getElementById('titleText').style.color = "#00ff66";
+                        document.getElementById('titleText').style.textShadow = "0 0 20px #00ff66";
+                        document.getElementById('descText').innerText = "تم تأكيد التخطي بنجاح! جاري تحويلك للموقع لاستلام المفتاح...";
+                        
+                        loader.style.borderLeftColor = "#00ff66";
+                        loader.style.borderRightColor = "#00ff66";
+                        loader.style.boxShadow = "0 0 20px rgba(0, 255, 102, 0.4)";
+
+                        setTimeout(() => {
+                            const now = Date.now().toString();
+                            const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
+                            sessionStorage.setItem("zayiks_secure_session", secureToken);
+                            window.location.replace("./index.html?verify_token=" + secureToken);
+                        }, 1500);
+
+                    }, 3000); 
+
                 } else if (timeDiff < 15000) {
                     document.getElementById('iconBox').innerText = "⚠️";
                     document.getElementById('titleText').innerText = "SYSTEM BREACH";
