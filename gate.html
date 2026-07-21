@@ -27,7 +27,6 @@
 </head>
 <body>
     <canvas id="particles"></canvas>
-
     <div class="cyber-box" id="authBox">
         <div id="iconBox" class="icon-container">🛡️</div>
         <div id="loader" class="loader"></div>
@@ -79,47 +78,63 @@
 
         if (window.top !== window.self) { window.top.location = window.self.location; }
 
-        const shortenerUrl = "https://vplink.in/ZAYIKS_X_MODS_GET_KEY_24H";
-        const startTime = localStorage.getItem("zayiks_shortening_started");
-
-        if (startTime) {
-            const timeDiff = Date.now() - parseInt(startTime);
+        function checkGatewayStatus() {
+            const startTime = localStorage.getItem("zx_gate_time");
             
-            localStorage.removeItem("zayiks_shortening_started");
-            
-            if (timeDiff >= 15000 && timeDiff <= 3600000) {
-                document.getElementById('iconBox').style.display = "none";
-                document.getElementById('titleText').innerText = "ACCESS GRANTED";
-                document.getElementById('titleText').style.color = "#00ff66";
-                document.getElementById('titleText').style.textShadow = "0 0 20px #00ff66";
-                document.getElementById('descText').innerText = "تم التحقق من الشبكة بنجاح. جاري فتح البوابة الآمنة لاستلام المفتاح...";
-                document.getElementById('actionBtn').style.display = "none";
-                document.getElementById('loader').style.display = "block";
-                document.getElementById('authBox').classList.add('success-mode');
+            if (startTime) {
+                const timeDiff = Date.now() - parseInt(startTime);
+                localStorage.removeItem("zx_gate_time"); 
+                
+                if (timeDiff >= 15000 && timeDiff <= 600000) {
+                    document.getElementById('iconBox').style.display = "none";
+                    document.getElementById('titleText').innerText = "ACCESS GRANTED";
+                    document.getElementById('titleText').style.color = "#00ff66";
+                    document.getElementById('titleText').style.textShadow = "0 0 20px #00ff66";
+                    document.getElementById('descText').innerText = "تم التحقق من الشبكة بنجاح. جاري فتح البوابة الآمنة لاستلام المفتاح...";
+                    document.getElementById('actionBtn').style.display = "none";
+                    document.getElementById('loader').style.display = "block";
+                    document.getElementById('authBox').classList.add('success-mode');
 
-                setTimeout(() => {
-                    const now = Date.now().toString();
-                    const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
-                    sessionStorage.setItem("zayiks_secure_session", secureToken);
-                    window.location.replace("./index.html?verify_token=" + secureToken);
-                }, 2500);
-
-            } else if (timeDiff < 15000) {
-                document.getElementById('iconBox').innerText = "⚠️";
-                document.getElementById('titleText').innerText = "SYSTEM BREACH";
-                document.getElementById('descText').innerText = "تم رصد محاولة تخطي غير نظامية. يجب إكمال الرابط بشكل صحيح وتجنب السرعة المفرطة.";
-                document.getElementById('actionBtn').innerText = "إعادة التخطي";
-            } else {
-                document.getElementById('iconBox').innerText = "⏳";
-                document.getElementById('titleText').innerText = "SESSION TIMEOUT";
-                document.getElementById('descText').innerText = "انتهت صلاحية الجلسة بسبب التأخر. يرجى تنشيط بروتوكول التخطي من جديد.";
-                document.getElementById('actionBtn').innerText = "تحديث الجلسة";
+                    setTimeout(() => {
+                        const now = Date.now().toString();
+                        const secureToken = btoa(now + "_ZAYIKS_ULTRA_PASS");
+                        sessionStorage.setItem("zayiks_secure_session", secureToken);
+                        window.location.replace("./index.html?verify_token=" + secureToken);
+                    }, 2000);
+                } else if (timeDiff < 15000) {
+                    document.getElementById('iconBox').innerText = "⚠️";
+                    document.getElementById('titleText').innerText = "SYSTEM BREACH";
+                    document.getElementById('descText').innerText = "تم رصد محاولة تخطي غير نظامية. يجب إكمال الرابط بشكل صحيح وتجنب السرعة المفرطة.";
+                    resetButton();
+                } else {
+                    document.getElementById('iconBox').innerText = "⏳";
+                    document.getElementById('titleText').innerText = "SESSION TIMEOUT";
+                    document.getElementById('descText').innerText = "انتهت صلاحية الجلسة بسبب التأخر. يرجى تنشيط بروتوكول التخطي من جديد.";
+                    resetButton();
+                }
             }
         }
 
+        function resetButton() {
+            const btn = document.getElementById('actionBtn');
+            btn.innerText = "إعادة التخطي";
+            btn.style.opacity = "1";
+            btn.style.pointerEvents = "auto";
+        }
+
+        window.addEventListener('pageshow', checkGatewayStatus);
+        document.addEventListener('DOMContentLoaded', checkGatewayStatus);
+
         function startShortening() {
-            localStorage.setItem("zayiks_shortening_started", Date.now());
-            window.location.href = shortenerUrl;
+            localStorage.setItem("zx_gate_time", Date.now().toString());
+            const btn = document.getElementById('actionBtn');
+            btn.innerText = "جاري التحويل...";
+            btn.style.opacity = "0.5";
+            btn.style.pointerEvents = "none";
+            
+            setTimeout(() => {
+                window.location.href = "https://vplink.in/ZAYIKS_X_MODS_GET_KEY_24H";
+            }, 800);
         }
     </script>
 </body>
